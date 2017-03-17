@@ -38,3 +38,12 @@ depend : *.c *.h
 # Le "-" devant include supprime l'erreur si le fichier est absent.
 -include depend
 
+tar :: clean
+	@N=$$(pwd) ; N=$$(basename "$$N") ;\
+	(cd .. && tar cvfz "$$N.tgz" "$$N" --exclude='svg*' --exclude='*.tgz' --exclude='*.zip' && \
+	 echo "DONE ../$$N.tgz")
+	 
+zip :: clean
+	@N=$$(pwd) ; N=$$(basename "$$N") ;\
+	(cd .. && zip -r "$$N.zip" "$$N" --exclude='svg*' --exclude='*.tgz' --exclude='*.zip' && \
+	echo "DONE ../$$N.zip")
