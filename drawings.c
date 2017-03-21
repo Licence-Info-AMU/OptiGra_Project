@@ -77,6 +77,7 @@ gboolean on_area_key_press (GtkWidget *area, GdkEvent *event, gpointer data){
         case GDK_KEY_r : set_edit_mode (my, EDIT_ADD_CONTROL); break;
         case GDK_KEY_t : set_edit_mode (my, EDIT_MOVE_CONTROL); break;
         case GDK_KEY_y : set_edit_mode (my, EDIT_REMOVE_CONTROL); break;
+        case GDK_KEY_space : swap_ammo(&my->game); break;
     }
     return TRUE;
 }
@@ -119,16 +120,9 @@ gboolean on_area_button_press (GtkWidget *area, GdkEvent *event, gpointer data){
 					n = find_control (&my->curve_infos, my->click_x, my->click_y);
 					if (n == 0) remove_control (&my->curve_infos);            
 					break;
-				case EDIT_MOVE_CLIP :
-					find_control (&my->curve_infos, my->click_x, my->click_y);
-					break;
-				case EDIT_RESET_CLIP :
-					find_control (&my->curve_infos, my->click_x, my->click_y);
-					reset_shift(&my->curve_infos);
-					break;
 			}
 	}
-    if (my->click_n == 1){ 
+    if ( (my->click_n == 1) && (my->show_edit == FALSE)){ 
 		shoot_ammo(&my->game);
     }
     refresh_area(my->area);
@@ -166,10 +160,6 @@ gboolean on_area_motion_notify (GtkWidget *area, GdkEvent *event, gpointer data)
                 break;
             case EDIT_REMOVE_CONTROL : 
 				break;
-			case EDIT_MOVE_CLIP :
-				move_curve (&my->curve_infos, my->click_x - my->last_x,my->click_y - my->last_y);
-				move_shift(&my->curve_infos, my->click_x - my->last_x,my->click_y - my->last_y);
-				break;
         }
     }
     update_canon_angle(&my->game,my->click_x,my->click_y);
@@ -193,34 +183,17 @@ gboolean on_area_leave_notify (GtkWidget *area, GdkEvent *event, gpointer data){
 
 gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){    
     Mydata *my = get_mydata(data);
-    if(my->pixbuf2 != NULL){
-        int pix_width = gdk_pixbuf_get_width(my->pixbuf2);
-        int pix_height = gdk_pixbuf_get_height(my->pixbuf2);
-        gdk_cairo_set_source_pixbuf(cr,my->pixbuf2,0,0);
-        if ((my->clip_image == FALSE) && (my->bsp_mode != BSP_CLIP)) {
-            cairo_rectangle (cr, 0.0, 0.0, pix_width, pix_height);
-            cairo_fill (cr);
-        }
-    }
-    PangoLayout *layout = pango_cairo_create_layout (cr);
-    draw_control_polygons (cr, &my->curve_infos);
-    draw_bezier_polygons_open(cr,&my->curve_infos);
-    
-    if(my->bsp_mode == BSP_OPEN){
-		draw_bezier_curves_open(cr,&my->curve_infos,0.1);
-	}else if(my->bsp_mode == BSP_CLOSE){
-		draw_bezier_curves_close(cr,&my->curve_infos,0.1);
-	}else if(my->bsp_mode == BSP_PROLONG){
-		draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
-	}else if(my->bsp_mode == BSP_FILL){
-		draw_bezier_curves_fill(cr,&my->curve_infos,0.1);
-	}else if(my->bsp_mode == BSP_CLIP){
-		draw_bezier_curves_clip(cr,&my->curve_infos,0.1,my);
+	if((my->bsp_mode == BSP_PROLONG) && (my->show_edit == TRUE)){
+		PangoLayout *layout = pango_cairo_create_layout (cr);
+		draw_control_polygons (cr, &my->curve_infos);
+		draw_bezier_polygons_open(cr,&my->curve_infos);
+		draw_control_labels(cr,layout,&my->curve_infos);
+		g_object_unref (layout);
 	}
-    draw_control_labels(cr,layout,&my->curve_infos);
+	cairo_set_line_width (cr, 6);
+	draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
     draw_canon(cr,&my->game);
     draw_shots(cr,&my->game);
-	g_object_unref (layout);
     return TRUE;
 }
 
@@ -384,24 +357,58 @@ void draw_bezier_curves_clip(cairo_t *cr, Curve_infos *ci, double theta, Mydata 
     }
 } 
 
+void switch_shot_color(cairo_t *cr,int color){
+	switch (color) {
+		case RED : 
+			cairo_set_source_rgb (cr, 1.0, 0.0, 0.0);
+			break;
+		case GREEN : 
+			cairo_set_source_rgb (cr, 0.0, 1.0, 0.0);
+			break;
+		case BLUE : 
+			cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);            
+			break;
+		case INDIGO : 
+			cairo_set_source_rgb (cr, 0.0, 1.0, 1.0);
+			break;
+		case PURPLE : 
+			cairo_set_source_rgb (cr, 1.0, 0.0, 1.0);
+			break;
+		case YELLOW : 
+			cairo_set_source_rgb (cr, 1.0, 1.0, 0.0);
+			break;
+	}	
+}
+
 void draw_canon(cairo_t *cr, Game * game){
 	cairo_save(cr);
+	//Canon
 	int ima_w = cairo_image_surface_get_width (game->canon.image);
 	int ima_h = cairo_image_surface_get_height (game->canon.image);
-	cairo_translate(cr,game->canon.cx,game->canon.cy);
-	cairo_rotate(cr,game->canon.angle);
-	cairo_translate(cr,-game->canon.cx,-game->canon.cy);
-	cairo_set_source_surface (cr, game->canon.image, game->canon.cx - (ima_w/2), game->canon.cy - (ima_h/2));
-	cairo_rectangle (cr, game->canon.cx- (ima_w/2), game->canon.cy- (ima_h/2), ima_w, ima_h);
+	int cx = game->canon.cx - ima_w/2;
+	int cy = game->canon.cy - ima_h/2;	
+	cairo_translate (cr, cx + ima_w/2, cy + ima_h/2);
+	cairo_rotate (cr, game->canon.angle);
+	//cairo_scale (cr, 0.4, 0.4);
+	cairo_translate (cr, -cx - ima_w/2, -cy - ima_h/2);
+	cairo_set_source_surface (cr, game->canon.image, cx, cy);
+	cairo_rectangle (cr, cx, cy, ima_w, ima_h);
 	cairo_fill (cr);
-
+	//Ammo1
+	switch_shot_color(cr,game->canon.ammo1);
+	cairo_arc(cr,cx + ima_w/2,cy+ ima_h/2,10,0,2*G_PI);
+	cairo_fill (cr);
+	//Ammo2
+	switch_shot_color(cr,game->canon.ammo2);
+	cairo_arc(cr,cx + ima_w/12,cy+ ima_h/2,10,0,2*G_PI); // divise par 12 pour positioner ammo2 sur la ceinture du canon
+	cairo_fill (cr);
 	cairo_restore(cr);
 }
 
 void draw_shots(cairo_t *cr, Game * game){
 	for(int i =0; i < game->shot_list.shot_count;++i){
-		cairo_arc(cr,game->shot_list.shots[i].x,game->shot_list.shots[i].y,20,0,2*G_PI);
-		cairo_set_source_rgb (cr, 1.0, 0.0, 0.0);
+		switch_shot_color(cr,game->shot_list.shots[i].color);
+		cairo_arc(cr,game->shot_list.shots[i].x,game->shot_list.shots[i].y,10,0,2*G_PI);
 		cairo_fill (cr);
 	}
 }

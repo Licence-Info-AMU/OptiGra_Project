@@ -3,7 +3,7 @@
 
 typedef enum {GS_HELLO, GS_PLAYING, GS_PAUSE, GS_WON, GS_LOST} Game_state;
 typedef enum {TS_INTRO, TS_NORMAL, TS_COMBO2, TS_COMBO3} Track_state;
-typedef enum {RED,BLUE,GREEN,YELLOW,PURPLE,INDIGO,LAST_COLOR} AmmoColor;
+typedef enum {RED,GREEN,BLUE,YELLOW,PURPLE,INDIGO,LAST_COLOR} AmmoColor;
 
 #define SHOT_MAX       10
 #define SHOT_SPEED      5
@@ -83,6 +83,8 @@ void init_canon(Game * game, int height, int width);
 
 void init_game(Game * game, int height, int width);
 
+void progress_game_next_step(Game * game,int screen_width, int screen_height);
+
 void update_canon_angle(Game * game, double sx, double sy);
 
 void update_x_and_y_canon(Game * game,int height, int width);
@@ -93,10 +95,14 @@ void prepare_ammo(Game * game);
 
 void move_shots_one_step(Game * game);
 
-void shoot_ammo(Game * game);
+void suppress_far_shots(Game * game,int screen_width, int screen_height);
 
-void prepare_ammo(Game * game);
+void process_shots_collisions(Game * game);
 
-void suppress_far_shots(Game * game);
+void move_trains_one_step(Game * game);
+
+void check_end_of_game(Game * game);
+
+void swap_ammo(Game * game);
 
 #endif /* GAME_H */

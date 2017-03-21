@@ -23,12 +23,10 @@ void draw_bezier_curves_prolong (cairo_t *cr, Curve_infos *ci, double theta);
 
 void generate_bezier_path(cairo_t *cr,Control bez_points[4],double theta,int is_first);
 
-void draw_bezier_curves_fill(cairo_t *cr, Curve_infos *ci, double theta);
-
-void draw_bezier_curves_clip(cairo_t *cr, Curve_infos *ci, double theta, Mydata *my);
-
 void draw_canon(cairo_t *cr, Game * game);
 
 void draw_shots(cairo_t *cr, Game * game);
+
+void switch_shot_color(cairo_t *cr,int color);
 
 #endif // Fin DRAWINGS_H 

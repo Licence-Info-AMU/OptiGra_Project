@@ -1,7 +1,9 @@
+#include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "util.h"
 #include "curve.h"
 
 void init_curve_infos(Curve_infos *ci){
@@ -327,4 +329,51 @@ double compute_distant_point_backward (double sx[], double sy[], double tA, int 
     else break; // PrÃ©cision suffisante
   }
   return t;
+}
+
+void save_curve_to_file (Curve_infos *ci,char *filename){
+	if(ci != NULL){
+		FILE* file = NULL;
+		file = fopen (filename, "w");
+		if (file != NULL){
+			fprintf(file,"%d\n",ci->curve_list.curve_count); //Nombre de courbe
+			for(int i =0; i < ci->curve_list.curve_count;++i){
+				fprintf(file,"%d\n%d\n",i,ci->curve_list.curves[i].control_count); // la courbe courrante ainsi que le nombre de point de controle
+				for(int j = 0; j < ci->curve_list.curves[i].control_count;++j){
+					fprintf(file,"%f %f\n",ci->curve_list.curves[i].controls[j].x,ci->curve_list.curves[i].controls[j].y); // points de controles
+				}
+			}
+			fclose(file);
+		}else{
+			perror(filename);
+		}
+	}
+}
+
+int load_curve_from_file(Curve_infos *ci,char *filename){
+	FILE* file = NULL;
+	file = fopen (filename, "r");
+	if (file != NULL){
+		if(!fscanf(file,"%d",&ci->curve_list.curve_count)){ //Nombre de courbe
+			perror("Error: ");
+			return -1;
+		}
+		for(int i =0; i < ci->curve_list.curve_count;++i){
+			if(!fscanf(file,"%d\n%d\n",&ci->current_curve,&ci->curve_list.curves[i].control_count)){ // la courbe courrante ainsi que le nombre de point de controle
+				perror("Error: ");
+				return -1;	
+			}
+			for(int j = 0; j < ci->curve_list.curves[i].control_count;++j){
+				if(!fscanf(file,"%lf %lf\n",&ci->curve_list.curves[i].controls[j].x,&ci->curve_list.curves[i].controls[j].y)){ // points de controles
+					perror("Error: ");
+					return -1;	
+				}
+			}
+		}
+		fclose(file);
+		return 1;
+	}else{
+		perror(filename);
+		return -1;	
+	}
 }

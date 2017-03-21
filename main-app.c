@@ -12,6 +12,7 @@
 gboolean on_timeout (gpointer data){
 	Mydata *my = get_mydata(data); 
 	my->count++;
+	progress_game_next_step(&my->game,my->win_width,my->win_height);
 	refresh_area (my->area);
 	return TRUE;
 }
@@ -28,7 +29,8 @@ void on_app_activate (GtkApplication* app, gpointer user_data){
     layout_init(my);        
     win_scale_init(my);          
     gtk_widget_show_all (my->window);
-    gtk_widget_hide (my->frame);    
+    gtk_widget_hide (my->frame);
+    g_timeout_add (20, on_timeout, my);    
 }
 
 int main (int argc, char *argv[]){
@@ -36,7 +38,6 @@ int main (int argc, char *argv[]){
     int status;
     Mydata my;
     init_mydata(&my);
-    g_timeout_add (20, on_timeout, &my);
     app = gtk_application_new (NULL, G_APPLICATION_FLAGS_NONE);
     g_signal_connect (app, "activate",G_CALLBACK(on_app_activate), &my);
     status = g_application_run (G_APPLICATION(app), argc, argv);

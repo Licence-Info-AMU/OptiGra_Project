@@ -38,10 +38,9 @@ void init_mydata(Mydata *my){
     my->click_n = 0;
 	my->last_x = 0.0f;
     my->last_y = 0.0f;    
-    my->clip_image = FALSE;
     my->show_edit = FALSE;
     my->edit_mode = EDIT_ADD_CURVE;
-    my->bsp_mode = BSP_OPEN;
+    my->bsp_mode = BSP_PROLONG;
     init_curve_infos(&my->curve_infos);
     init_game(&my->game,my->win_height,my->win_width);
     my->count = 0;
