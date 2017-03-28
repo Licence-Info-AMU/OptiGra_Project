@@ -90,6 +90,7 @@ gboolean on_area_key_press (GtkWidget *area, GdkEvent *event, gpointer data){
         case GDK_KEY_t : set_edit_mode (my, EDIT_MOVE_CONTROL); break;
         case GDK_KEY_y : set_edit_mode (my, EDIT_REMOVE_CONTROL); break;
         case GDK_KEY_p : game_pause(&my->game); break;
+        case GDK_KEY_Up : time_stop(&my->game); break;
         case GDK_KEY_space : swap_ammo(&my->game); break;
     }
     return TRUE;

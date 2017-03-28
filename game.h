@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-typedef enum {GS_HELLO, GS_PLAYING, GS_PAUSE, GS_WON, GS_LOST,GS_TIME_STOP} Game_state;
+typedef enum {GS_HELLO, GS_PLAYING, GS_PAUSE, GS_WON, GS_LOST} Game_state;
 typedef enum {TS_INTRO, TS_NORMAL, TS_COMBO2, TS_COMBO3} Track_state;
 typedef enum {RED,GREEN,BLUE,YELLOW,PURPLE,INDIGO,LAST_COLOR} AmmoColor;
-
+typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER} Bonus_state;
 #define SHOT_MAX       10
 #define SHOT_SPEED      5
 #define TRACK_MAX      10
@@ -12,6 +12,7 @@ typedef enum {RED,GREEN,BLUE,YELLOW,PURPLE,INDIGO,LAST_COLOR} AmmoColor;
 #define SAMPLE_MAX   1000 
 #define LEVEL_MAX      10
 #define SAMPLE_THETA    0.05
+#define MARBLE_SPEED 3
 #define GAME_CANNON "canon.png"
 static const char TRACK_EXTENSION[] = ".track";
 static const int MARBLE_SIZE = 20;
@@ -49,6 +50,7 @@ typedef struct {
          sample_y[SAMPLE_MAX];
   int marble_count;
   int first_visible;
+  double marbles_speed;
   Marble marbles[MARBLE_MAX];
   Track_state state;
 } Track;
@@ -71,6 +73,7 @@ typedef struct {
 
 typedef struct {
   Game_state state;
+  Bonus_state b_state;
   int current_level;
   int score;
   Canon canon;
@@ -82,23 +85,13 @@ typedef struct {
 
 void sample_curve_to_track (Curve *curve, Track *track, double theta);
 
-void create_marbles(Track * track);
-
-void init_canon(Game * game, int height, int width);
-
-void init_game(Game * game, int height, int width);
-
-void init_Track(Curve_infos *ci,Game * game);
-
-void progress_game_next_step(Game * game,int screen_width, int screen_height);
-
-void update_canon_angle(Game * game, double sx, double sy);
-
-void update_x_and_y_canon(Game * game,int height, int width);
-
 void shoot_ammo(Game * game);
 
 void prepare_ammo(Game * game);
+
+void swap_ammo(Game * game);
+
+void game_pause(Game * game);
 
 void move_shots_one_step(Game * game);
 
@@ -108,12 +101,24 @@ void process_shots_collisions(Game * game);
 
 void move_trains_one_step(Game * game);
 
-void game_pause(Game * game);
-
 void check_end_of_game(Game * game);
 
-void swap_ammo(Game * game);
+void progress_game_next_step(Game * game,int screen_width, int screen_height);
+
+void update_x_and_y_canon(Game * game,int height, int width);
+
+void update_canon_angle(Game * game, double sx, double sy);
+
+void init_canon(Game * game, int height, int width);
+
+void create_marbles(Track * track);
+
+void init_Track(Game * game);
+
+void init_game(Game * game, int height, int width);
 
 void time_stop(Game * game);
+
+void speed_change(Game * game);
 
 #endif /* GAME_H */

@@ -171,7 +171,7 @@ void convert_bsp3_to_bezier_prolong_last (double p[3],double b[4]){
 
 void compute_bezier_points_prolong_first (Curve *curve, Control bez_points[4]){
     double px[3],py[3],bx[4],by[4];  
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 3; i++){
         px[i] = curve->controls [i].x;
         py[i] = curve->controls [i].y;
     }
@@ -184,7 +184,7 @@ void compute_bezier_points_prolong_first (Curve *curve, Control bez_points[4]){
 }
 void compute_bezier_points_prolong_last (Curve *curve, Control bez_points[4]){
     double px[3],py[3],bx[4],by[4];
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 3; i++){
         px[i] = curve->controls [curve->control_count-3+i].x;
         py[i] = curve->controls [curve->control_count-3+i].y;
     }

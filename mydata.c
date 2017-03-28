@@ -41,9 +41,8 @@ void init_mydata(Mydata *my){
     my->show_edit = FALSE;
     my->edit_mode = EDIT_ADD_CURVE;
     my->bsp_mode = BSP_PROLONG;
-    init_curve_infos(&my->curve_infos);
     init_game(&my->game,my->win_height,my->win_width);
-    init_Track(&my->curve_infos,&my->game);
+    init_curve_infos(&my->curve_infos);
     my->count = 0;
 }
 

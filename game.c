@@ -6,7 +6,7 @@
 #include "curve.h"
 #include "game.h"
 
-
+//Début GameUtils
 void sample_curve_to_track (Curve *curve, Track *track, double theta){
   Control bez_points[4];
   int ind = 0;
@@ -24,13 +24,6 @@ void sample_curve_to_track (Curve *curve, Track *track, double theta){
   compute_bezier_points_prolong_last (curve, bez_points);
   sample_bezier_curve (bez_points, theta, track->sample_x, track->sample_y, &ind, SAMPLE_MAX, 0);
   track->sample_count = ind;
-}
-
-void move_shots_one_step(Game * game){
-	for(int i =0; i < game->shot_list.shot_count;++i){
-		game->shot_list.shots[i].x += game->shot_list.shots[i].dx * SHOT_SPEED;
-		game->shot_list.shots[i].y += game->shot_list.shots[i].dy * SHOT_SPEED;
-	}
 }
 
 void shoot_ammo(Game * game){
@@ -58,6 +51,22 @@ void swap_ammo(Game * game){
 	game->canon.ammo2 = tmp;
 }
 
+void game_pause(Game * game){
+	if(game->state == GS_PAUSE)
+		game->state = GS_PLAYING;
+	else if(game->state == GS_PLAYING)
+		game->state = GS_PAUSE;
+}
+//Fin GameUtils
+
+//Début progress_game_next_step
+void move_shots_one_step(Game * game){
+	for(int i =0; i < game->shot_list.shot_count;++i){
+		game->shot_list.shots[i].x += game->shot_list.shots[i].dx * SHOT_SPEED;
+		game->shot_list.shots[i].y += game->shot_list.shots[i].dy * SHOT_SPEED;
+	}
+}
+
 void suppress_far_shots(Game * game,int screen_width, int screen_height){
 	for(int i =0; i < game->shot_list.shot_count;++i){
 		if( (game->shot_list.shots[i].x < 0) || (game->shot_list.shots[i].y < 0) || (game->shot_list.shots[i].y > screen_height) || (game->shot_list.shots[i].x > screen_width)){
@@ -67,6 +76,75 @@ void suppress_far_shots(Game * game,int screen_width, int screen_height){
 	}
 }
 
+void process_shots_collisions(Game * game){
+	for(int i =0; i < game->shot_list.shot_count;++i){
+
+	}
+	/*
+	   pour chaque shot :
+            cherche la bille la plus proche sur tous les tracks
+            dist^2 = distance^2 entre cette bille et le shot
+            si dist^2 <= diamètre^2 :
+                calcule si on doit insérer avant ou après
+                insère la bille
+                calcule taille groupe de même couleur
+                si taille groupe >= 3 : supprime le groupe en tassant track_list
+	 */
+}
+
+void move_trains_one_step(Game * game){
+	Track * track = &game->track_list.tracks[game->current_level];
+	double tb,xb,yb,dx,dy,dist;
+	tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, track->marbles_speed, &xb, &yb);
+	if(tb >= 0){
+		track->marbles[track->first_visible].x = xb;
+		track->marbles[track->first_visible].y = yb;
+		track->marbles[track->first_visible].t = tb;
+	}else{
+		game->state = GS_LOST;
+	}
+	dx = track->marbles[track->first_visible].x - track->sample_x[0];
+	dy = track->marbles[track->first_visible].y - track->sample_y[0];
+	dx *= dx;
+	dy *= dy;
+	dist = dx + dy;
+	if(dist > MARBLE_SIZE2){
+		track->first_visible--;
+		tb = compute_distant_point_backward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, track->marbles_speed, &xb, &yb);
+		if(tb >= 0){
+			track->marbles[track->first_visible].x = xb;
+			track->marbles[track->first_visible].y = yb;
+			track->marbles[track->first_visible].t = tb;
+		}
+	}
+	for(int i = track->first_visible+1; i < track->marble_count;++i){
+		tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, track->marbles_speed, &xb, &yb);
+		if(tb >= 0){
+			track->marbles[i].x = xb;
+			track->marbles[i].y = yb;
+			track->marbles[i].t = tb;
+		}else{
+			game->state = GS_LOST;
+		}
+	}
+}
+
+void check_end_of_game(Game * game){
+
+}
+
+void progress_game_next_step(Game * game,int screen_width, int screen_height){
+	if( (game->state != GS_PAUSE) && (game->b_state != BS_TIME_STOP)){
+		move_shots_one_step(game);
+		suppress_far_shots(game,screen_width, screen_height);
+		process_shots_collisions(game);
+		move_trains_one_step(game);
+		check_end_of_game(game);
+	}
+}
+//Fin progress_game_next_step
+
+//Début Initialisation
 void update_canon_angle(Game * game, double sx, double sy){
 	double vx = sx - game->canon.cx;
 	double vy = sy - game->canon.cy;
@@ -106,100 +184,42 @@ void create_marbles(Track * track){
 	track->first_visible = track->marble_count-1;
 }
 
-void init_Track(Curve_infos *ci,Game * game){
+void init_Track(Game * game){
+	Track * track = &game->track_list.tracks[game->current_level];
+	Curve_infos * ci = &game->level_list.levels[game->current_level].curve_infos;
+	init_curve_infos(ci);
 	char level[30];
 	sprintf(level,"%d%s",game->current_level,TRACK_EXTENSION);
 	if(load_curve_from_file(ci,level)< 0)
 		perror("Load Impossible");
-	sample_curve_to_track (&ci->curve_list.curves[ci->current_curve],&game->track_list.tracks[game->current_level], SAMPLE_THETA);
-	create_marbles(&game->track_list.tracks[game->current_level]);
-}
-
-void process_shots_collisions(Game * game){
-	for(int i =0; i < game->shot_list.shot_count;++i){
-
-	}
-	/*
-	   pour chaque shot :
-            cherche la bille la plus proche sur tous les tracks
-            dist^2 = distance^2 entre cette bille et le shot
-            si dist^2 <= diamètre^2 :
-                calcule si on doit insérer avant ou après
-                insère la bille
-                calcule taille groupe de même couleur
-                si taille groupe >= 3 : supprime le groupe en tassant track_list
-	 */
-}
-
-void move_trains_one_step(Game * game){
-	Track * track = &game->track_list.tracks[game->current_level];
-	double tb,xb,yb,dx,dy,dist;
-	double speed_train = SHOT_SPEED / 2;	
-	tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, speed_train, &xb, &yb);
-	if(tb >= 0){
-		track->marbles[track->first_visible].x = xb;
-		track->marbles[track->first_visible].y = yb;
-		track->marbles[track->first_visible].t = tb;
-	}else{
-		game->state = GS_LOST;
-	}
-	dx = track->marbles[track->first_visible].x - track->sample_x[0];
-	dy = track->marbles[track->first_visible].y - track->sample_y[0];
-	dx *= dx;
-	dy *= dy;
-	dist = dx + dy;
-	if(dist > MARBLE_SIZE2){
-		track->first_visible--;
-		tb = compute_distant_point_backward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, speed_train, &xb, &yb);
-		if(tb >= 0){
-			track->marbles[track->first_visible].x = xb;
-			track->marbles[track->first_visible].y = yb;
-			track->marbles[track->first_visible].t = tb;
-		}
-	}
-	for(int i = track->first_visible+1; i < track->marble_count;++i){
-		tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, speed_train, &xb, &yb);
-		if(tb >= 0){
-			track->marbles[i].x = xb;
-			track->marbles[i].y = yb;
-			track->marbles[i].t = tb;
-		}else{
-			game->state = GS_LOST;
-		}
-	}
-}
-
-void game_pause(Game * game){
-	if(game->state == GS_PAUSE)
-		game->state = GS_PLAYING;
-	else if(game->state == GS_PLAYING)
-		game->state = GS_PAUSE;
-}
-
-void check_end_of_game(Game * game){
-
-}
-
-void progress_game_next_step(Game * game,int screen_width, int screen_height){
-	if(game->state != GS_PAUSE){
-		move_shots_one_step(game);
-		suppress_far_shots(game,screen_width, screen_height);
-		process_shots_collisions(game);
-		move_trains_one_step(game);
-		check_end_of_game(game);
-	}
+	sample_curve_to_track (&ci->curve_list.curves[ci->current_curve],track, SAMPLE_THETA);
+	create_marbles(track);
+	track->marbles_speed = MARBLE_SPEED;
 }
 
 void init_game(Game * game,int height, int width){
 	init_canon(game,height,width);
+    init_Track(game);
 	game->state = GS_PLAYING;
+	game->b_state = BS_NONE;
 }
+//Fin Initialisation
 
-//Gameplay
-
+//Début Gameplay
 void time_stop(Game * game){
-	if(game->state == GS_TIME_STOP)
-		game->state = GS_PLAYING;
-	else if(game->state == GS_PLAYING)
-		game->state = GS_TIME_STOP;
+	if(game->b_state == BS_TIME_STOP)
+		game->b_state = BS_NONE;
+	else if(game->b_state == BS_NONE)
+		game->b_state = BS_TIME_STOP;
 }
+
+void speed_change(Game * game){
+	Track * track = &game->track_list.tracks[game->current_level];
+	if(game->b_state == BS_TIME_SLOWER)
+		track->marbles_speed /= 2;
+	else if ((game->b_state == BS_TIME_FASTER))
+		track->marbles_speed *= 2;
+	else if(game->b_state == BS_NONE)
+		track->marbles_speed = MARBLE_SPEED;
+}
+//Fin Gameplay
