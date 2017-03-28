@@ -354,25 +354,29 @@ int load_curve_from_file(Curve_infos *ci,char *filename){
 	FILE* file = NULL;
 	file = fopen (filename, "r");
 	if (file != NULL){
-		if(!fscanf(file,"%d",&ci->curve_list.curve_count)){ //Nombre de courbe
-			perror("Error: ");
+		if(fscanf(file,"%d",&ci->curve_list.curve_count) != 1){ //Nombre de courbe
+			fprintf (stderr, "Fichier mal formé 1\n");
+			fclose(file);
 			return -1;
 		}
 		for(int i =0; i < ci->curve_list.curve_count;++i){
-			if(!fscanf(file,"%d\n%d\n",&ci->current_curve,&ci->curve_list.curves[i].control_count)){ // la courbe courrante ainsi que le nombre de point de controle
-				perror("Error: ");
+			if(fscanf(file,"%d\n%d\n",&ci->current_curve,&ci->curve_list.curves[i].control_count) != 2){ // la courbe courrante ainsi que le nombre de point de controle
+				fprintf (stderr, "Fichier mal formé 2\n");
+				fclose(file);
 				return -1;	
 			}
 			for(int j = 0; j < ci->curve_list.curves[i].control_count;++j){
-				if(!fscanf(file,"%lf %lf\n",&ci->curve_list.curves[i].controls[j].x,&ci->curve_list.curves[i].controls[j].y)){ // points de controles
-					perror("Error: ");
-					return -1;	
+				if(fscanf(file,"%lf %lf\n",&ci->curve_list.curves[i].controls[j].x,&ci->curve_list.curves[i].controls[j].y) != 2){ // points de controles
+					fprintf (stderr, "Fichier mal formé 3\n");
+					fclose(file);
+					return -1;
 				}
 			}
 		}
 		fclose(file);
 		return 1;
 	}else{
+		printf("B %s\n",filename);
 		perror(filename);
 		return -1;	
 	}

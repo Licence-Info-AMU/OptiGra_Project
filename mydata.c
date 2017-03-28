@@ -24,8 +24,8 @@ Mydata *get_mydata (gpointer data){
 
 void init_mydata(Mydata *my){
     my->title = "Marble Horizon";
-    my->win_width = 500;
-    my->win_height = 400;
+    my->win_width = 1280;
+    my->win_height = 920;
     my->magic = MYDATA_MAGIC;
     my->current_folder = NULL;
     my->pixbuf = NULL;
@@ -43,6 +43,7 @@ void init_mydata(Mydata *my){
     my->bsp_mode = BSP_PROLONG;
     init_curve_infos(&my->curve_infos);
     init_game(&my->game,my->win_height,my->win_width);
+    init_Track(&my->curve_infos,&my->game);
     my->count = 0;
 }
 

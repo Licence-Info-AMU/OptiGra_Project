@@ -129,10 +129,12 @@ void menu_init (gpointer user_data){
     item_pause = gtk_menu_item_new_with_label ("Pause");
     item_quit = gtk_menu_item_new_with_label ("Quit");
            
-    gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_new_game);                     
+    gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_new_game);                   
 	gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_start);
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_pause);
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_quit);
+    
+    g_signal_connect (item_quit, "activate",G_CALLBACK(on_item_quit_activate), my); 
     
     //Level
     sub_level = gtk_menu_new ();

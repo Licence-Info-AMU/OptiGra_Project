@@ -10,6 +10,18 @@
 #include "menus.h"
 #include "font.h"
 
+gboolean on_timeout (gpointer data){
+	Mydata *my = get_mydata(data);
+	if(my->area != NULL){
+		my->count++;
+		progress_game_next_step(&my->game,my->win_width,my->win_height);
+		if(my->game.state == GS_LOST)
+			set_status(my->status, "You loose...");
+		refresh_area (my->area);
+	}
+	return TRUE;
+}
+
 // Gestion DrawingArea : refresh, scale, rotation
 void apply_image_transforms (Mydata *data) {    
     Mydata *my = get_mydata(data);    
@@ -77,6 +89,7 @@ gboolean on_area_key_press (GtkWidget *area, GdkEvent *event, gpointer data){
         case GDK_KEY_r : set_edit_mode (my, EDIT_ADD_CONTROL); break;
         case GDK_KEY_t : set_edit_mode (my, EDIT_MOVE_CONTROL); break;
         case GDK_KEY_y : set_edit_mode (my, EDIT_REMOVE_CONTROL); break;
+        case GDK_KEY_p : game_pause(&my->game); break;
         case GDK_KEY_space : swap_ammo(&my->game); break;
     }
     return TRUE;
@@ -122,7 +135,7 @@ gboolean on_area_button_press (GtkWidget *area, GdkEvent *event, gpointer data){
 					break;
 			}
 	}
-    if ( (my->click_n == 1) && (my->show_edit == FALSE)){ 
+    if ( (my->click_n == 1) && (my->show_edit == FALSE) && (my->game.state != GS_PAUSE)){ 
 		shoot_ammo(&my->game);
     }
     refresh_area(my->area);
@@ -194,6 +207,8 @@ gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){
 	draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
     draw_canon(cr,&my->game);
     draw_shots(cr,&my->game);
+	draw_track(cr,&my->game);
+	draw_marbles(cr,&my->game);
     return TRUE;
 }
 
@@ -396,11 +411,11 @@ void draw_canon(cairo_t *cr, Game * game){
 	cairo_fill (cr);
 	//Ammo1
 	switch_shot_color(cr,game->canon.ammo1);
-	cairo_arc(cr,cx + ima_w/2,cy+ ima_h/2,10,0,2*G_PI);
+	cairo_arc(cr,cx + ima_w/2,cy+ ima_h/2,MARBLE_SIZE,0,2*G_PI);
 	cairo_fill (cr);
 	//Ammo2
 	switch_shot_color(cr,game->canon.ammo2);
-	cairo_arc(cr,cx + ima_w/12,cy+ ima_h/2,10,0,2*G_PI); // divise par 12 pour positioner ammo2 sur la ceinture du canon
+	cairo_arc(cr,cx + ima_w/12,cy+ ima_h/2,MARBLE_SIZE,0,2*G_PI); // divise par 12 pour positioner ammo2 sur la ceinture du canon
 	cairo_fill (cr);
 	cairo_restore(cr);
 }
@@ -408,8 +423,38 @@ void draw_canon(cairo_t *cr, Game * game){
 void draw_shots(cairo_t *cr, Game * game){
 	for(int i =0; i < game->shot_list.shot_count;++i){
 		switch_shot_color(cr,game->shot_list.shots[i].color);
-		cairo_arc(cr,game->shot_list.shots[i].x,game->shot_list.shots[i].y,10,0,2*G_PI);
+		cairo_arc(cr,game->shot_list.shots[i].x,game->shot_list.shots[i].y,MARBLE_SIZE,0,2*G_PI);
 		cairo_fill (cr);
+	}
+}
+
+void draw_track(cairo_t *cr, Game * game){
+	//Début track
+	cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
+	cairo_set_line_width(cr,5);
+	Track * track = &game->track_list.tracks[game->current_level];
+	cairo_move_to(cr,track->sample_x[0],track->sample_y[0]);
+	for(int i = 1;i < track->sample_count;++i){
+		cairo_line_to(cr,track->sample_x[i],track->sample_y[i]);
+	}
+	cairo_stroke(cr);
+	// Trou noir
+	cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
+	cairo_arc(cr,track->sample_x[track->sample_count-1],track->sample_y[track->sample_count-1],BLACK_HOLE,0,2*G_PI);
+	cairo_fill (cr);
+}
+
+void draw_marble(cairo_t *cr, Marble * marble){
+	switch_shot_color(cr,marble->color);
+	cairo_arc(cr,marble->x,marble->y,MARBLE_SIZE,0,2*G_PI);
+	cairo_fill (cr);
+}
+
+void draw_marbles(cairo_t *cr, Game * game){
+	Track * track = &game->track_list.tracks[game->current_level];
+	for(int i = track->first_visible; i < track->marble_count;++i){
+		if(i > 0)
+			draw_marble(cr,&track->marbles[i]);
 	}
 }
 

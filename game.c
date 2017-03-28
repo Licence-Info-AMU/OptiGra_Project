@@ -60,7 +60,7 @@ void swap_ammo(Game * game){
 
 void suppress_far_shots(Game * game,int screen_width, int screen_height){
 	for(int i =0; i < game->shot_list.shot_count;++i){
-		if( (game->shot_list.shots[i].x < 0) || (game->shot_list.shots[i].y < 0) || (game->shot_list.shots[i].y > screen_height) || (game->shot_list.shots[i].x > screen_width) ){
+		if( (game->shot_list.shots[i].x < 0) || (game->shot_list.shots[i].y < 0) || (game->shot_list.shots[i].y > screen_height) || (game->shot_list.shots[i].x > screen_width)){
 			memmove (game->shot_list.shots+i, game->shot_list.shots+i+1, sizeof(Shot)*(game->shot_list.shot_count-1-i));
 			game->shot_list.shot_count--;
 		}
@@ -95,26 +95,111 @@ void init_canon(Game * game,int height, int width){
 	load_cannon_image(game);
 }
 
+void create_marbles(Track * track){
+	track->marble_count = 100;
+	for(int i = 0; i < track->marble_count;++i){
+		track->marbles[i].t = 0;
+		track->marbles[i].x = track->sample_x[0];
+		track->marbles[i].y = track->sample_y[0];
+		track->marbles[i].color = rand() % LAST_COLOR;
+	}
+	track->first_visible = track->marble_count-1;
+}
+
+void init_Track(Curve_infos *ci,Game * game){
+	char level[30];
+	sprintf(level,"%d%s",game->current_level,TRACK_EXTENSION);
+	if(load_curve_from_file(ci,level)< 0)
+		perror("Load Impossible");
+	sample_curve_to_track (&ci->curve_list.curves[ci->current_curve],&game->track_list.tracks[game->current_level], SAMPLE_THETA);
+	create_marbles(&game->track_list.tracks[game->current_level]);
+}
+
 void process_shots_collisions(Game * game){
-	
+	for(int i =0; i < game->shot_list.shot_count;++i){
+
+	}
+	/*
+	   pour chaque shot :
+            cherche la bille la plus proche sur tous les tracks
+            dist^2 = distance^2 entre cette bille et le shot
+            si dist^2 <= diamètre^2 :
+                calcule si on doit insérer avant ou après
+                insère la bille
+                calcule taille groupe de même couleur
+                si taille groupe >= 3 : supprime le groupe en tassant track_list
+	 */
 }
 
 void move_trains_one_step(Game * game){
-	
+	Track * track = &game->track_list.tracks[game->current_level];
+	double tb,xb,yb,dx,dy,dist;
+	double speed_train = SHOT_SPEED / 2;	
+	tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, speed_train, &xb, &yb);
+	if(tb >= 0){
+		track->marbles[track->first_visible].x = xb;
+		track->marbles[track->first_visible].y = yb;
+		track->marbles[track->first_visible].t = tb;
+	}else{
+		game->state = GS_LOST;
+	}
+	dx = track->marbles[track->first_visible].x - track->sample_x[0];
+	dy = track->marbles[track->first_visible].y - track->sample_y[0];
+	dx *= dx;
+	dy *= dy;
+	dist = dx + dy;
+	if(dist > MARBLE_SIZE2){
+		track->first_visible--;
+		tb = compute_distant_point_backward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, speed_train, &xb, &yb);
+		if(tb >= 0){
+			track->marbles[track->first_visible].x = xb;
+			track->marbles[track->first_visible].y = yb;
+			track->marbles[track->first_visible].t = tb;
+		}
+	}
+	for(int i = track->first_visible+1; i < track->marble_count;++i){
+		tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, speed_train, &xb, &yb);
+		if(tb >= 0){
+			track->marbles[i].x = xb;
+			track->marbles[i].y = yb;
+			track->marbles[i].t = tb;
+		}else{
+			game->state = GS_LOST;
+		}
+	}
+}
+
+void game_pause(Game * game){
+	if(game->state == GS_PAUSE)
+		game->state = GS_PLAYING;
+	else if(game->state == GS_PLAYING)
+		game->state = GS_PAUSE;
 }
 
 void check_end_of_game(Game * game){
-	
+
 }
 
 void progress_game_next_step(Game * game,int screen_width, int screen_height){
-	move_shots_one_step(game);
-	suppress_far_shots(game,screen_width, screen_height);
-	process_shots_collisions(game);
-	move_trains_one_step(game);
-	check_end_of_game(game);
+	if(game->state != GS_PAUSE){
+		move_shots_one_step(game);
+		suppress_far_shots(game,screen_width, screen_height);
+		process_shots_collisions(game);
+		move_trains_one_step(game);
+		check_end_of_game(game);
+	}
 }
 
 void init_game(Game * game,int height, int width){
 	init_canon(game,height,width);
+	game->state = GS_PLAYING;
+}
+
+//Gameplay
+
+void time_stop(Game * game){
+	if(game->state == GS_TIME_STOP)
+		game->state = GS_PLAYING;
+	else if(game->state == GS_PLAYING)
+		game->state = GS_TIME_STOP;
 }

@@ -1,6 +1,7 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 #include "curve.h"
 #include "util.h"
 #include "game.h"
@@ -8,14 +9,6 @@
 #include "drawings.h"
 #include "menus.h"
 #include "gui.h"
-
-gboolean on_timeout (gpointer data){
-	Mydata *my = get_mydata(data); 
-	my->count++;
-	progress_game_next_step(&my->game,my->win_width,my->win_height);
-	refresh_area (my->area);
-	return TRUE;
-}
 
 //Chargement de l'appli
 void on_app_activate (GtkApplication* app, gpointer user_data){
@@ -29,12 +22,13 @@ void on_app_activate (GtkApplication* app, gpointer user_data){
     layout_init(my);        
     win_scale_init(my);          
     gtk_widget_show_all (my->window);
-    gtk_widget_hide (my->frame);
-    g_timeout_add (20, on_timeout, my);    
+    gtk_widget_hide (my->frame);  
+    g_timeout_add (20, on_timeout, my);
 }
 
 int main (int argc, char *argv[]){
     GtkApplication *app;
+    setlocale(LC_ALL,getenv("LANG"));//Remet la langue de manière correcte, merci fscanf va te faire recoder !
     int status;
     Mydata my;
     init_mydata(&my);

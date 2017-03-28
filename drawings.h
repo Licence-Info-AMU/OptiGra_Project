@@ -1,6 +1,10 @@
 #ifndef DRAWINGS_H
 #define DRAWINGS_H
 
+static const int BLACK_HOLE = 30;
+
+gboolean on_timeout (gpointer data);
+
 void apply_image_transforms (Mydata *data);
 
 void update_area_with_transforms (Mydata *data);
@@ -26,6 +30,12 @@ void generate_bezier_path(cairo_t *cr,Control bez_points[4],double theta,int is_
 void draw_canon(cairo_t *cr, Game * game);
 
 void draw_shots(cairo_t *cr, Game * game);
+
+void draw_track(cairo_t *cr, Game * game);
+
+void draw_marble(cairo_t *cr, Marble * marble);
+
+void draw_marbles(cairo_t *cr, Game * game);
 
 void switch_shot_color(cairo_t *cr,int color);
 
