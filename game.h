@@ -13,10 +13,12 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER} Bonus_state;
 #define LEVEL_MAX      10
 #define SAMPLE_THETA    0.05
 #define MARBLE_SPEED 3
+#define MARBLE_SPEED_END_GAME 10
 #define GAME_CANNON "canon.png"
 static const char TRACK_EXTENSION[] = ".track";
-static const int MARBLE_SIZE = 20;
-static const int MARBLE_SIZE2 = 1600;
+static const int MARBLE_RAYON = 20; //Rayon
+static const int MARBLE_DIAMETRE = 40; //Diametre
+static const int MARBLE_DIAMETRE2 = 1600; //Diametre au carré
 
 typedef struct {
   double cx, cy;    // centre canon
@@ -111,9 +113,11 @@ void update_canon_angle(Game * game, double sx, double sy);
 
 void init_canon(Game * game, int height, int width);
 
+void init_shots(Game * game);
+
 void create_marbles(Track * track);
 
-void init_Track(Game * game);
+void init_track(Game * game);
 
 void init_game(Game * game, int height, int width);
 

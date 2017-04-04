@@ -85,6 +85,11 @@ void on_item_save_activate(GtkWidget *widget, gpointer data){
 	gtk_widget_destroy (dialog);
 }
 
+void on_item_new_game_activate(GtkWidget *widget, gpointer data){
+	Mydata *my = get_mydata(data);
+	init_game(&my->game,my->win_height,my->win_width);
+}
+
 void on_item_quit_activate (GtkWidget *widget, gpointer data){
     Mydata *my = get_mydata(data);
     gtk_widget_destroy(my->window);
@@ -134,6 +139,7 @@ void menu_init (gpointer user_data){
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_pause);
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_quit);
     
+    g_signal_connect (item_new_game, "activate",G_CALLBACK(on_item_new_game_activate), my); 
     g_signal_connect (item_quit, "activate",G_CALLBACK(on_item_quit_activate), my); 
     
     //Level
