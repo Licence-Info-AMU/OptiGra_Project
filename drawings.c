@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "util.h"
 #include "curve.h"
-#include "util.h"
 #include "game.h"
 #include "mydata.h"
 #include "drawings.h"
@@ -14,7 +13,11 @@ gboolean on_timeout (gpointer data){
 	Mydata *my = get_mydata(data);
 	if(my->area != NULL){
 		my->count++;
-		progress_game_next_step(&my->game,my->win_width,my->win_height);
+		if(my->show_edit == FALSE){
+			progress_game_next_step(&my->game,my->win_width,my->win_height);
+			if(my->game.state != GS_LOST)
+				update_Player_Frame(my);
+		}
 		if(my->game.state == GS_LOST){
 			char str[100];
 			sprintf(str,"You loose... Votre score : %d",my->game.score);
@@ -460,6 +463,34 @@ void draw_marbles(cairo_t *cr, Game * game){
 		if(i > 0)
 			draw_marble(cr,&track->marbles[i]);
 	}
+}
+
+void update_Player_Frame(Mydata * my){
+    gchar* sUtf8;
+    char str[100];
+    gdouble dFraction;
+    Track * track = &my->game.track_list.tracks[my->game.current_level];
+    //Début levelLabel
+    sprintf(str,"<span face=\"Courier New\"><big>Level : %d</big></span>\n",my->game.current_level);
+    sUtf8 = g_locale_to_utf8(str,-1, NULL, NULL, NULL);
+    gtk_label_set_markup(GTK_LABEL(my->levelLabel), sUtf8);
+    g_free(sUtf8);
+    /* On centre le texte */
+    gtk_label_set_justify(GTK_LABEL(my->levelLabel), GTK_JUSTIFY_CENTER);
+    //Fin levelLabel
+    
+	//Début scoreLabel
+    sprintf(str,"<span face=\"Courier New\"><big>Score : %d</big></span>\n",my->game.score);
+    sUtf8 = g_locale_to_utf8(str,-1, NULL, NULL, NULL);
+    gtk_label_set_markup(GTK_LABEL(my->scoreLabel), sUtf8);
+    g_free(sUtf8);
+    /* On centre le texte */
+    gtk_label_set_justify(GTK_LABEL(my->scoreLabel), GTK_JUSTIFY_CENTER);
+    //Fin scoreLabel
+
+	dFraction = (double)track->marble_count/MARBLE_MAX_AT_START;
+   /* Modification de la valeur de la barre de progression */
+   gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(my->playerProgress), dFraction);
 }
 
 void area_init (gpointer user_data){

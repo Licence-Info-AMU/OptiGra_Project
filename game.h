@@ -8,6 +8,7 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER} Bonus_state;
 #define SHOT_MAX       10
 #define SHOT_SPEED      5
 #define TRACK_MAX      10
+#define MARBLE_MAX_AT_START    60
 #define MARBLE_MAX    200
 #define SAMPLE_MAX   1000 
 #define LEVEL_MAX      10

@@ -313,7 +313,7 @@ void init_canon(Game * game,int height, int width){
 }
 
 void create_marbles(Track * track){
-	track->marble_count = 60;
+	track->marble_count = MARBLE_MAX_AT_START;
 	for(int i = 0; i < track->marble_count;++i){
 		track->marbles[i].t = 0;
 		track->marbles[i].x = track->sample_x[0];

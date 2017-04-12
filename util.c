@@ -21,4 +21,3 @@ void set_status (GtkWidget *status, const char *format, ...)
 	gtk_statusbar_pop  (GTK_STATUSBAR(status), 0);
 	gtk_statusbar_push (GTK_STATUSBAR(status), 0, buf);
 }
-

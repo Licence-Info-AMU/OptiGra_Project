@@ -71,10 +71,31 @@ void editing_init (Mydata *data) {
 }
 
 void playerStatsFrame_init(Mydata *data){
-	/*Mydata *my = get_mydata(data);
+	Mydata *my = get_mydata(data);
+	//Début Déclaration
 	GtkWidget *vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
-    my->playerStatsFrame = gtk_frame_new ("Stats");
-    gtk_container_add (GTK_CONTAINER (my->playerStatsFrame), vbox2);*/
+    my->playerStatsFrame = gtk_frame_new ("Player Stats");
+    my->levelLabel=gtk_label_new(NULL);
+    my->scoreLabel=gtk_label_new(NULL);
+    GtkWidget *progressionLabel = gtk_label_new(NULL);
+	gchar* sUtf8;
+	//Fin Déclaration
+	update_Player_Frame(my);
+    gtk_box_pack_start (GTK_BOX (vbox2), my->levelLabel, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox2), my->scoreLabel, FALSE, FALSE, 0);
+	/* Création de la barre de progression */
+    //Début progressionLabel
+    sUtf8 = g_locale_to_utf8("<span face=\"Courier New\"><big>Progression</big></span>\n",-1, NULL, NULL, NULL);
+    gtk_label_set_markup(GTK_LABEL(progressionLabel), sUtf8);
+    g_free(sUtf8);
+    /* On centre le texte */
+    gtk_label_set_justify(GTK_LABEL(progressionLabel), GTK_JUSTIFY_CENTER);
+    gtk_box_pack_start (GTK_BOX (vbox2), progressionLabel, FALSE, FALSE, 0);
+    //Fin progressionLabel
+	my->playerProgress = gtk_progress_bar_new();
+	gtk_box_pack_start(GTK_BOX(vbox2), my->playerProgress, FALSE, FALSE, 0);
+    
+    gtk_container_add (GTK_CONTAINER (my->playerStatsFrame), vbox2);
 }
 
 void layout_init (gpointer user_data){
@@ -89,14 +110,13 @@ void layout_init (gpointer user_data){
 
     gtk_box_pack_start (GTK_BOX (my->vbox), my->menu_bar, FALSE, FALSE, 0);
 
-    
     gtk_box_pack_start (GTK_BOX (my->hbox), my->frame, FALSE, FALSE, 2);
 
     gtk_box_pack_start (GTK_BOX (my->hbox), my->scroll, TRUE, TRUE, 0);
 
     gtk_box_pack_start (GTK_BOX (my->vbox), my->hbox, TRUE, TRUE, 0);
-
-    //Area;
+    
+    gtk_box_pack_start (GTK_BOX (my->hbox), my->playerStatsFrame, FALSE, FALSE, 0);
 
     //Status
     gtk_box_pack_start (GTK_BOX (my->vbox), my->status, FALSE, FALSE, 0);    
