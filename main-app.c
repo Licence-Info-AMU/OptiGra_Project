@@ -18,7 +18,8 @@ void on_app_activate (GtkApplication* app, gpointer user_data){
     menu_init(my);    
     area_init(my);    
     status_init(my);
-    editing_init(my);    
+    editing_init(my);
+    playerStatsFrame_init(my);    
     layout_init(my);        
     win_scale_init(my);          
     gtk_widget_show_all (my->window);

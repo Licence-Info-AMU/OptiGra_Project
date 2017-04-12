@@ -42,7 +42,6 @@ void window_init (GtkApplication* app, gpointer user_data){
 
 void editing_init (Mydata *data) {
     Mydata *my = get_mydata(data);
-
     GtkWidget *vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
 	GtkWidget *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL); 
     my->frame = gtk_frame_new ("Editing");
@@ -71,9 +70,15 @@ void editing_init (Mydata *data) {
     gtk_container_add (GTK_CONTAINER (my->frame), vbox2);
 }
 
+void playerStatsFrame_init(Mydata *data){
+	/*Mydata *my = get_mydata(data);
+	GtkWidget *vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
+    my->playerStatsFrame = gtk_frame_new ("Stats");
+    gtk_container_add (GTK_CONTAINER (my->playerStatsFrame), vbox2);*/
+}
+
 void layout_init (gpointer user_data){
     Mydata *my = get_mydata(user_data);
-    
     my->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 4);
     my->hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
     gtk_container_add (GTK_CONTAINER (my->window), my->vbox);

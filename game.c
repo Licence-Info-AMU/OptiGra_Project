@@ -56,6 +56,7 @@ void game_pause(Game * game){
 	else if(game->state == GS_PLAYING)
 		game->state = GS_PAUSE;
 }
+
 //Fin GameUtils
 
 //Début progress_game_next_step
@@ -81,94 +82,125 @@ void do_vector_product(double xu,double yu,double zu,double xv,double yv,double 
 	*z = xu*yv-xv*yu;
 }
 
-void process_shots_collisions(Game * game){
-	double sx = 0.0,sy = 0.0,sdx = 0.0,sdy = 0.0,sa = 0.0,sb = 0.0,sc = 0.0;
-	double mx = 0.0,my = 0.0,mdx = 0.0,mdy = 0.0,ma = 0.0,mb = 0.0,mc = 0.0;
-	double za = 0.0,zb = 0.0,zc = 0.0,zx = 0.0,zy = 0.0,p = 0.0;
-	double dx = 0.0,dy = 0.0,dist2 = 0.0;
-	double tb = 0.0,xb = 0.0,yb = 0.0;
-	int groupSize = 0,marbles_id = 0;
-	Marble firstMarbleMoved;
-	Track * track = &game->track_list.tracks[game->current_level];
-	for(int i =0; i < game->shot_list.shot_count;++i){
-		for(int j = track->first_visible+1; j < track->marble_count;++j){
-			dx = track->marbles[j].x - game->shot_list.shots[i].x;
-			dy = track->marbles[j].y - game->shot_list.shots[i].y;
-			dx *= dx;
-			dy *= dy;
-			dist2 = dx + dy; //distance^2 entre cette bille et le shot
-			marbles_id = j;
-			if(dist2 <= MARBLE_DIAMETRE2){
-				sx = game->shot_list.shots[i].x;
-				sy = game->shot_list.shots[i].y;
-				sdx = game->shot_list.shots[i].dx * SHOT_SPEED;
-				sdy = game->shot_list.shots[i].dy * SHOT_SPEED;
-				mx = track->marbles[marbles_id].x;
-				my = track->marbles[marbles_id].y;
-				do_vector_product(sx,sy,1.0,sdx,sdy,1.0,&sa,&sb,&sc);
-				do_vector_product(mx,my,1.0,mdx,mdy,1.0,&ma,&mb,&mc);
-				do_vector_product(sa,sb,sc,ma,mb,mc,&za,&zb,&zc);
-				if(zc != 0){
-					zx = za/zc;
-					zy = zb/zc;
-					if(mx != mdx){
-						p = (zx - mx) / (mdx-mx); 
-					}else{
-						p = (zy - my) / (mdy-my); 
-					}
-					if(p >= 0){//insérer la bille avant
-						if(marbles_id == track->marble_count-1){
-							tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[marbles_id].t, track->sample_count, MARBLE_DIAMETRE, &xb, &yb);
-							if(tb >= 0){
-								track->marble_count++;
-								track->marbles[marbles_id + 1].x = xb;
-								track->marbles[marbles_id + 1].y = yb;
-								track->marbles[marbles_id + 1].t = tb;
-							}
-							track->marbles[marbles_id+1].color = game->shot_list.shots[i].color;
-						}else{
-							firstMarbleMoved = track->marbles[marbles_id+1];
-							for(int m = marbles_id+1; m < track->marble_count;++m){
-								tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[m].t, track->sample_count, MARBLE_DIAMETRE, &xb, &yb);
-								if(tb >= 0){
-									track->marbles[m].x = xb;
-									track->marbles[m].y = yb;
-									track->marbles[m].t = tb;
-								}
-							}
-							memmove (track->marbles+marbles_id+2, track->marbles+marbles_id+1, sizeof(Marble)*(track->marble_count-marbles_id));
-							track->marble_count++;
-							firstMarbleMoved.color = game->shot_list.shots[i].color;
-							track->marbles[marbles_id+1] = firstMarbleMoved;
-						}
-						memmove (game->shot_list.shots+i, game->shot_list.shots+i+1, sizeof(Shot)*(game->shot_list.shot_count-1-i));
-						game->shot_list.shot_count--;
-					}else{//insérer la bille après
-						firstMarbleMoved = track->marbles[marbles_id];
-						for(int m = marbles_id; m < track->marble_count;++m){
-							tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[m].t, track->sample_count, MARBLE_DIAMETRE, &xb, &yb);
-							if(tb >= 0){
-								track->marbles[m].x = xb;
-								track->marbles[m].y = yb;
-								track->marbles[m].t = tb;
-							}
-						}
-						firstMarbleMoved = track->marbles[marbles_id];
-						memmove (track->marbles+marbles_id+1, track->marbles+marbles_id, sizeof(Marble)*(track->marble_count-marbles_id));
-						track->marble_count++;
-						firstMarbleMoved.color = game->shot_list.shots[i].color;
-						track->marbles[marbles_id] = firstMarbleMoved;
-						memmove (game->shot_list.shots+i, game->shot_list.shots+i+1, sizeof(Shot)*(game->shot_list.shot_count-1-i));
-						game->shot_list.shot_count--;
-					}
-					//calcule taille groupe de même couleur
-					if(groupSize >= 3){
-						//supprime le groupe en tassant track_list
-					}
-				}
+int test_collision (Game * game, int *shot_num, int *marble_num, int track_num) {
+    int shot = 0, marble = 0;
+    double dx, dy, dist2;
+    for (shot = 0; shot < game->shot_list.shot_count; ++shot){    
+        for (marble = game->track_list.tracks[track_num].first_visible; marble < game->track_list.tracks[track_num].marble_count; ++marble) {
+            dx = (game->track_list.tracks[track_num].marbles[marble].x
+                         - game->shot_list.shots[shot].x);
+            dy = (game->track_list.tracks[track_num].marbles[marble].y
+                         - game->shot_list.shots[shot].y);
+            dx *= dx;
+            dy *= dy;
+            dist2 = dx + dy;    
+            if (dist2 < MARBLE_DIAMETRE2) {
+                *shot_num = shot;
+                *marble_num = marble;
+                return 1;
+            }        
+        }
+    }
+    return 0;
+}
+
+void process_shots_collisions (Game * game) {
+    int shot_id = 0, marble_id = 0 ;
+    Track * track = &game->track_list.tracks[game->current_level];
+    double tb, xb , yb; 
+    if (test_collision(game, &shot_id, &marble_id, game->current_level)) {
+        double sx, sy, sxb, syb, sa, sb, sc;
+        double mx, my, mxb, myb, ma, mb, mc;
+        double ia, ib, ic, ix, iy, p;
+        sx = game->shot_list.shots[shot_id].x;
+        sy = game->shot_list.shots[shot_id].y;
+        sxb = sx + game->shot_list.shots[shot_id].dx * SHOT_SPEED;
+        syb = sy + game->shot_list.shots[shot_id].dy * SHOT_SPEED;
+        mx = track->marbles[marble_id].x;
+        my = track->marbles[marble_id].y;
+        tb = compute_distant_point_forward (track->sample_x, track->sample_y, 
+            track->marbles[marble_id].t, track->sample_count, 1, &mxb, &myb);
+        do_vector_product (sx, sy, 1, sxb, syb, 1, &sa, &sb, &sc);            
+        do_vector_product (mx, my, 1, mxb, myb, 1, &ma, &mb, &mc);
+        do_vector_product (sa, sb, sc, ma, mb, mc, &ia, &ib, &ic);
+        if (ic != 0) {
+            ix = ia / ic;
+            iy = ib / ic;
+            if (mx != mxb)
+                p = (ix - mx) / (mxb - mx);
+            else
+                p = (iy - my) / (myb - my);
+            if (p >= 0) { // insérer devant
+                if (marble_id == track->marble_count - 1) {
+                    tb = compute_distant_point_forward (track->sample_x, track->sample_y, 
+                        track->marbles[marble_id].t, track->sample_count, MARBLE_DIAMETRE, &xb, &yb);
+                    if (tb >= 0) {
+                        track->marble_count++;
+                        track->marbles[marble_id + 1].x = xb;
+                        track->marbles[marble_id + 1].y = yb;
+                        track->marbles[marble_id + 1].t = tb;
+                    }
+                    track->marbles[marble_id + 1].color = game->shot_list.shots[shot_id].color;
+                }else {
+                    Marble m = track->marbles[marble_id + 1];
+
+                    for (int i = marble_id + 1; i < track->marble_count; ++i) {
+                            tb = compute_distant_point_forward (track->sample_x, track->sample_y, 
+                                track->marbles[i].t, track->sample_count, MARBLE_DIAMETRE, &xb, &yb);
+                            if (tb >= 0) {
+                                track->marbles[i].x = xb;
+                                track->marbles[i].y = yb;
+                                track->marbles[i].t = tb;
+                            }                    
+                        }
+                    memmove (track->marbles+marble_id+2, track->marbles+marble_id+1, 
+                             sizeof(Marble)*(track->marble_count-marble_id));    
+                    track->marble_count++;
+                    m.color = game->shot_list.shots[shot_id].color;
+                    track->marbles[marble_id + 1] = m; 
+                }
+            }else { //insérer derrière                    
+                Marble m = track->marbles[marble_id];
+                m.color = game->shot_list.shots[shot_id].color;
+                for (int i = marble_id; i < track->marble_count; ++i) {
+                    tb = compute_distant_point_forward (track->sample_x, track->sample_y, 
+                        track->marbles[i].t, track->sample_count, MARBLE_DIAMETRE, &xb, &yb);
+                    if (tb >= 0) {
+                        track->marbles[i].x = xb;
+                        track->marbles[i].y = yb;
+                        track->marbles[i].t = tb;
+                    }                    
+                }
+                track->marble_count++;
+                memmove (track->marbles+marble_id+1, track->marbles+marble_id, 
+                         sizeof(Marble)*(track->marble_count-1-marble_id));    
+                track->marbles[marble_id] = m; 
+            }
+			memmove (game->shot_list.shots+shot_id, game->shot_list.shots+shot_id+1, sizeof(Shot)*(game->shot_list.shot_count-1-shot_id));
+			game->shot_list.shot_count--;
+            //calcule taille groupe de même couleur
+			int cpt = marble_id + 1;
+			int group_size = 1;
+			int group_color = track->marbles[marble_id].color;
+			while (track->marbles[cpt].color == group_color && cpt < track->marble_count) {
+				group_size++;
+				cpt++;
+			}        
+			cpt = marble_id - 1;
+			while (track->marbles[cpt].color == group_color && cpt >= track->first_visible) {
+				group_size++;
+				cpt--;
 			}
-		}
-	}
+			//Fin calcule taille groupe de même couleur
+			printf("GroupSize ! %d\n", group_size);
+			if(group_size >= 3){
+				printf("Boom ! %d\n", group_size);
+				memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));        
+				track->marble_count -= group_size;
+				game->score += group_size * 10;
+			}
+        }        
+    }
 }
 
 void move_trains_one_step(Game * game){
@@ -180,8 +212,6 @@ void move_trains_one_step(Game * game){
 			track->marbles[track->first_visible].x = xb;
 			track->marbles[track->first_visible].y = yb;
 			track->marbles[track->first_visible].t = tb;
-		}else{
-			game->state = GS_LOST;
 		}
 		dx = track->marbles[track->first_visible].x - track->sample_x[0];
 		dy = track->marbles[track->first_visible].y - track->sample_y[0];
@@ -199,21 +229,20 @@ void move_trains_one_step(Game * game){
 		}
 		for(int i = track->first_visible+1; i < track->marble_count;++i){
 			tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, track->marbles_speed, &xb, &yb);
-			if(tb >= 0){
+			dx = (track->marbles[i].x - track->marbles[i - 1].x);            
+            dy = (track->marbles[i].y - track->marbles[i - 1].y);            
+            dx *= dx;
+            dy *= dy;
+            dist = dx + dy; 
+			if((tb >= 0) && (dist < MARBLE_DIAMETRE2)){
 				track->marbles[i].x = xb;
 				track->marbles[i].y = yb;
 				track->marbles[i].t = tb;
 			}else{
-				game->state = GS_LOST;
+				break;
 			}
 		}
-	}
-}
-
-void check_end_of_game(Game * game){
-	Track * track = &game->track_list.tracks[game->current_level];
-	double tb,xb,yb;
-	if(game->state == GS_LOST){
+	}else if(game->state == GS_LOST){
 		track->marbles_speed = MARBLE_SPEED_END_GAME;
 		for(int i = track->first_visible; i < track->marble_count;++i){
 			tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, track->marbles_speed, &xb, &yb);
@@ -225,6 +254,21 @@ void check_end_of_game(Game * game){
 				track->marble_count--;
 			}
 		}
+	}
+}
+
+void check_end_of_game(Game * game){
+	Track * track = &game->track_list.tracks[game->current_level];
+    double dx, dy, dist; 
+    if(track->marble_count > 0){
+		dx = (track->marbles[track->marble_count - 1].x - track->sample_x[track->sample_count - 1]);
+		dy = (track->marbles[track->marble_count - 1].y - track->sample_y[track->sample_count - 1]);
+		dx *= dx;
+		dy *= dy;
+		dist = dx + dy;    
+		if (dist <= MARBLE_DIAMETRE2) game->state = GS_LOST;
+	}else{
+		game->state = GS_WON;
 	}
 }
 
@@ -269,7 +313,7 @@ void init_canon(Game * game,int height, int width){
 }
 
 void create_marbles(Track * track){
-	track->marble_count = 100;
+	track->marble_count = 60;
 	for(int i = 0; i < track->marble_count;++i){
 		track->marbles[i].t = 0;
 		track->marbles[i].x = track->sample_x[0];

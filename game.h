@@ -12,7 +12,7 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER} Bonus_state;
 #define SAMPLE_MAX   1000 
 #define LEVEL_MAX      10
 #define SAMPLE_THETA    0.05
-#define MARBLE_SPEED 3
+#define MARBLE_SPEED 1
 #define MARBLE_SPEED_END_GAME 10
 #define GAME_CANNON "canon.png"
 static const char TRACK_EXTENSION[] = ".track";
@@ -99,7 +99,9 @@ void move_shots_one_step(Game * game);
 
 void suppress_far_shots(Game * game,int screen_width, int screen_height);
 
-void process_shots_collisions(Game * game);
+int test_collision (Game * g, int *shot_num, int *marble_num, int track_num);
+
+void process_shots_collisions(Game * g);
 
 void move_trains_one_step(Game * game);
 

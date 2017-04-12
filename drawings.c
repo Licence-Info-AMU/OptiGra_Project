@@ -15,8 +15,11 @@ gboolean on_timeout (gpointer data){
 	if(my->area != NULL){
 		my->count++;
 		progress_game_next_step(&my->game,my->win_width,my->win_height);
-		if(my->game.state == GS_LOST)
-			set_status(my->status, "You loose...");
+		if(my->game.state == GS_LOST){
+			char str[100];
+			sprintf(str,"You loose... Votre score : %d",my->game.score);
+			set_status(my->status, str);
+		}
 		refresh_area (my->area);
 	}
 	return TRUE;

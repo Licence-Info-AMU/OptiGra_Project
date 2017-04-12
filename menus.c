@@ -88,6 +88,7 @@ void on_item_save_activate(GtkWidget *widget, gpointer data){
 void on_item_new_game_activate(GtkWidget *widget, gpointer data){
 	Mydata *my = get_mydata(data);
 	init_game(&my->game,my->win_height,my->win_width);
+	set_status(my->status, "Game Init !");
 }
 
 void on_item_quit_activate (GtkWidget *widget, gpointer data){

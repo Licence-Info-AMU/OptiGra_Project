@@ -14,6 +14,7 @@ typedef struct {
     GtkWidget *scroll;
     GtkWidget *menu_bar;
     GtkWidget *frame;
+    GtkWidget *playerStatsFrame;
     GtkWidget *hbox;
     GtkWidget * add_curve;
 	GtkWidget * move_curve;
