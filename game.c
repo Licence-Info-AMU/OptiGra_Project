@@ -57,6 +57,29 @@ void game_pause(Game * game){
 		game->state = GS_PAUSE;
 }
 
+int calcule_score_with_marble_group_size(Track * track, int marble_id_start,int score,int bonus){
+	int cpt = marble_id_start + 1;
+	int group_size = 1;
+	int group_color = track->marbles[marble_id_start].color;
+	while ((track->marbles[cpt].color == group_color) && (cpt < track->marble_count)) {
+		group_size++;
+		cpt++;
+	}        
+	cpt = marble_id_start - 1;
+	while ((track->marbles[cpt].color == group_color) && (cpt >= track->first_visible)) {
+		group_size++;
+		cpt--;
+	}
+	if(group_size >= 3){
+		printf("Boom ! %d\n", group_size);
+		memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));       
+		track->marble_count -= group_size;
+		score += group_size * 10 * pow(2,bonus);
+		return calcule_score_with_marble_group_size(track,cpt++,score,bonus++);
+	}
+	return score;
+}
+
 //Fin GameUtils
 
 //Début progress_game_next_step
@@ -179,26 +202,10 @@ void process_shots_collisions (Game * game) {
 			memmove (game->shot_list.shots+shot_id, game->shot_list.shots+shot_id+1, sizeof(Shot)*(game->shot_list.shot_count-1-shot_id));
 			game->shot_list.shot_count--;
             //calcule taille groupe de même couleur
-			int cpt = marble_id + 1;
-			int group_size = 1;
-			int group_color = track->marbles[marble_id].color;
-			while (track->marbles[cpt].color == group_color && cpt < track->marble_count) {
-				group_size++;
-				cpt++;
-			}        
-			cpt = marble_id - 1;
-			while (track->marbles[cpt].color == group_color && cpt >= track->first_visible) {
-				group_size++;
-				cpt--;
-			}
-			//Fin calcule taille groupe de même couleur
-			printf("GroupSize ! %d\n", group_size);
-			if(group_size >= 3){
-				printf("Boom ! %d\n", group_size);
-				memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));        
-				track->marble_count -= group_size;
-				game->score += group_size * 10;
-			}
+			int scoreTmp = 0;
+			int bonusTmp = 1;
+			//calcule taille groupe de même couleur et renvoie le score
+			game->score += calcule_score_with_marble_group_size(track, marble_id,scoreTmp,bonusTmp);	
         }        
     }
 }

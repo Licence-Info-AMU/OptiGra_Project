@@ -24,6 +24,8 @@ void on_item_about_activate (GtkWidget *widget, gpointer data){
 
 void on_item_new_level_activate(GtkWidget *widget, gpointer data){
 	Mydata *my = get_mydata(data);
+	my->show_edit = TRUE;
+	gtk_widget_show (my->frame);
 	init_curve_infos(&my->curve_infos);
 }
 
@@ -32,6 +34,8 @@ void on_item_load_level_activate(GtkWidget *widget, gpointer data){
     GtkWidget *dialog;
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
     gint res;
+	my->show_edit = TRUE;
+	gtk_widget_show (my->frame);
     dialog = gtk_file_chooser_dialog_new ("Load Track",
                                           GTK_WINDOW(my->window),action,"Cancel",GTK_RESPONSE_CANCEL,"Open",GTK_RESPONSE_ACCEPT,NULL);
     if (my->current_folder != NULL) 
@@ -62,6 +66,8 @@ void on_item_save_activate(GtkWidget *widget, gpointer data){
 	GtkFileChooser *chooser;
 	GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_SAVE;
 	gint res;
+	my->show_edit = TRUE;
+	gtk_widget_show (my->frame);
 	dialog = gtk_file_chooser_dialog_new ("Save File",GTK_WINDOW(my->window),action,("Cancel"),GTK_RESPONSE_CANCEL,("Save"),GTK_RESPONSE_ACCEPT,NULL);
 	chooser = GTK_FILE_CHOOSER (dialog);
 
@@ -87,8 +93,22 @@ void on_item_save_activate(GtkWidget *widget, gpointer data){
 
 void on_item_new_game_activate(GtkWidget *widget, gpointer data){
 	Mydata *my = get_mydata(data);
+	my->show_edit = FALSE;
+	gtk_widget_hide (my->frame);
 	init_game(&my->game,my->win_height,my->win_width);
 	set_status(my->status, "Game Init !");
+}
+
+void on_item_start_activate(GtkWidget *widget, gpointer data){
+	Mydata *my = get_mydata(data);
+	if(my->game.state != GS_LOST)
+		my->game.state = GS_PLAYING;
+}
+
+void on_item_pause_activate(GtkWidget *widget, gpointer data){
+	Mydata *my = get_mydata(data);
+	if(my->game.state != GS_LOST)
+		my->game.state = GS_PAUSE;
 }
 
 void on_item_quit_activate (GtkWidget *widget, gpointer data){
@@ -139,8 +159,10 @@ void menu_init (gpointer user_data){
 	gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_start);
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_pause);
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_quit);
-    
-    g_signal_connect (item_new_game, "activate",G_CALLBACK(on_item_new_game_activate), my); 
+	
+    g_signal_connect (item_new_game, "activate",G_CALLBACK(on_item_new_game_activate), my);
+    g_signal_connect (item_start, "activate",G_CALLBACK(on_item_start_activate), my); 
+    g_signal_connect (item_pause, "activate",G_CALLBACK(on_item_pause_activate), my); 
     g_signal_connect (item_quit, "activate",G_CALLBACK(on_item_quit_activate), my); 
     
     //Level

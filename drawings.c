@@ -11,12 +11,14 @@
 
 gboolean on_timeout (gpointer data){
 	Mydata *my = get_mydata(data);
-	if((my->area != NULL) ){
+	if((my->area != NULL)){
 		my->count++;
 		if(my->show_edit == FALSE){
 			progress_game_next_step(&my->game,my->win_width,my->win_height);
 			if(my->game.state != GS_LOST)
 				update_Player_Frame(my);
+		}else if (my->show_edit == TRUE) {
+			
 		}
 		if(my->game.state == GS_LOST){
 			char str[100];
@@ -211,11 +213,13 @@ gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){
 		g_object_unref (layout);
 	}
 	cairo_set_line_width (cr, 6);
-	draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
-    draw_canon(cr,&my->game);
-    draw_shots(cr,&my->game);
-	draw_track(cr,&my->game);
-	draw_marbles(cr,&my->game);
+	if (my->show_edit == FALSE){
+		draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
+		draw_canon(cr,&my->game);
+		draw_shots(cr,&my->game);
+		draw_track(cr,&my->game);
+		draw_marbles(cr,&my->game);
+	}
     return TRUE;
 }
 

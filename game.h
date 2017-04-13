@@ -96,6 +96,8 @@ void swap_ammo(Game * game);
 
 void game_pause(Game * game);
 
+int calcule_score_with_marble_group_size(Track * track, int marble_id_start,int score,int bonus);
+
 void move_shots_one_step(Game * game);
 
 void suppress_far_shots(Game * game,int screen_width, int screen_height);
