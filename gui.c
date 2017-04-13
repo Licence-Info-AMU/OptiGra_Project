@@ -80,9 +80,10 @@ void playerStatsFrame_init(Mydata *data){
     GtkWidget *progressionLabel = gtk_label_new(NULL);
 	gchar* sUtf8;
 	//Fin Déclaration
-	update_Player_Frame(my);
+	
     gtk_box_pack_start (GTK_BOX (vbox2), my->levelLabel, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (vbox2), my->scoreLabel, FALSE, FALSE, 0);
+    
 	/* Création de la barre de progression */
     //Début progressionLabel
     sUtf8 = g_locale_to_utf8("<span face=\"Courier New\"><big>Progression</big></span>\n",-1, NULL, NULL, NULL);
@@ -92,8 +93,12 @@ void playerStatsFrame_init(Mydata *data){
     gtk_label_set_justify(GTK_LABEL(progressionLabel), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start (GTK_BOX (vbox2), progressionLabel, FALSE, FALSE, 0);
     //Fin progressionLabel
+    
 	my->playerProgress = gtk_progress_bar_new();
 	gtk_box_pack_start(GTK_BOX(vbox2), my->playerProgress, FALSE, FALSE, 0);
+	
+    //Affichage update
+    update_Player_Frame(my);
     
     gtk_container_add (GTK_CONTAINER (my->playerStatsFrame), vbox2);
 }

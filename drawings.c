@@ -11,7 +11,7 @@
 
 gboolean on_timeout (gpointer data){
 	Mydata *my = get_mydata(data);
-	if(my->area != NULL){
+	if((my->area != NULL) ){
 		my->count++;
 		if(my->show_edit == FALSE){
 			progress_game_next_step(&my->game,my->win_width,my->win_height);
