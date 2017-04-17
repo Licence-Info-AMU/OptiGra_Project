@@ -8,17 +8,6 @@
 #include "mydata.h"
 #include "drawings.h"
 
-void on_scale_horizon_value_changed (GtkWidget *widget, gpointer data){
-    Mydata *my = get_mydata(data);
-       if (gtk_range_get_value(GTK_RANGE(widget)) == my->scale_horizon_value) return;
-    if (my->pixbuf2 != NULL) {
-        my->scale_horizon_value = gtk_range_get_value(GTK_RANGE(widget));    
-        update_area_with_transforms (my);    
-    }else{
-        set_status(my->status, "No image to scale.");
-    }
-}
-
 void on_radio_toggled (GtkWidget *widget, gpointer data) {
     Mydata *my = get_mydata(data);
     gint mode= GPOINTER_TO_INT(g_object_get_data (G_OBJECT(widget), "mode"));
@@ -75,9 +64,10 @@ void playerStatsFrame_init(Mydata *data){
 	//Début Déclaration
 	GtkWidget *vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
     my->playerStatsFrame = gtk_frame_new ("Player Stats");
-    my->levelLabel=gtk_label_new(NULL);
-    my->scoreLabel=gtk_label_new(NULL);
+    my->levelLabel = gtk_label_new(NULL);
+    my->scoreLabel = gtk_label_new(NULL);
     GtkWidget *progressionLabel = gtk_label_new(NULL);
+    my->bonusLabel = gtk_label_new(NULL);
 	gchar* sUtf8;
 	//Fin Déclaration
 	
@@ -96,6 +86,9 @@ void playerStatsFrame_init(Mydata *data){
     
 	my->playerProgress = gtk_progress_bar_new();
 	gtk_box_pack_start(GTK_BOX(vbox2), my->playerProgress, FALSE, FALSE, 0);
+	
+	//Zone Bonus
+	gtk_box_pack_start (GTK_BOX (vbox2), my->bonusLabel, FALSE, FALSE, 0);
 	
     //Affichage update
     update_Player_Frame(my);
@@ -131,29 +124,4 @@ void status_init (gpointer user_data){
     Mydata *my = get_mydata(user_data);        
     my->status = gtk_statusbar_new();
     set_status(my->status, "Game Init !");     
-}
-
-void win_scale_init (Mydata *my){    
-    my->win_scale = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW(my->win_scale), "Image scale :");    
-    gtk_window_set_default_size (GTK_WINDOW(my->win_scale), 300, 100);
-    
-    GtkWidget *hbox, *label;
-    
-    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 10);
-    label = gtk_label_new ("Scale :");
-    my->scale_horizon = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL, 0.02, 20.0, 0.02);
-    gtk_range_set_value (GTK_RANGE(my->scale_horizon), 1.0);
-    
-    gtk_container_add (GTK_CONTAINER (my->win_scale), hbox);    
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 10);    
-    gtk_box_pack_start (GTK_BOX (hbox), my->scale_horizon, TRUE, TRUE, 10);
-    
-    
-    gtk_widget_show_all (my->win_scale);
-    gtk_widget_hide (my->win_scale);
-
-    
-    g_signal_connect (my->scale_horizon, "value-changed",G_CALLBACK(on_scale_horizon_value_changed), my);
-    g_signal_connect (my->win_scale, "delete-event",G_CALLBACK(gtk_widget_hide_on_delete), my);    
 }

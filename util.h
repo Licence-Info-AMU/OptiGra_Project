@@ -7,4 +7,6 @@ void refresh_area (GtkWidget *area);
 
 void set_status (GtkWidget *status, const char *format, ...);
 
+int recupTime();
+
 #endif /* UTIL_H */

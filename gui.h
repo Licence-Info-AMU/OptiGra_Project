@@ -11,6 +11,4 @@ void layout_init (gpointer user_data);
 
 void status_init (gpointer user_data);
 
-void win_scale_init (Mydata *my);
-
 #endif// GUI_H

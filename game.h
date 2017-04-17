@@ -8,7 +8,7 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER} Bonus_state;
 #define SHOT_MAX       10
 #define SHOT_SPEED      5
 #define TRACK_MAX      10
-#define MARBLE_MAX_AT_START    60
+#define MARBLE_MAX_AT_START    40
 #define MARBLE_MAX    200
 #define SAMPLE_MAX   1000 
 #define LEVEL_MAX      10
@@ -16,6 +16,9 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER} Bonus_state;
 #define MARBLE_SPEED 1
 #define MARBLE_SPEED_END_GAME 10
 #define GAME_CANNON "canon.png"
+#define BONUS_TIME 5 //en secondes
+static const char LEVEL_DIR[] = "Level/";
+static const char TRACK_DIR[] = "Track/";
 static const char TRACK_EXTENSION[] = ".track";
 static const int MARBLE_RAYON = 20; //Rayon
 static const int MARBLE_DIAMETRE = 40; //Diametre
@@ -45,6 +48,7 @@ typedef struct {
   int color;
   int is_combo_end; // ou encore, facteur vitesse et direction ?
   int step_explode;
+  int bonus;
 } Marble;
 
 typedef struct {
@@ -75,8 +79,13 @@ typedef struct {
 } Level_list;
 
 typedef struct {
+	Bonus_state b_state;
+	int seconds; //temps restant du bonus en seconde
+} Bonus;
+
+typedef struct {
   Game_state state;
-  Bonus_state b_state;
+  Bonus bonus;
   int current_level;
   int score;
   Canon canon;
@@ -96,7 +105,11 @@ void swap_ammo(Game * game);
 
 void game_pause(Game * game);
 
-int calcule_score_with_marble_group_size(Track * track, int marble_id_start,int score,int bonus);
+int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_id_start,int score,int bonus);
+
+void check_bonus(Game * game,Track * track,int marble);
+
+void check_bonus_end(Game * game);
 
 void move_shots_one_step(Game * game);
 
@@ -120,14 +133,18 @@ void init_canon(Game * game, int height, int width);
 
 void init_shots(Game * game);
 
+int init_marble_bonus();
+
 void create_marbles(Track * track);
 
 void init_track(Game * game);
 
 void init_game(Game * game, int height, int width);
 
+void change_level(Game * game,int height, int width);
+
 void time_stop(Game * game);
 
-void speed_change(Game * game);
+void speed_change(Game * game,int bonus);
 
 #endif /* GAME_H */

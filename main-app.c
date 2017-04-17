@@ -20,8 +20,7 @@ void on_app_activate (GtkApplication* app, gpointer user_data){
     status_init(my);
     editing_init(my);
     playerStatsFrame_init(my);    
-    layout_init(my);        
-    win_scale_init(my);          
+    layout_init(my);               
     gtk_widget_show_all (my->window);
     gtk_widget_hide (my->frame);  
     g_timeout_add (20, on_timeout, my);

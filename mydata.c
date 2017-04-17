@@ -28,11 +28,6 @@ void init_mydata(Mydata *my){
     my->win_height = 920;
     my->magic = MYDATA_MAGIC;
     my->current_folder = NULL;
-    my->pixbuf = NULL;
-    my->scale_horizon_value = 1.0;
-    my->scale_horizon = NULL;
-	my->pixbuf2 = NULL;
-    my->rotate_angle = 0.0;
 	my->click_x = 0.0f;
     my->click_y = 0.0f;
     my->click_n = 0;

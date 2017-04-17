@@ -8,8 +8,6 @@ typedef struct {
     GtkWidget *window;
     GtkWidget *status;
     GtkWidget *vbox;
-    GtkWidget *win_scale;
-    GtkWidget *scale_horizon;
     GtkWidget *area;
     GtkWidget *scroll;
     GtkWidget *menu_bar;
@@ -18,6 +16,7 @@ typedef struct {
 	GtkWidget *levelLabel;
     GtkWidget *scoreLabel;
     GtkWidget *playerProgress;
+    GtkWidget *bonusLabel;
     GtkWidget *hbox;
     GtkWidget * add_curve;
 	GtkWidget * move_curve;
@@ -28,8 +27,7 @@ typedef struct {
 	GtkWidget *vertical;
 	GtkWidget *edit_radios[EDIT_LAST];
 	GtkWidget *bsp_radios[BSP_LAST];
-	GdkPixbuf * pixbuf, *pixbuf2;
-	double click_x,click_y,last_x, last_y,rotate_angle,scale_horizon_value;
+	double click_x,click_y,last_x, last_y;
     int win_width,win_height;
     int show_edit;
     int edit_mode;

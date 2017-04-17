@@ -17,42 +17,20 @@ gboolean on_timeout (gpointer data){
 			progress_game_next_step(&my->game,my->win_width,my->win_height);
 			if(my->game.state != GS_LOST)
 				update_Player_Frame(my);
-		}else if (my->show_edit == TRUE) {
-			
 		}
 		if(my->game.state == GS_LOST){
 			char str[100];
 			sprintf(str,"You loose... Votre score : %d",my->game.score);
 			set_status(my->status, str);
+		}else if (my->game.state == GS_WON){
+			//change_level(&my->game,my->win_height,my->win_width);	
 		}
 		refresh_area (my->area);
 	}
 	return TRUE;
-}
+}	
 
 // Gestion DrawingArea : refresh, scale, rotation
-void apply_image_transforms (Mydata *data) {    
-    Mydata *my = get_mydata(data);    
-    g_clear_object(&my->pixbuf2);
-    if (my->pixbuf == NULL) return;
-    printf ("pixbuf : %d x %d, angle %f\n", gdk_pixbuf_get_width (my->pixbuf), gdk_pixbuf_get_height (my->pixbuf), my->rotate_angle);
-    GdkPixbuf *tmp = gdk_pixbuf_rotate_simple (my->pixbuf, my->rotate_angle);                
-    int width = gdk_pixbuf_get_width (tmp);
-    int height = gdk_pixbuf_get_height (tmp);    
-    printf ("tmp : %d x %d\n", width, height); 
-    my->pixbuf2 = gdk_pixbuf_scale_simple (tmp, width * my->scale_horizon_value, height * my->scale_horizon_value, GDK_INTERP_BILINEAR);
-    printf ("pixbuf2 : %d x %d\n", gdk_pixbuf_get_width (my->pixbuf2), gdk_pixbuf_get_height (my->pixbuf2));    
-    g_object_unref (tmp);    
-}
-
-void update_area_with_transforms (Mydata *data) {
-    Mydata *my = get_mydata(data);
-    apply_image_transforms (my);
-    if (my->pixbuf2 != NULL) {
-        gtk_widget_set_size_request (my->area, gdk_pixbuf_get_width (my->pixbuf2), gdk_pixbuf_get_height (my->pixbuf2));    
-        refresh_area (my->area);    
-    }
-}
 
 void draw_control_polygons (cairo_t *cr, Curve_infos *ci) {
     Curve *curve;
@@ -205,21 +183,22 @@ gboolean on_area_leave_notify (GtkWidget *area, GdkEvent *event, gpointer data){
 
 gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){    
     Mydata *my = get_mydata(data);
+    PangoLayout *layout = pango_cairo_create_layout (cr);
 	if((my->bsp_mode == BSP_PROLONG) && (my->show_edit == TRUE)){
-		PangoLayout *layout = pango_cairo_create_layout (cr);
 		draw_control_polygons (cr, &my->curve_infos);
 		draw_bezier_polygons_open(cr,&my->curve_infos);
 		draw_control_labels(cr,layout,&my->curve_infos);
-		g_object_unref (layout);
 	}
 	cairo_set_line_width (cr, 6);
+	draw_canon(cr,&my->game);
 	if (my->show_edit == FALSE){
 		draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
-		draw_canon(cr,&my->game);
 		draw_shots(cr,&my->game);
 		draw_track(cr,&my->game);
 		draw_marbles(cr,&my->game);
+		draw_marbles_bonus_labels(cr,&my->game,layout);
 	}
+	g_object_unref (layout);
     return TRUE;
 }
 
@@ -367,11 +346,7 @@ void draw_bezier_curves_clip(cairo_t *cr, Curve_infos *ci, double theta, Mydata 
 		Curve *curve = &ci->curve_list.curves[j];
         for (i = 0; i < (curve->control_count) ; i++)
         {
-			if(my->pixbuf2 != NULL){
-				gdk_cairo_set_source_pixbuf(cr,my->pixbuf2,ci->curve_list.curves[j].shift_x,ci->curve_list.curves[j].shift_y);
-			}else{
-				cairo_set_source_rgb (cr, 0.83, 0.74, 0.48);
-			}
+			cairo_set_source_rgb (cr, 0.83, 0.74, 0.48);
             compute_bezier_points_close (curve, i, bez_points);
             if(i==0){
 				generate_bezier_path (cr, bez_points, theta, TRUE);
@@ -443,7 +418,7 @@ void draw_track(cairo_t *cr, Game * game){
 	//Début track
 	cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
 	cairo_set_line_width(cr,5);
-	Track * track = &game->track_list.tracks[game->current_level];
+	Track * track = &game->track_list.tracks[0];
 	cairo_move_to(cr,track->sample_x[0],track->sample_y[0]);
 	for(int i = 1;i < track->sample_count;++i){
 		cairo_line_to(cr,track->sample_x[i],track->sample_y[i]);
@@ -455,6 +430,16 @@ void draw_track(cairo_t *cr, Game * game){
 	cairo_fill (cr);
 }
 
+void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout){
+	font_set_name(layout,"Sans, 12");
+	cairo_set_source_rgb(cr,1.0,1.0,1.0);
+	Track * track = &game->track_list.tracks[0];
+	for(int i = track->first_visible; i < track->marble_count;++i){
+		if(i > 0)
+			font_draw_text (cr, layout, FONT_TL,track->marbles[i].x-MARBLE_RAYON/2,track->marbles[i].y-MARBLE_RAYON/2, "B%d",track->marbles[i].bonus);
+	}
+}
+
 void draw_marble(cairo_t *cr, Marble * marble){
 	switch_shot_color(cr,marble->color);
 	cairo_arc(cr,marble->x,marble->y,MARBLE_RAYON,0,2*G_PI);
@@ -462,7 +447,7 @@ void draw_marble(cairo_t *cr, Marble * marble){
 }
 
 void draw_marbles(cairo_t *cr, Game * game){
-	Track * track = &game->track_list.tracks[game->current_level];
+	Track * track = &game->track_list.tracks[0];
 	for(int i = track->first_visible; i < track->marble_count;++i){
 		if(i > 0)
 			draw_marble(cr,&track->marbles[i]);
@@ -470,31 +455,46 @@ void draw_marbles(cairo_t *cr, Game * game){
 }
 
 void update_Player_Frame(Mydata * my){
-    gchar* sUtf8;
-    char str[100];
-    gdouble dFraction;
-    Track * track = &my->game.track_list.tracks[my->game.current_level];
-    //Début levelLabel
-    sprintf(str,"<span face=\"Courier New\"><big>Level : %d</big></span>\n",my->game.current_level);
-    sUtf8 = g_locale_to_utf8(str,-1, NULL, NULL, NULL);
-    gtk_label_set_markup(GTK_LABEL(my->levelLabel), sUtf8);
-    g_free(sUtf8);
-    /* On centre le texte */
-    gtk_label_set_justify(GTK_LABEL(my->levelLabel), GTK_JUSTIFY_CENTER);
-    //Fin levelLabel
-    
-	//Début scoreLabel
-    sprintf(str,"<span face=\"Courier New\"><big>Score : %d</big></span>\n",my->game.score);
-    sUtf8 = g_locale_to_utf8(str,-1, NULL, NULL, NULL);
-    gtk_label_set_markup(GTK_LABEL(my->scoreLabel), sUtf8);
-    g_free(sUtf8);
-    /* On centre le texte */
-    gtk_label_set_justify(GTK_LABEL(my->scoreLabel), GTK_JUSTIFY_CENTER);
-    //Fin scoreLabel
+	gchar* sUtf8;
+	char str[100];
+	gdouble dFraction;
+	Track * track = &my->game.track_list.tracks[0];
+	//Début levelLabel
+	sprintf(str,"<span face=\"Courier New\"><big>Level : %d</big></span>\n",my->game.current_level);
+	sUtf8 = g_locale_to_utf8(str,-1, NULL, NULL, NULL);
+	gtk_label_set_markup(GTK_LABEL(my->levelLabel), sUtf8);
+	g_free(sUtf8);
+	/* On centre le texte */
+	gtk_label_set_justify(GTK_LABEL(my->levelLabel), GTK_JUSTIFY_CENTER);
+	//Fin levelLabel
 
-	dFraction = (double)track->marble_count/MARBLE_MAX_AT_START;
-   /* Modification de la valeur de la barre de progression */
-   gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(my->playerProgress), dFraction);
+	//Début scoreLabel
+	sprintf(str,"<span face=\"Courier New\"><big>Score : %d</big></span>\n",my->game.score);
+	sUtf8 = g_locale_to_utf8(str,-1, NULL, NULL, NULL);
+	gtk_label_set_markup(GTK_LABEL(my->scoreLabel), sUtf8);
+	g_free(sUtf8);
+	/* On centre le texte */
+	gtk_label_set_justify(GTK_LABEL(my->scoreLabel), GTK_JUSTIFY_CENTER);
+	//Fin scoreLabel
+
+	dFraction = (double)track->marble_count/(MARBLE_MAX_AT_START);
+	
+	/* Modification de la valeur de la barre de progression */
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(my->playerProgress), dFraction);
+
+	//Début BonusLabel
+	if(my->game.bonus.b_state == BS_TIME_STOP)
+		sprintf(str,"<span face=\"Courier New\"><big>Bonus : %s</big></span>\n","Time Stop");
+	else if(my->game.bonus.b_state == BS_TIME_SLOWER)
+		sprintf(str,"<span face=\"Courier New\"><big>Bonus : %s</big></span>\n","Time Slower");
+	else
+		sprintf(str,"<span face=\"Courier New\"><big>Bonus : %s</big></span>\n","Aucun");
+	sUtf8 = g_locale_to_utf8(str,-1, NULL, NULL, NULL);
+	gtk_label_set_markup(GTK_LABEL(my->bonusLabel), sUtf8);
+	g_free(sUtf8);
+	/* On centre le texte */
+	gtk_label_set_justify(GTK_LABEL(my->bonusLabel), GTK_JUSTIFY_CENTER);
+	//Fin BonusLabel
 }
 
 void area_init (gpointer user_data){
