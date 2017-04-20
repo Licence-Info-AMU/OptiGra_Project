@@ -96,7 +96,7 @@ void on_item_new_game_activate(GtkWidget *widget, gpointer data){
 	my->show_edit = FALSE;
 	gtk_widget_hide (my->frame);
 	init_game(&my->game,my->win_height,my->win_width);
-	set_status(my->status, "Game Init !");
+	set_status(my->status, "New Game !");
 }
 
 void on_item_start_activate(GtkWidget *widget, gpointer data){

@@ -8,7 +8,7 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER} Bonus_state;
 #define SHOT_MAX       10
 #define SHOT_SPEED      5
 #define TRACK_MAX      10
-#define MARBLE_MAX_AT_START    40
+#define MARBLE_MAX_AT_START    3
 #define MARBLE_MAX    200
 #define SAMPLE_MAX   1000 
 #define LEVEL_MAX      10
@@ -92,12 +92,13 @@ typedef struct {
   Shot_list shot_list;
   Track_list track_list;
   Level_list level_list;
-  GRand *g_rand;
 } Game;
 
 void sample_curve_to_track (Curve *curve, Track *track, double theta);
 
 void shoot_ammo(Game * game);
+
+int is_color_on_track(Track * track, int color);
 
 void prepare_ammo(Game * game);
 
@@ -115,9 +116,9 @@ void move_shots_one_step(Game * game);
 
 void suppress_far_shots(Game * game,int screen_width, int screen_height);
 
-int test_collision (Game * g, int *shot_num, int *marble_num, int track_num);
+int test_collision (Game * game, int *shot_num, int *marble_num, int track_num);
 
-void process_shots_collisions(Game * g);
+void process_shots_collisions(Game * game);
 
 void move_trains_one_step(Game * game);
 
@@ -130,6 +131,8 @@ void update_x_and_y_canon(Game * game,int height, int width);
 void update_canon_angle(Game * game, double sx, double sy);
 
 void init_canon(Game * game, int height, int width);
+
+void init_ammo(Game * game);
 
 void init_shots(Game * game);
 

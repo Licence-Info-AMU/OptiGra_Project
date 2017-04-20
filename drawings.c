@@ -8,7 +8,7 @@
 #include "drawings.h"
 #include "menus.h"
 #include "font.h"
-
+int cptYolo = 0;
 gboolean on_timeout (gpointer data){
 	Mydata *my = get_mydata(data);
 	if((my->area != NULL)){
@@ -23,7 +23,8 @@ gboolean on_timeout (gpointer data){
 			sprintf(str,"You loose... Votre score : %d",my->game.score);
 			set_status(my->status, str);
 		}else if (my->game.state == GS_WON){
-			//change_level(&my->game,my->win_height,my->win_width);	
+			printf("change level\n");
+			change_level(&my->game,my->win_height,my->win_width);	
 		}
 		refresh_area (my->area);
 	}
@@ -76,7 +77,6 @@ gboolean on_area_key_press (GtkWidget *area, GdkEvent *event, gpointer data){
         case GDK_KEY_t : set_edit_mode (my, EDIT_MOVE_CONTROL); break;
         case GDK_KEY_y : set_edit_mode (my, EDIT_REMOVE_CONTROL); break;
         case GDK_KEY_p : game_pause(&my->game); break;
-        case GDK_KEY_Up : time_stop(&my->game); break;
         case GDK_KEY_space : swap_ammo(&my->game); break;
     }
     return TRUE;
@@ -122,7 +122,7 @@ gboolean on_area_button_press (GtkWidget *area, GdkEvent *event, gpointer data){
 					break;
 			}
 	}
-    if ((my->click_n == 1) && (my->show_edit == FALSE) && (my->game.state != GS_PAUSE) && (my->game.state != GS_LOST) && (evb->type == GDK_BUTTON_PRESS)){ 
+    if ((my->click_n == 1) && (my->show_edit == FALSE) && (my->game.state == GS_PLAYING) && (evb->type == GDK_BUTTON_PRESS)){ 
 		shoot_ammo(&my->game);
     }
     refresh_area(my->area);
@@ -183,22 +183,25 @@ gboolean on_area_leave_notify (GtkWidget *area, GdkEvent *event, gpointer data){
 
 gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){    
     Mydata *my = get_mydata(data);
-    PangoLayout *layout = pango_cairo_create_layout (cr);
-	if((my->bsp_mode == BSP_PROLONG) && (my->show_edit == TRUE)){
-		draw_control_polygons (cr, &my->curve_infos);
-		draw_bezier_polygons_open(cr,&my->curve_infos);
-		draw_control_labels(cr,layout,&my->curve_infos);
+    if(my->game.state != GS_HELLO){
+		PangoLayout *layout = pango_cairo_create_layout (cr);
+		if((my->bsp_mode == BSP_PROLONG) && (my->show_edit == TRUE)){
+			draw_control_polygons (cr, &my->curve_infos);
+			draw_bezier_polygons_open(cr,&my->curve_infos);
+			draw_control_labels(cr,layout,&my->curve_infos);
+			draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
+		}
+		cairo_set_line_width (cr, 6);
+		draw_canon(cr,&my->game);
+		cptYolo++;
+		if (my->show_edit == FALSE){
+			draw_shots(cr,&my->game);
+			draw_track(cr,&my->game);
+			draw_marbles(cr,&my->game);
+			draw_marbles_bonus_labels(cr,&my->game,layout);
+		}
+		g_object_unref (layout);
 	}
-	cairo_set_line_width (cr, 6);
-	draw_canon(cr,&my->game);
-	if (my->show_edit == FALSE){
-		draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
-		draw_shots(cr,&my->game);
-		draw_track(cr,&my->game);
-		draw_marbles(cr,&my->game);
-		draw_marbles_bonus_labels(cr,&my->game,layout);
-	}
-	g_object_unref (layout);
     return TRUE;
 }
 
@@ -435,7 +438,7 @@ void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout){
 	cairo_set_source_rgb(cr,1.0,1.0,1.0);
 	Track * track = &game->track_list.tracks[0];
 	for(int i = track->first_visible; i < track->marble_count;++i){
-		if(i > 0)
+		if(i >= 0)
 			font_draw_text (cr, layout, FONT_TL,track->marbles[i].x-MARBLE_RAYON/2,track->marbles[i].y-MARBLE_RAYON/2, "B%d",track->marbles[i].bonus);
 	}
 }
@@ -449,7 +452,7 @@ void draw_marble(cairo_t *cr, Marble * marble){
 void draw_marbles(cairo_t *cr, Game * game){
 	Track * track = &game->track_list.tracks[0];
 	for(int i = track->first_visible; i < track->marble_count;++i){
-		if(i > 0)
+		if(i >= 0)
 			draw_marble(cr,&track->marbles[i]);
 	}
 }
