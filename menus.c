@@ -95,8 +95,16 @@ void on_item_new_game_activate(GtkWidget *widget, gpointer data){
 	Mydata *my = get_mydata(data);
 	my->show_edit = FALSE;
 	gtk_widget_hide (my->frame);
-	init_game(&my->game,my->win_height,my->win_width);
+	reset_game(&my->game,my->win_height,my->win_width);
 	set_status(my->status, "New Game !");
+}
+
+void on_item_re_start_activate(GtkWidget *widget, gpointer data){
+	Mydata *my = get_mydata(data);
+	my->show_edit = FALSE;
+	gtk_widget_hide (my->frame);
+	restart_game(&my->game,my->win_height,my->win_width);
+	set_status(my->status, "Game Restart !");
 }
 
 void on_item_start_activate(GtkWidget *widget, gpointer data){
@@ -135,7 +143,7 @@ void on_item_edit_activate (GtkCheckMenuItem *widget, gpointer data){
 void menu_init (gpointer user_data){
 	Mydata *my = get_mydata(user_data);  
     GtkWidget *item_game, *item_level, *item_help, 
-				*sub_game, *item_start, *item_pause, *item_new_game, *item_quit, 
+				*sub_game, *item_restart, *item_start, *item_pause, *item_new_game, *item_quit, 
 				*sub_level, *sub_help, *item_about,*item_edit,*item_new_level,*item_save, *item_load_level;
     my->menu_bar = gtk_menu_bar_new();    
     //Menu    
@@ -151,16 +159,19 @@ void menu_init (gpointer user_data){
     sub_game = gtk_menu_new ();
     
     item_new_game = gtk_menu_item_new_with_label ("New");
+    item_restart = gtk_menu_item_new_with_label ("ReStart");
     item_start = gtk_menu_item_new_with_label ("Start");
     item_pause = gtk_menu_item_new_with_label ("Pause");
     item_quit = gtk_menu_item_new_with_label ("Quit");
            
-    gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_new_game);                   
+    gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_new_game); 
+    gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_restart);                  
 	gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_start);
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_pause);
     gtk_menu_shell_append(GTK_MENU_SHELL(sub_game), item_quit);
 	
     g_signal_connect (item_new_game, "activate",G_CALLBACK(on_item_new_game_activate), my);
+    g_signal_connect (item_restart, "activate",G_CALLBACK(on_item_re_start_activate), my);
     g_signal_connect (item_start, "activate",G_CALLBACK(on_item_start_activate), my); 
     g_signal_connect (item_pause, "activate",G_CALLBACK(on_item_pause_activate), my); 
     g_signal_connect (item_quit, "activate",G_CALLBACK(on_item_quit_activate), my); 

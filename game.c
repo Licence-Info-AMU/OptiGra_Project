@@ -71,7 +71,7 @@ void game_pause(Game * game){
 		game->state = GS_PAUSE;
 }
 
-int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_id_start,int score,int bonus){
+int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_id_start,int score,int combo){
 	int cpt = marble_id_start + 1;
 	int group_size = 1;
 	int group_color = track->marbles[marble_id_start].color;
@@ -91,8 +91,8 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		}
 		memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));       
 		track->marble_count -= group_size;
-		score += group_size * 10 * pow(2,bonus);
-		return calcule_score_with_marble_group_size(game,track,cpt,score,bonus++);
+		score += group_size * 10 * pow(2,combo);
+		return calcule_score_with_marble_group_size(game,track,cpt,score,combo++);
 	}
 	return score;
 }
@@ -112,6 +112,20 @@ void check_bonus_end(Game * game){
 		track->marbles_speed = MARBLE_SPEED;
 		game->bonus.seconds = 0;
 	}
+}
+
+int * get_10_best_scores(){
+    FILE* file = NULL;
+    int * score = (int*)calloc(10, sizeof(int)); // Tableau des 10 meilleurs scores
+ 
+    file = fopen("test.txt", "r");
+ 
+    if (file != NULL){
+        if(fscanf(file, "%d %d %d %d %d %d %d %d %d %d", &score[0], &score[1], &score[2], &score[3], &score[4], &score[5], &score[6], &score[7], &score[8],&score[9]) == 10)
+			printf("Les meilleurs scores sont : %d, %d, %d, %d, %d, %d, %d, %d, %d et %d", score[0], score[1], score[2], score[3], score[4], score[5], score[6], score[7], score[8],score[9]); 
+        fclose(file);
+    }
+    return score;	
 }
 
 //Fin GameUtils
@@ -238,9 +252,9 @@ void process_shots_collisions (Game * game) {
 			game->shot_list.shot_count--;
             //calcule taille groupe de même couleur
 			int scoreTmp = 0;
-			int bonusTmp = 0;
+			int comboTmp = 0;
 			//calcule taille groupe de même couleur et renvoie le score
-			game->score += calcule_score_with_marble_group_size(game,track, marble_id,scoreTmp,bonusTmp);
+			game->score += calcule_score_with_marble_group_size(game,track, marble_id,scoreTmp,comboTmp);
         }        
     }
 }
@@ -382,8 +396,8 @@ int init_marble_bonus(){
 		return BS_NONE;
 }
 
-void create_marbles(Track * track){
-	track->marble_count = MARBLE_MAX_AT_START;
+void create_marbles(Track * track,int current_level){
+	track->marble_count = ( MARBLE_MAX_AT_START + (current_level * 10) ); // MARBLE_MAX_AT_START + ( niveau * 10) = nb bille par partie
 	for(int i = 0; i < track->marble_count;++i){
 		Marble m;
 		m.t = 0;
@@ -408,7 +422,7 @@ void init_track(Game * game){
 		perror("Load Impossible");
 	sample_curve_to_track (&ci.curve_list.curves[ci.current_curve],track, SAMPLE_THETA);
 	game->level_list.levels[game->current_level].curve_infos = ci;
-	create_marbles(track);
+	create_marbles(track,game->current_level);
 	track->state = TS_INTRO;
 	track->marbles_speed = MARBLE_SPEED;
 }
@@ -428,6 +442,18 @@ void init_game(Game * game,int height, int width){
 	game->bonus.b_state = BS_NONE;
 	game->bonus.seconds = 0;
 	game->score = 0;
+	game->score_level_before = 0;
+}
+
+void reset_game(Game * game,int height, int width){
+	game->current_level = 0;
+	init_game(game,height,width);
+}
+
+void restart_game(Game * game,int height, int width){
+	int score = game->score_level_before;
+	init_game(game,height,width);
+	game->score = score;
 }
 
 void change_level(Game * game,int height, int width){
@@ -439,6 +465,7 @@ void change_level(Game * game,int height, int width){
 	}
 	init_game(game,height,width);
 	game->score = score;
+	game->score_level_before = score;
 }
 //Fin Initialisation
 

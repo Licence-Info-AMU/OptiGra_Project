@@ -88,6 +88,7 @@ typedef struct {
   Bonus bonus;
   int current_level;
   int score;
+  int score_level_before;
   Canon canon;
   Shot_list shot_list;
   Track_list track_list;
@@ -138,11 +139,15 @@ void init_shots(Game * game);
 
 int init_marble_bonus();
 
-void create_marbles(Track * track);
+void create_marbles(Track * track,int current_level);
 
 void init_track(Game * game);
 
 void init_game(Game * game, int height, int width);
+
+void reset_game(Game * game,int height, int width);
+
+void restart_game(Game * game,int height, int width);
 
 void change_level(Game * game,int height, int width);
 
