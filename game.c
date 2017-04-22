@@ -113,7 +113,7 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));       
 		track->marble_count -= group_size;
 		score += group_size * 10 * pow(2,combo);
-		return calcule_score_with_marble_group_size(game,track,cpt-1,score,combo++);
+		return calcule_score_with_marble_group_size(game,track,cpt+1,score,combo++);
 	}
 	return score;
 }
