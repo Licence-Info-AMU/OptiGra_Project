@@ -331,7 +331,7 @@ double compute_distant_point_backward (double sx[], double sy[], double tA, int 
   return t;
 }
 
-void save_curve_to_file (Curve_infos *ci,char *filename){
+int save_curve_to_file (Curve_infos *ci,char *filename){
 	if(ci != NULL){
 		FILE* file = NULL;
 		file = fopen (filename, "w");
@@ -344,10 +344,13 @@ void save_curve_to_file (Curve_infos *ci,char *filename){
 				}
 			}
 			fclose(file);
+			return 1;
 		}else{
 			perror(filename);
+			return -1;
 		}
 	}
+	return -1;
 }
 
 int load_curve_from_file(Curve_infos *ci,char *filename){

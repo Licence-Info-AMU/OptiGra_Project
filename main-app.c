@@ -10,20 +10,21 @@
 #include "menus.h"
 #include "gui.h"
 
+int timeout;
 //Chargement de l'appli
 void on_app_activate (GtkApplication* app, gpointer user_data){
     g_object_set (gtk_settings_get_default(),"gtk-shell-shows-menubar", FALSE, NULL);
     Mydata *my = get_mydata(user_data);   
     window_init(app, my);    
-    menu_init(my);    
-    area_init(my);    
-    status_init(my);
-    editing_init(my);
-    playerStatsFrame_init(my);    
-    layout_init(my);               
-    gtk_widget_show_all (my->window);
-    gtk_widget_hide (my->frame);  
-    g_timeout_add (20, on_timeout, my);
+    menu_init(my);  
+	area_init(my);    
+	status_init(my);
+	editing_init(my);
+	playerStatsFrame_init(my);    
+	layout_init(my);               
+	gtk_widget_show_all (my->window);
+	gtk_widget_hide (my->frame);
+    timeout = g_timeout_add (20, on_timeout, my);
 }
 
 int main (int argc, char *argv[]){
@@ -35,6 +36,7 @@ int main (int argc, char *argv[]){
     app = gtk_application_new (NULL, G_APPLICATION_FLAGS_NONE);
     g_signal_connect (app, "activate",G_CALLBACK(on_app_activate), &my);
     status = g_application_run (G_APPLICATION(app), argc, argv);
+    g_source_remove(timeout);
     g_object_unref (app);
     return status;
 }

@@ -48,7 +48,7 @@ void on_item_load_level_activate(GtkWidget *widget, gpointer data){
 		if(load_curve_from_file(&my->curve_infos,filename)< 0){
 			GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
 			GtkWidget * error_dialog = gtk_message_dialog_new (GTK_WINDOW(my->window),
-																flags,GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,"Error reading “%s”: %s",filename,g_strerror (errno));
+																flags,GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,"Error reading “%s”",filename);
 			gtk_window_set_title(GTK_WINDOW(error_dialog),"Load Track Error");
 			gtk_dialog_run (GTK_DIALOG (error_dialog));
 			g_signal_connect_swapped (error_dialog, "response",G_CALLBACK (gtk_widget_destroy),error_dialog);
@@ -79,13 +79,19 @@ void on_item_save_activate(GtkWidget *widget, gpointer data){
 	gtk_file_chooser_set_current_name (chooser,(SAVE_FILE_DEFAULT));
 	  
 	res = gtk_dialog_run (GTK_DIALOG (dialog));
-	if (res == GTK_RESPONSE_ACCEPT)
-	  {
+	if (res == GTK_RESPONSE_ACCEPT){
 		char *filename;
 		filename = gtk_file_chooser_get_filename (chooser);
-		save_curve_to_file (&my->curve_infos,filename);
+		if(save_curve_to_file (&my->curve_infos,filename) < 0){
+			GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+			GtkWidget * error_dialog = gtk_message_dialog_new (GTK_WINDOW(my->window),
+																flags,GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,"Error writing “%s”",filename);
+			gtk_window_set_title(GTK_WINDOW(error_dialog),"Save Track Error");
+			gtk_dialog_run (GTK_DIALOG (error_dialog));
+			g_signal_connect_swapped (error_dialog, "response",G_CALLBACK (gtk_widget_destroy),error_dialog);	
+		}
 		g_free (filename);
-	  }
+	}
 	my->current_folder = NULL;
 	my->current_folder = gtk_file_chooser_get_current_folder(chooser);
 	gtk_widget_destroy (dialog);

@@ -8,20 +8,23 @@
 #include "drawings.h"
 #include "menus.h"
 #include "font.h"
-int cptYolo = 0;
+
 gboolean on_timeout (gpointer data){
 	Mydata *my = get_mydata(data);
-	if((my->area != NULL)){
+	if((my->area != NULL) && (my->levelLabel != NULL) && (my->window != NULL)){
 		my->count++;
 		if(my->show_edit == FALSE){
 			progress_game_next_step(&my->game,my->win_width,my->win_height);
-			if(my->game.state != GS_LOST)
+			if(my->game.state != GS_LOST && my->levelLabel != NULL)
 				update_Player_Frame(my);
 		}
 		if(my->game.state == GS_LOST){
 			char str[100];
 			sprintf(str,"You loose... Votre score : %d",my->game.score);
 			set_status(my->status, str);
+			if(my->game.track_list.tracks[0].marble_count == 0){
+				game_over_message_dialog(my);
+			}
 		}else if (my->game.state == GS_WON){
 			printf("change level\n");
 			change_level(&my->game,my->win_height,my->win_width);	
@@ -183,33 +186,35 @@ gboolean on_area_leave_notify (GtkWidget *area, GdkEvent *event, gpointer data){
 
 gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){    
     Mydata *my = get_mydata(data);
-    if(my->game.state != GS_HELLO){
-		PangoLayout *layout = pango_cairo_create_layout (cr);
-		if((my->bsp_mode == BSP_PROLONG) && (my->show_edit == TRUE)){
-			draw_control_polygons (cr, &my->curve_infos);
-			draw_bezier_polygons_open(cr,&my->curve_infos);
-			draw_control_labels(cr,layout,&my->curve_infos);
-			draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
-		}
+	PangoLayout *layout = pango_cairo_create_layout (cr);
+	if((my->bsp_mode == BSP_PROLONG) && (my->show_edit == TRUE)){
+		draw_control_polygons (cr, &my->curve_infos);
+		draw_bezier_polygons_open(cr,&my->curve_infos);
+		draw_control_labels(cr,layout,&my->curve_infos);
+		draw_bezier_curves_prolong(cr,&my->curve_infos,0.1);
+	}
+	if(my->game.state != GS_HELLO){
 		cairo_set_line_width (cr, 6);
 		draw_canon(cr,&my->game);
-		cptYolo++;
 		if (my->show_edit == FALSE){
 			draw_shots(cr,&my->game);
 			draw_track(cr,&my->game);
 			draw_marbles(cr,&my->game);
 			draw_marbles_bonus_labels(cr,&my->game,layout);
 		}
-		g_object_unref (layout);
+		
 	}
+	g_object_unref (layout);
     return TRUE;
 }
 
 gboolean on_area_resize_window(GtkWidget *area, GdkEvent *event, gpointer data){
 	Mydata *my = get_mydata(data);
-	gtk_window_get_size (GTK_WINDOW(my->window), &my->win_width, &my->win_height);
-	update_x_and_y_canon(&my->game,my->win_height,my->win_width);
-	refresh_area(my->area);
+	if(my->window != NULL){
+		gtk_window_get_size (GTK_WINDOW(my->window), &my->win_width, &my->win_height);
+		update_x_and_y_canon(&my->game,my->win_height,my->win_width);
+		refresh_area(my->area);
+	}
 	return TRUE;
 }
 
@@ -439,7 +444,7 @@ void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout){
 	Track * track = &game->track_list.tracks[0];
 	for(int i = track->first_visible; i < track->marble_count;++i){
 		if(i >= 0)
-			font_draw_text (cr, layout, FONT_TL,track->marbles[i].x-MARBLE_RAYON/2,track->marbles[i].y-MARBLE_RAYON/2, "B%d",track->marbles[i].bonus);
+			font_draw_text (cr, layout, FONT_TL,track->marbles[i].x-MARBLE_RAYON/2,track->marbles[i].y-MARBLE_RAYON/2, "B%d",i/*track->marbles[i].bonus*/);
 	}
 }
 
@@ -499,6 +504,23 @@ void update_Player_Frame(Mydata * my){
 	gtk_label_set_justify(GTK_LABEL(my->bonusLabel), GTK_JUSTIFY_CENTER);
 	//Fin BonusLabel
 }
+
+void game_over_message_dialog(gpointer data){
+	Mydata *my = get_mydata(data);
+    GtkWidget *pQuestion;
+    pQuestion = gtk_message_dialog_new (GTK_WINDOW(my->window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,"Game Over !\nVotre score : %d !\nVoulez vous reprendre au début du niveau ?",my->game.score);
+    gtk_window_set_title(GTK_WINDOW(pQuestion),"Game Over !");
+    switch(gtk_dialog_run(GTK_DIALOG(pQuestion))){
+        case GTK_RESPONSE_YES:
+            restart_game(&my->game,my->win_height,my->win_width);
+            gtk_widget_destroy(pQuestion);
+            break;
+        case GTK_RESPONSE_NO:
+			my->game.state = GS_HELLO;
+            gtk_widget_destroy(pQuestion);
+            break;
+    }
+} 
 
 void area_init (gpointer user_data){
     Mydata *my = get_mydata(user_data);                                    

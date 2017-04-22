@@ -73,7 +73,7 @@ double compute_distant_point_forward (double sx[], double sy[], double tA, int t
 
 double compute_distant_point_backward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB);
 
-void save_curve_to_file (Curve_infos *ci,char *filename);
+int save_curve_to_file (Curve_infos *ci,char *filename);
 
 int load_curve_from_file(Curve_infos *ci,char *filename);
 

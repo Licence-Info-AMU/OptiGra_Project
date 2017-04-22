@@ -37,6 +37,8 @@ void draw_marbles(cairo_t *cr, Game * game);
 
 void switch_shot_color(cairo_t *cr,int color);
 
+void game_over_message_dialog(gpointer data);
+
 void update_Player_Frame(Mydata * my);
 
 #endif // Fin DRAWINGS_H 
