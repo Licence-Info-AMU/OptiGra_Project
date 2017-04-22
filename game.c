@@ -86,8 +86,6 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		cpt--;
 	}
 	if(group_size >= 3){
-		int cptTmp = cpt;
-		int groupSizeTmp = group_size;
 		if(combo == 2){
 			track->state = TS_COMBO2;
 		}else if(combo >= 3){
@@ -96,20 +94,7 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		printf("Boom ! %d\n", group_size);
 		for(int m = (cpt + 1); m <= (cpt+group_size+1);m++){
 			check_bonus(game,track,m);
-			if(track->marbles[m].bonus == BS_MARBLE_EXPLOSIVE){ //Marble Explosive
-				if(cpt < (m-1)){
-					cptTmp--;
-					groupSizeTmp++;
-					printf("marble_id : %d\nbonus : %d\n",m,BS_MARBLE_EXPLOSIVE);
-				}
-				if(cpt+group_size < m + 1){
-					groupSizeTmp++;
-					printf("marble_id : %d\nbonus : %d\n",m,BS_MARBLE_EXPLOSIVE);
-				}
-			}
 		}
-		cpt = cptTmp;
-		group_size = groupSizeTmp;
 		memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));       
 		track->marble_count -= group_size;
 		score += group_size * 10 * pow(2,combo);
@@ -232,6 +217,7 @@ void process_shots_collisions (Game * game) {
                         track->marbles[marble_id].t = tb;
                     }
                     track->marbles[marble_id].color = game->shot_list.shots[shot_id].color;
+                    track->marbles[marble_id].bonus = BS_NONE;
                 }else {
 					marble_id++;
                     Marble m = track->marbles[marble_id];
@@ -248,11 +234,13 @@ void process_shots_collisions (Game * game) {
                              sizeof(Marble)*(track->marble_count-marble_id));    
                     track->marble_count++;
                     m.color = game->shot_list.shots[shot_id].color;
+                    m.bonus = BS_NONE;
                     track->marbles[marble_id] = m; 
                 }
             }else { //insérer derrière                   
                 Marble m = track->marbles[marble_id];
                 m.color = game->shot_list.shots[shot_id].color;
+                m.bonus = BS_NONE;
                 for (int i = marble_id; i < track->marble_count; ++i) {
                     tb = compute_distant_point_forward (track->sample_x, track->sample_y, 
                         track->marbles[i].t, track->sample_count, MARBLE_DIAMETRE, &xb, &yb);
