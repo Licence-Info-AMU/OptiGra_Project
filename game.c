@@ -96,7 +96,7 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		printf("Boom ! %d\n", group_size);
 		for(int m = (cpt + 1); m <= (cpt+group_size+1);m++){
 			check_bonus(game,track,m);
-			/*if(track->marbles[m].bonus == BS_MARBLE_EXPLOSIVE){ //Marble Explosive
+			if(track->marbles[m].bonus == BS_MARBLE_EXPLOSIVE){ //Marble Explosive
 				if(cpt < (m-1)){
 					cptTmp--;
 					groupSizeTmp++;
@@ -106,7 +106,7 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 					groupSizeTmp++;
 					printf("marble_id : %d\nbonus : %d\n",m,BS_MARBLE_EXPLOSIVE);
 				}
-			}*/
+			}
 		}
 		cpt = cptTmp;
 		group_size = groupSizeTmp;

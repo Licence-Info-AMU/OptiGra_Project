@@ -444,7 +444,7 @@ void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout){
 	Track * track = &game->track_list.tracks[0];
 	for(int i = track->first_visible; i < track->marble_count;++i){
 		if(i >= 0)
-			font_draw_text (cr, layout, FONT_TL,track->marbles[i].x-MARBLE_RAYON/2,track->marbles[i].y-MARBLE_RAYON/2, "B%d",i/*track->marbles[i].bonus*/);
+		font_draw_text (cr, layout, FONT_TL,track->marbles[i].x-MARBLE_RAYON/2,track->marbles[i].y-MARBLE_RAYON/2, "B%d",track->marbles[i].bonus);
 	}
 }
 
