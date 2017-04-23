@@ -121,13 +121,13 @@ void on_item_re_start_activate(GtkWidget *widget, gpointer data){
 void on_item_start_activate(GtkWidget *widget, gpointer data){
 	Mydata *my = get_mydata(data);
 	if(my->game.state != GS_LOST)
-		my->game.state = GS_PLAYING;
+		game_pause(&my->game);
 }
 
 void on_item_pause_activate(GtkWidget *widget, gpointer data){
 	Mydata *my = get_mydata(data);
 	if(my->game.state != GS_LOST)
-		my->game.state = GS_PAUSE;
+		game_pause(&my->game);
 }
 
 void on_item_quit_activate (GtkWidget *widget, gpointer data){
