@@ -5,6 +5,8 @@ static const int BLACK_HOLE = 30;
 
 gboolean on_timeout (gpointer data);
 
+void apply_image_transforms (Mydata *data);
+
 void draw_curves (cairo_t *cr, Curve_infos *ci);
 
 void draw_control_labels(cairo_t *cr, PangoLayout *layout, Curve_infos *ci);
@@ -34,6 +36,8 @@ void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout);
 void draw_marble(cairo_t *cr, Marble * marble);
 
 void draw_marbles(cairo_t *cr, Game * game);
+
+void draw_title (Mydata * my, cairo_t *cr);
 
 void switch_shot_color(cairo_t *cr,int color);
 

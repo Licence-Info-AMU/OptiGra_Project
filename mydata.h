@@ -27,6 +27,7 @@ typedef struct {
 	GtkWidget *vertical;
 	GtkWidget *edit_radios[EDIT_LAST];
 	GtkWidget *bsp_radios[BSP_LAST];
+	GdkPixbuf *pixbuf;
 	double click_x,click_y,last_x, last_y;
     int win_width,win_height;
     int show_edit;

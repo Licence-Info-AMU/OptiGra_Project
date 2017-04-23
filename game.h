@@ -19,9 +19,11 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER,BS_MARBLE_EXPLO
 #define BONUS_TIME 5 //en secondes
 #define SCORE_PENALITY 5;
 static const char RESOURCES_DIR[] = "Resources/";
+static const char IMAGE_DIR[] = "Image/";
 static const char LEVEL_DIR[] = "Level/";
 static const char TRACK_DIR[] = "Track/";
 static const char TRACK_EXTENSION[] = ".track";
+static const char LOGO_HORIZON[] = "Logohorizon.jpg";
 static const int MARBLE_RAYON = 20; //Rayon
 static const int MARBLE_DIAMETRE = 40; //Diametre
 static const int MARBLE_DIAMETRE2 = 1600; //Diametre au carré

@@ -36,6 +36,14 @@ gboolean on_timeout (gpointer data){
 	return TRUE;
 }	
 
+void apply_image_transforms (Mydata *data) {	
+	Mydata *my = get_mydata(data);	
+	if (my->pixbuf == NULL) return;
+	GdkPixbuf *tmp = my->pixbuf;	
+	my->pixbuf = gdk_pixbuf_scale_simple (tmp, my->win_width, (my->win_height - 70), GDK_INTERP_BILINEAR);
+	g_object_unref (tmp);
+}
+
 // Gestion DrawingArea : refresh, scale, rotation
 
 void draw_control_polygons (cairo_t *cr, Curve_infos *ci) {
@@ -73,17 +81,21 @@ gboolean on_area_key_press (GtkWidget *area, GdkEvent *event, gpointer data){
     Mydata *my = get_mydata(data);
     GdkEventKey *evk = &event->key;
     printf ("%s: GDK_KEY_%s\n",    __func__, gdk_keyval_name(evk->keyval));
-    switch (evk->keyval) {
-        case GDK_KEY_q : gtk_widget_destroy(my->window); break;
-        case GDK_KEY_a : set_edit_mode (my, EDIT_ADD_CURVE); break;
-        case GDK_KEY_z : set_edit_mode (my, EDIT_MOVE_CURVE); break;
-        case GDK_KEY_e : set_edit_mode (my, EDIT_REMOVE_CURVE); break;
-        case GDK_KEY_r : set_edit_mode (my, EDIT_ADD_CONTROL); break;
-        case GDK_KEY_t : set_edit_mode (my, EDIT_MOVE_CONTROL); break;
-        case GDK_KEY_y : set_edit_mode (my, EDIT_REMOVE_CONTROL); break;
-        case GDK_KEY_p : game_pause(&my->game); break;
-        case GDK_KEY_space : swap_ammo(&my->game); break;
-    }
+    if(my->game.state != GS_HELLO){
+		switch (evk->keyval) {
+			case GDK_KEY_q : gtk_widget_destroy(my->window); break;
+			case GDK_KEY_a : set_edit_mode (my, EDIT_ADD_CURVE); break;
+			case GDK_KEY_z : set_edit_mode (my, EDIT_MOVE_CURVE); break;
+			case GDK_KEY_e : set_edit_mode (my, EDIT_REMOVE_CURVE); break;
+			case GDK_KEY_r : set_edit_mode (my, EDIT_ADD_CONTROL); break;
+			case GDK_KEY_t : set_edit_mode (my, EDIT_MOVE_CONTROL); break;
+			case GDK_KEY_y : set_edit_mode (my, EDIT_REMOVE_CONTROL); break;
+			case GDK_KEY_p : game_pause(&my->game); break;
+			case GDK_KEY_space : swap_ammo(&my->game); break;
+		}
+	}else{
+		my->game.state = GS_PLAYING;
+	}
     return TRUE;
 }
 
@@ -204,7 +216,16 @@ gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){
 			draw_marbles(cr,&my->game);
 			draw_marbles_bonus_labels(cr,&my->game,layout);
 		}
-		
+	}else if(my->game.state == GS_HELLO){
+		gtk_widget_hide (my->playerStatsFrame);
+		if((my->pixbuf != NULL)){
+			int pix_width = gdk_pixbuf_get_width(my->pixbuf);
+			int pix_height = gdk_pixbuf_get_height(my->pixbuf);
+			gdk_cairo_set_source_pixbuf(cr,my->pixbuf,0,0);
+			cairo_rectangle (cr, 0.0, 0.0, pix_width, pix_height);
+			cairo_fill (cr);
+		}
+		draw_title(my,cr);
 	}
 	g_object_unref (layout);
     return TRUE;
@@ -462,6 +483,26 @@ void draw_marbles(cairo_t *cr, Game * game){
 		if(i >= 0)
 			draw_marble(cr,&track->marbles[i]);
 	}
+}
+
+void draw_title (Mydata * my, cairo_t *cr){
+	// Background
+	if (my->pixbuf == NULL){
+		char logo_Horizon[50];
+		sprintf(logo_Horizon,"%s%s%s",RESOURCES_DIR,IMAGE_DIR,LOGO_HORIZON);
+		g_clear_object(&my->pixbuf);
+		my->pixbuf = gdk_pixbuf_new_from_file(logo_Horizon, NULL);
+		if (my->pixbuf == NULL) { 
+			set_status(my->status, "Loading failed : not an image.");
+		}else{
+			apply_image_transforms (my);
+			refresh_area (my->area);
+		}
+	}	
+	//titre-nom
+	PangoLayout *layout = pango_cairo_create_layout (cr);
+	font_set_name(layout,"Courier New, 30");
+	font_draw_text (cr,layout,FONT_TC,(my->win_width/2),(my->win_height * ((double)1/4)), "Marble Horizon\n Gaëtan Perrot\nFLorian Duarte");
 }
 
 void update_Player_Frame(Mydata * my){

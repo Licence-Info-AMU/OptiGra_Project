@@ -388,7 +388,7 @@ void move_trains_one_step(Game * game){
 		}		
 	}else if(game->state == GS_LOST){
 		track->marbles_speed = MARBLE_SPEED_END_GAME;
-		for(int i = track->first_visible; i < track->marble_count;++i){
+		for(int i = 0; i < track->marble_count;++i){
 			tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, track->marbles_speed, &xb, &yb);
 			if(tb >= 0){
 				track->marbles[i].x = xb;
@@ -505,7 +505,7 @@ void init_track(Game * game){
 	Track * track = &game->track_list.tracks[0];
 	Curve_infos ci;
 	init_curve_infos(&ci);
-	char level[30];
+	char level[35];
 	sprintf(level,"%s%s%s%d%s",RESOURCES_DIR,LEVEL_DIR,TRACK_DIR,game->current_level,TRACK_EXTENSION);
 	if(load_curve_from_file(&ci,level)< 0)
 		perror("Load Impossible");
