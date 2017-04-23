@@ -449,7 +449,9 @@ void update_canon_angle(Game * game, double sx, double sy){
 }
 
 void load_cannon_image(Game * game){
-	game->canon.image = cairo_image_surface_create_from_png (GAME_CANNON);
+	char canon_image[35];
+	sprintf(canon_image,"%s%s%s",RESOURCES_DIR,IMAGE_DIR,GAME_CANNON);
+	game->canon.image = cairo_image_surface_create_from_png (canon_image);
 }
 
 void update_x_and_y_canon(Game * game,int height, int width){
