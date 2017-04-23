@@ -39,6 +39,16 @@ static const int MARBLE_RAYON = 20; //Rayon
 static const int MARBLE_DIAMETRE = 40; //Diametre
 static const int MARBLE_DIAMETRE2 = 1600; //Diametre au carré
 
+/**
+ * \struct Canon
+ * \brief Objet contenant les informations pour un canon
+ *
+ * Objet contenant les informations pour un canon
+ * double cx, cy;    // centre canon
+ * double angle;     // en radians
+ * int ammo1, ammo2;
+ * cairo_surface_t *image;
+ */
 typedef struct {
   double cx, cy;    // centre canon
   double angle;     // en radians
@@ -46,17 +56,46 @@ typedef struct {
   cairo_surface_t *image;
 } Canon;
 
+/**
+ * \struct Shot
+ * \brief Objet contenant les informations pour un shot
+ *
+ * Objet contenant les informations pour un shot
+ * double x, y;      // coordonnÃ©es centre
+ * double dx, dy;    // vecteur dÃ©placement
+ * int color;
+ */
 typedef struct {
   double x, y;      // coordonnÃ©es centre
   double dx, dy;    // vecteur dÃ©placement
   int color;
 } Shot;
 
+/**
+ * \struct Shot_list
+ * \brief Objet contenant les informations pour un Shot_list
+ *
+ * Objet contenant les informations pour un Shot_list
+ * int shot_count;
+ * Shot shots[SHOT_MAX];
+ */
 typedef struct {
   int shot_count;
   Shot shots[SHOT_MAX];
 } Shot_list;
 
+/**
+ * \struct Marble
+ * \brief Objet contenant les informations pour un Marble
+ *
+ * Objet contenant les informations pour un Marble
+ * double x, y;      // coordonnÃ©es centre
+ * double t;         // paramÃ¨tre dans l'Ã©chantillonnage
+ * int color;
+ * int is_combo_end; // ou encore, facteur vitesse et direction ?
+ * int step_explode;
+ * int bonus;
+ */
 typedef struct {
   double x, y;      // coordonnÃ©es centre
   double t;         // paramÃ¨tre dans l'Ã©chantillonnage
@@ -66,6 +105,20 @@ typedef struct {
   int bonus;
 } Marble;
 
+/**
+ * \struct Track
+ * \brief Objet contenant les informations pour un Track
+ *
+ * Objet contenant les informations pour un Track
+ * int    sample_count;          // Ã©chantillonnage courbe
+ * double sample_x[SAMPLE_MAX], 
+ * sample_y[SAMPLE_MAX];
+ * int marble_count;
+ * int first_visible;
+ * double marbles_speed;
+ * Marble marbles[MARBLE_MAX];
+ * Track_state state;
+ */
 typedef struct {
   int    sample_count;          // Ã©chantillonnage courbe
   double sample_x[SAMPLE_MAX], 
@@ -77,27 +130,68 @@ typedef struct {
   Track_state state;
 } Track;
 
+/**
+ * \struct Track_list
+ * \brief Objet contenant les informations pour un Track_list
+ *
+ * Objet contenant les informations pour un Track_list
+ * int track_count;
+ * Track tracks[TRACK_MAX];
+ */
 typedef struct {
   int track_count;
   Track tracks[TRACK_MAX];
 } Track_list;
 
+/**
+ * \struct Level
+ * \brief Objet contenant les informations pour un Level
+ *
+ * Objet contenant les informations pour un Level
+ * Curve_infos curve_infos;
+ * double canon_x, canon_y;
+ * int marbles_intro, marbles_total;
+ */
 typedef struct {
   Curve_infos curve_infos;
   double canon_x, canon_y;
   int marbles_intro, marbles_total;
 } Level;
 
+/**
+ * \struct Level_list
+ * \brief Objet contenant les informations pour un Level_list
+ *
+ * Objet contenant les informations pour un Level_list
+ * int level_count;
+ * Level levels[LEVEL_MAX];
+ */
 typedef struct {
-  int level_count;
-  Level levels[LEVEL_MAX];
+	int level_count;
+	Level levels[LEVEL_MAX];
 } Level_list;
 
+/**
+ * \struct Bonus
+ * \brief Objet contenant les informations pour un Bonus
+ *
+ * Objet contenant les informations pour un Bonus
+ * Bonus_state b_state;
+ * int seconds; //temps restant du bonus en seconde
+ */
 typedef struct {
 	Bonus_state b_state;
 	int seconds; //temps restant du bonus en seconde
 } Bonus;
 
+/**
+ * \struct Track_list
+ * \brief Objet contenant les informations pour un Track_list
+ *
+ * Objet contenant les informations pour un Track_list
+ * int track_count;
+ * Track tracks[TRACK_MAX];
+ */
 typedef struct {
   Game_state state;
   Bonus bonus;

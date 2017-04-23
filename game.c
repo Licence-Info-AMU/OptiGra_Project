@@ -111,7 +111,7 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		while(track->marbles[cptTmp+groupSizeTmp].bonus == BS_MARBLE_EXPLOSIVE){
 			groupSizeTmp++;
 		}
-		while(track->marbles[cptTmp+1].bonus == BS_MARBLE_EXPLOSIVE){ //Marble Explosive
+		while((track->marbles[cptTmp+1].bonus == BS_MARBLE_EXPLOSIVE) && (cptTmp >= track->first_visible) && (track->marble_count >= 0) && (cptTmp >= 0)){ //Marble Explosive
 			cptTmp--;
 			groupSizeTmp++;
 		}
