@@ -24,6 +24,7 @@ void on_app_activate (GtkApplication* app, gpointer user_data){
 	layout_init(my);               
 	gtk_widget_show_all (my->window);
 	gtk_widget_hide (my->frame);
+	gtk_widget_hide (my->playerStatsFrame);
     timeout = g_timeout_add (20, on_timeout, my);
 }
 

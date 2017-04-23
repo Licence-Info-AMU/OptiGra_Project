@@ -13,21 +13,23 @@ gboolean on_timeout (gpointer data){
 	Mydata *my = get_mydata(data);
 	if((my->area != NULL) && (my->levelLabel != NULL) && (my->window != NULL)){
 		my->count++;
-		if(my->show_edit == FALSE){
-			progress_game_next_step(&my->game,my->win_width,my->win_height);
-			if(my->game.state != GS_LOST && my->levelLabel != NULL)
-				update_Player_Frame(my);
-		}
-		if(my->game.state == GS_LOST){
-			char str[100];
-			sprintf(str,"You loose... Votre score : %d",my->game.score);
-			set_status(my->status, str);
-			if(my->game.track_list.tracks[0].marble_count == 0){
-				game_over_message_dialog(my);
+		if(my->game.state != GS_HELLO){
+			if(my->show_edit == FALSE){
+				progress_game_next_step(&my->game,my->win_width,my->win_height);
+				if(my->game.state != GS_LOST && my->levelLabel != NULL)
+					update_Player_Frame(my);
 			}
-		}else if (my->game.state == GS_WON){
-			printf("change level\n");
-			change_level(&my->game,my->win_height,my->win_width);	
+			if(my->game.state == GS_LOST){
+				char str[100];
+				sprintf(str,"You loose... Votre score : %d",my->game.score);
+				set_status(my->status, str);
+				if(my->game.track_list.tracks[0].marble_count == 0){
+					game_over_message_dialog(my);
+				}
+			}else if (my->game.state == GS_WON){
+				printf("change level\n");
+				change_level(&my->game,my->win_height,my->win_width);	
+			}
 		}
 		refresh_area (my->area);
 	}

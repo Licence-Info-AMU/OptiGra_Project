@@ -30,13 +30,11 @@ void sample_curve_to_track (Curve *curve, Track *track, double theta){
 
 void shoot_ammo(Game * game){
 	if(game->shot_list.shot_count < SHOT_MAX){
-		Shot shot;
-		shot.dx = cos(game->canon.angle);
-		shot.dy = sin(game->canon.angle);
-		shot.x =  game->canon.cx + game->shot_list.shots[game->shot_list.shot_count].dx* 50;
-		shot.y =  game->canon.cy + game->shot_list.shots[game->shot_list.shot_count].dy * 50;
-		shot.color = game->canon.ammo1;
-		game->shot_list.shots[game->shot_list.shot_count] = shot;
+		game->shot_list.shots[game->shot_list.shot_count].dx = cos(game->canon.angle);
+		game->shot_list.shots[game->shot_list.shot_count].dy = sin(game->canon.angle);
+		game->shot_list.shots[game->shot_list.shot_count].x =  game->canon.cx + game->shot_list.shots[game->shot_list.shot_count].dx* 50;
+		game->shot_list.shots[game->shot_list.shot_count].y =  game->canon.cy + game->shot_list.shots[game->shot_list.shot_count].dy * 50;
+		game->shot_list.shots[game->shot_list.shot_count].color = game->canon.ammo1;
 		game->shot_list.shot_count++;
 		prepare_ammo(game);
 	}

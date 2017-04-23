@@ -26,6 +26,7 @@ void on_item_new_level_activate(GtkWidget *widget, gpointer data){
 	Mydata *my = get_mydata(data);
 	my->show_edit = TRUE;
 	gtk_widget_show (my->frame);
+	gtk_widget_hide (my->playerStatsFrame);
 	init_curve_infos(&my->curve_infos);
 }
 
@@ -36,6 +37,7 @@ void on_item_load_level_activate(GtkWidget *widget, gpointer data){
     gint res;
 	my->show_edit = TRUE;
 	gtk_widget_show (my->frame);
+	gtk_widget_hide (my->playerStatsFrame);
     dialog = gtk_file_chooser_dialog_new ("Load Track",
                                           GTK_WINDOW(my->window),action,"Cancel",GTK_RESPONSE_CANCEL,"Open",GTK_RESPONSE_ACCEPT,NULL);
     if (my->current_folder != NULL) 
@@ -68,6 +70,7 @@ void on_item_save_activate(GtkWidget *widget, gpointer data){
 	gint res;
 	my->show_edit = TRUE;
 	gtk_widget_show (my->frame);
+	gtk_widget_hide (my->playerStatsFrame);
 	dialog = gtk_file_chooser_dialog_new ("Save File",GTK_WINDOW(my->window),action,("Cancel"),GTK_RESPONSE_CANCEL,("Save"),GTK_RESPONSE_ACCEPT,NULL);
 	chooser = GTK_FILE_CHOOSER (dialog);
 
@@ -102,6 +105,7 @@ void on_item_new_game_activate(GtkWidget *widget, gpointer data){
 	my->show_edit = FALSE;
 	gtk_widget_hide (my->frame);
 	reset_game(&my->game,my->win_height,my->win_width);
+	gtk_widget_show (my->playerStatsFrame);
 	set_status(my->status, "New Game !");
 }
 
@@ -110,6 +114,7 @@ void on_item_re_start_activate(GtkWidget *widget, gpointer data){
 	my->show_edit = FALSE;
 	gtk_widget_hide (my->frame);
 	restart_game(&my->game,my->win_height,my->win_width);
+	gtk_widget_show (my->playerStatsFrame);
 	set_status(my->status, "Game Restart !");
 }
 
@@ -137,6 +142,7 @@ void on_item_edit_activate (GtkCheckMenuItem *widget, gpointer data){
     if (my->show_edit == TRUE) {
         set_status(my->status, "Editing is on");
         gtk_widget_show (my->frame);
+        gtk_widget_hide (my->playerStatsFrame);
     }
     else {
         set_status(my->status, "Editing is off");
