@@ -85,6 +85,8 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		cpt--;
 	}
 	if(group_size >= 3){
+		int cptTmp = cpt;
+        int groupSizeTmp = group_size;
 		if(combo == 2){
 			track->state = TS_COMBO2;
 		}else if(combo >= 3){
@@ -94,6 +96,15 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		for(int m = (cpt + 1); m <= (cpt+group_size+1);m++){
 			check_bonus(game,track,m);
 		}
+		while(track->marbles[cptTmp+1].bonus == BS_MARBLE_EXPLOSIVE){ //Marble Explosive
+			cptTmp--;
+			groupSizeTmp++;
+		}
+		while(track->marbles[cptTmp+groupSizeTmp].bonus == BS_MARBLE_EXPLOSIVE){
+			groupSizeTmp++;
+		}
+        cpt = cptTmp;
+        group_size = groupSizeTmp;
 		memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));       
 		track->marble_count -= group_size;
 		score += group_size * 10 * pow(2,combo);
@@ -117,18 +128,6 @@ void check_bonus_end(Game * game){
 		track->marbles_speed = MARBLE_SPEED;
 		game->bonus.seconds = 0;
 	}
-}
-
-int * get_10_best_scores(){
-    FILE* file = NULL;
-    int * score = (int*)calloc(10, sizeof(int)); // Tableau des 10 meilleurs scores
-    file = fopen("Resources/score.sav", "r");
-    if (file != NULL){
-        if(fscanf(file, "%d %d %d %d %d %d %d %d %d %d", &score[0], &score[1], &score[2], &score[3], &score[4], &score[5], &score[6], &score[7], &score[8],&score[9]) == 10)
-			printf("Les meilleurs scores sont : %d, %d, %d, %d, %d, %d, %d, %d, %d et %d", score[0], score[1], score[2], score[3], score[4], score[5], score[6], score[7], score[8],score[9]); 
-        fclose(file);
-    }
-    return score;	
 }
 
 //Fin GameUtils

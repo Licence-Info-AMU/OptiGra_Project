@@ -8,7 +8,7 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER,BS_MARBLE_EXPLO
 #define SHOT_MAX       10
 #define SHOT_SPEED      5
 #define TRACK_MAX      10
-#define MARBLE_MAX_AT_START    40
+#define MARBLE_MAX_AT_START    20
 #define MARBLE_MAX    200
 #define SAMPLE_MAX   1000 
 #define LEVEL_MAX      10
