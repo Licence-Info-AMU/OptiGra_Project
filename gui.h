@@ -1,3 +1,14 @@
+/**
+ * \file gui.h
+ * \brief Interface graphique
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Interface graphique
+ *
+ */
+
 #ifndef GUI_H
 #define GUI_H
 

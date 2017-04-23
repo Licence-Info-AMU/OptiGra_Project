@@ -1,3 +1,14 @@
+/**
+ * \file mydata.c
+ * \brief Mydata structure avec les objets principaux
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Mydata structure avec les objets principaux
+ *
+ */
+
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,3 +1,14 @@
+/**
+ * \file menus.c
+ * \brief Gestion des menus et évènements des menus
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Gestion des menus et évènements des menus
+ *
+ */
+ 
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>

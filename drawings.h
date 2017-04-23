@@ -1,3 +1,14 @@
+/**
+ * \file drawings.h
+ * \brief Fonctions de dessin dans area avec cairo
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Fonctions de dessin dans area avec cairo
+ *
+ */
+
 #ifndef DRAWINGS_H
 #define DRAWINGS_H
 

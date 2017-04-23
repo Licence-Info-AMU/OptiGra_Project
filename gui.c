@@ -1,3 +1,14 @@
+/**
+ * \file gui.c
+ * \brief Interface graphique
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Interface graphique
+ *
+ */
+
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>

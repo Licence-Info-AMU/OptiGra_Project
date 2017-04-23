@@ -1,3 +1,14 @@
+/**
+ * \file main-app.c
+ * \brief Main App
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Main App, fonctions principale
+ *
+ */
+
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>

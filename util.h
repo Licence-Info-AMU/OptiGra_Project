@@ -1,3 +1,14 @@
+/**
+ * \file util.h
+ * \brief Fonctions utiles
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Fonctions utiles
+ *
+ */
+
 #ifndef UTIL_H
 #define UTIL_H
 

@@ -1,3 +1,14 @@
+/**
+ * \file curve.h
+ * \brief Fonctions utiles de gestion des curves
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Fonctions utiles de gestion des curves
+ *
+ */
+ 
 #ifndef CURVE_H
 #define CURVE_H
 

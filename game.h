@@ -1,3 +1,14 @@
+/**
+ * \file game.h
+ * \brief Fonctions et objets principaux du jeu
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Fonctions et objets principaux du jeu
+ *
+ */
+
 #ifndef GAME_H
 #define GAME_H
 

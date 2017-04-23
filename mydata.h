@@ -1,3 +1,14 @@
+/**
+ * \file mydata.h
+ * \brief Mydata structure avec les objets principaux
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Mydata structure avec les objets principaux
+ *
+ */
+
 #ifndef MYDATA_H
 #define MYDATA_H
 

@@ -1,3 +1,14 @@
+/**
+ * \file curve.c
+ * \brief Fonctions utiles de gestion des curves
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Fonctions utiles de gestion des curves
+ *
+ */
+ 
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>

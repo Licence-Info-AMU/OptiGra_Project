@@ -1,3 +1,14 @@
+/**
+ * \file drawings.c
+ * \brief Fonctions de dessin dans area avec cairo
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Fonctions de dessin dans area avec cairo
+ *
+ */
+
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -95,6 +106,7 @@ gboolean on_area_key_press (GtkWidget *area, GdkEvent *event, gpointer data){
 		}
 	}else{
 		my->game.state = GS_PLAYING;
+		gtk_widget_show (my->playerStatsFrame);
 	}
     return TRUE;
 }

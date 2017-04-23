@@ -1,3 +1,14 @@
+/**
+ * \file game.c
+ * \brief Fonctions et objets principaux du jeu
+ * \author Gaëtan Perrot
+ * \version 0.1
+ * \date 23 avril 2017
+ *
+ * Fonctions et objets principaux du jeu
+ *
+ */
+
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -96,15 +107,17 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 		for(int m = (cpt + 1); m <= (cpt+group_size+1);m++){
 			check_bonus(game,track,m);
 		}
+		//Début Bonus Marble Explosive
+		while(track->marbles[cptTmp+groupSizeTmp].bonus == BS_MARBLE_EXPLOSIVE){
+			groupSizeTmp++;
+		}
 		while(track->marbles[cptTmp+1].bonus == BS_MARBLE_EXPLOSIVE){ //Marble Explosive
 			cptTmp--;
 			groupSizeTmp++;
 		}
-		while(track->marbles[cptTmp+groupSizeTmp].bonus == BS_MARBLE_EXPLOSIVE){
-			groupSizeTmp++;
-		}
         cpt = cptTmp;
         group_size = groupSizeTmp;
+        //Fin Bonus Marble Explosive
 		memmove (track->marbles+cpt+1, track->marbles+cpt+group_size+1, sizeof(Marble)*(track->marble_count-group_size-cpt));       
 		track->marble_count -= group_size;
 		score += group_size * 10 * pow(2,combo);
