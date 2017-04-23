@@ -72,10 +72,11 @@ void game_pause(Game * game){
 }
 
 int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_id_start,int score,int combo){
-	printf("marble_id : %d\n",marble_id_start);
 	int cpt = marble_id_start + 1;
 	int group_size = 1;
 	int group_color = track->marbles[marble_id_start].color;
+	if(combo < 2)
+		track->state = TS_NORMAL;
 	while ((track->marbles[cpt].color == group_color) && (cpt < track->marble_count) && (track->marble_count >= 0)) {
 		group_size++;
 		cpt++;
@@ -147,6 +148,7 @@ void suppress_far_shots(Game * game,int screen_width, int screen_height){
 		if( (game->shot_list.shots[i].x < 0) || (game->shot_list.shots[i].y < 0) || (game->shot_list.shots[i].y > screen_height) || (game->shot_list.shots[i].x > screen_width)){
 			memmove (game->shot_list.shots+i, game->shot_list.shots+i+1, sizeof(Shot)*(game->shot_list.shot_count-1-i));
 			game->shot_list.shot_count--;
+			game->score -= SCORE_PENALITY;
 		}
 	}
 }
@@ -266,13 +268,51 @@ void process_shots_collisions (Game * game) {
     }
 }
 
-
 void move_trains_one_step(Game * game){
 	Track * track = &game->track_list.tracks[0];
 	double tb,xb,yb,dx,dy,dist;
 	if(game->state == GS_PLAYING){
 		if(track->state == TS_COMBO2){
-			
+			tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, track->marbles_speed, &xb, &yb);
+			if(tb >= 0){
+				track->marbles[track->first_visible].x = xb;
+				track->marbles[track->first_visible].y = yb;
+				track->marbles[track->first_visible].t = tb;
+			}
+			dx = track->marbles[track->first_visible].x - track->sample_x[0];
+			dy = track->marbles[track->first_visible].y - track->sample_y[0];
+			dx *= dx;
+			dy *= dy;
+			dist = dx + dy;
+			if(dist > MARBLE_DIAMETRE2){
+				track->first_visible--;
+				tb = compute_distant_point_backward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, track->marbles_speed, &xb, &yb);
+				if(tb >= 0){
+					track->marbles[track->first_visible].x = xb;
+					track->marbles[track->first_visible].y = yb;
+					track->marbles[track->first_visible].t = tb;
+				}
+			}
+			for(int i = track->first_visible+1; i < track->marble_count;++i){
+				tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, track->marbles_speed, &xb, &yb);
+				dx = (track->marbles[i].x - track->marbles[i - 1].x);            
+				dy = (track->marbles[i].y - track->marbles[i - 1].y);            
+				dx *= dx;
+				dy *= dy;
+				dist = dx + dy; 
+				if((tb >= 0) && (dist < MARBLE_DIAMETRE2)){
+					track->marbles[i].x = xb;
+					track->marbles[i].y = yb;
+					track->marbles[i].t = tb;
+				}else{
+					tb = compute_distant_point_backward(track->sample_x, track->sample_y, track->marbles[i].t, track->sample_count, 2, &xb, &yb);
+					if (tb >= 0){ 
+						track->marbles[i].x = xb; 
+						track->marbles[i].y = yb; 
+						track->marbles[i].t = tb;
+					}			
+				}
+			}
 		}else if(track->state == TS_COMBO3){
 			if(track->first_visible < track->marble_count){
 				tb = compute_distant_point_backward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, track->marbles_speed, &xb, &yb); 
@@ -305,6 +345,13 @@ void move_trains_one_step(Game * game){
 				track->state = TS_NORMAL;
 			}
 		}else{
+			if(track->first_visible == (track->marble_count * (3/4)))
+				track->state = TS_NORMAL;
+			if(track->state == TS_INTRO){
+				track->marbles_speed *= 2;
+			}else{
+				track->marbles_speed = MARBLE_SPEED + game->levelSupSpeedMalus;
+			}
 			tb = compute_distant_point_forward (track->sample_x, track->sample_y, track->marbles[track->first_visible].t, track->sample_count, track->marbles_speed, &xb, &yb);
 			if(tb >= 0){
 				track->marbles[track->first_visible].x = xb;
@@ -381,11 +428,11 @@ void progress_game_next_step(Game * game,int screen_width, int screen_height){
 	if( (game->state != GS_PAUSE)){
 		check_end_of_game(game);
 		check_bonus_end(game);
-		move_shots_one_step(game);
 		suppress_far_shots(game,screen_width, screen_height);
 		if(game->bonus.b_state != BS_TIME_STOP){
 			move_trains_one_step(game);
 		}
+		move_shots_one_step(game);
 		process_shots_collisions(game);
 	}
 }
@@ -461,14 +508,14 @@ void init_track(Game * game){
 	Curve_infos ci;
 	init_curve_infos(&ci);
 	char level[30];
-	sprintf(level,"%s%s%d%s",LEVEL_DIR,TRACK_DIR,game->current_level,TRACK_EXTENSION);
+	sprintf(level,"%s%s%s%d%s",RESOURCES_DIR,LEVEL_DIR,TRACK_DIR,game->current_level,TRACK_EXTENSION);
 	if(load_curve_from_file(&ci,level)< 0)
 		perror("Load Impossible");
 	sample_curve_to_track (&ci.curve_list.curves[ci.current_curve],track, SAMPLE_THETA);
 	game->level_list.levels[game->current_level].curve_infos = ci;
 	create_marbles(track,game->current_level);
 	track->state = TS_INTRO;
-	track->marbles_speed = MARBLE_SPEED;
+	track->marbles_speed = MARBLE_SPEED + game->levelSupSpeedMalus;
 }
 
 void init_shots(Game * game){
@@ -508,6 +555,7 @@ void change_level(Game * game,int height, int width){
 		game->current_level++;
 	}else{
 		game->current_level = 0;
+		game->levelSupSpeedMalus += MARBLE_SPEED/2;
 	}
 	init_game(game,height,width);
 	game->score = score;

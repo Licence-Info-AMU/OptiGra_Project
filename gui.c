@@ -32,7 +32,8 @@ void window_init (GtkApplication* app, gpointer user_data){
 void editing_init (Mydata *data) {
     Mydata *my = get_mydata(data);
     GtkWidget *vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
-	GtkWidget *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL); 
+	GtkWidget *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+	GtkWidget * spin_button_nb_marble = gtk_spin_button_new_with_range(10,MARBLE_MAX/2,1);
     my->frame = gtk_frame_new ("Editing");
     char *edit_radios_noms[6] = {"Add curve", "Move curve", "Remove curve", "Add control", 
                     "Move control", "Remove control"};  
@@ -56,6 +57,9 @@ void editing_init (Mydata *data) {
 		g_signal_connect (my->bsp_radios[j], "toggled", G_CALLBACK(on_bsp_radio_toggled), my);
         gtk_box_pack_start (GTK_BOX (vbox2), my->bsp_radios[j], FALSE, FALSE, 0);
 	}
+	
+	gtk_container_add (GTK_CONTAINER (vbox2), spin_button_nb_marble);
+	
     gtk_container_add (GTK_CONTAINER (my->frame), vbox2);
 }
 

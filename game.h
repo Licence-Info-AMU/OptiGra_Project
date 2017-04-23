@@ -8,15 +8,17 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER,BS_MARBLE_EXPLO
 #define SHOT_MAX       10
 #define SHOT_SPEED      5
 #define TRACK_MAX      10
-#define MARBLE_MAX_AT_START    3
+#define MARBLE_MAX_AT_START    40
 #define MARBLE_MAX    200
 #define SAMPLE_MAX   1000 
 #define LEVEL_MAX      10
 #define SAMPLE_THETA    0.05
-#define MARBLE_SPEED 1
+#define MARBLE_SPEED 2
 #define MARBLE_SPEED_END_GAME 10
 #define GAME_CANNON "canon.png"
 #define BONUS_TIME 5 //en secondes
+#define SCORE_PENALITY 5;
+static const char RESOURCES_DIR[] = "Resources/";
 static const char LEVEL_DIR[] = "Level/";
 static const char TRACK_DIR[] = "Track/";
 static const char TRACK_EXTENSION[] = ".track";
@@ -89,6 +91,7 @@ typedef struct {
   int current_level;
   int score;
   int score_level_before;
+  int levelSupSpeedMalus;
   Canon canon;
   Shot_list shot_list;
   Track_list track_list;
