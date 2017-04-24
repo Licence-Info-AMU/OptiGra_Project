@@ -228,7 +228,7 @@ gboolean on_area_draw (GtkWidget *area, cairo_t *cr, gpointer data){
 			draw_marbles(cr,&my->game);
 			draw_marbles_bonus_labels(cr,&my->game,layout);
 		}
-	}else if(my->game.state == GS_HELLO){
+	}else if((my->game.state == GS_HELLO) && (my->show_edit == FALSE)){
 		gtk_widget_hide (my->playerStatsFrame);
 		if((my->pixbuf != NULL)){
 			int pix_width = gdk_pixbuf_get_width(my->pixbuf);
