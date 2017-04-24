@@ -17,12 +17,26 @@
 #include "util.h"
 #include "curve.h"
 
+/**
+ * \fn void init_curve_infos(Curve_infos *ci)
+ * \brief Fonction d'initialisation d'une Curve_infos
+ *
+ * \param self Objet Curve_infos
+ * \return void
+ */
 void init_curve_infos(Curve_infos *ci){
 	ci->curve_list.curve_count = 0;
 	ci->current_control = -1;
 	ci->current_curve = -1;
 }
 
+/**
+ * \fn int add_curve (Curve_infos *ci)
+ * \brief Fonction d'ajout d'une courbe
+ *
+ * \param self Objet Curve_infos
+ * \return int nombre de courbe total
+ */
 int add_curve (Curve_infos *ci) {
     if (ci->curve_list.curve_count == CURVE_MAX) {
         ci->current_curve = -1;
@@ -38,6 +52,13 @@ int add_curve (Curve_infos *ci) {
     return n;
 }
 
+/**
+ * \fn int add_control (Curve_infos *ci, double x, double y)
+ * \brief Fonction d'ajout d'un point de control
+ *
+ * \param self Objet Curve_infos, double coordonnée x , double coordonnée y
+ * \return int nombre de point de control total
+ */
 int add_control (Curve_infos *ci, double x, double y) {
     int n = ci->current_curve;    
     Curve *curve = &ci->curve_list.curves[n];
@@ -342,6 +363,13 @@ double compute_distant_point_backward (double sx[], double sy[], double tA, int 
   return t;
 }
 
+/**
+ * \fn int save_curve_to_file (Curve_infos *ci,char *filename)
+ * \brief Fonction de sauvegarde d'une curve infos dans un fichier .track
+ *
+ * \param self Objet Curve_infos, char *filename le nom du fichier
+ * \return int retourne 1 si tout c'est bien passé et -1 si la sauvegarde a échoué
+ */
 int save_curve_to_file (Curve_infos *ci,char *filename){
 	if(ci != NULL){
 		FILE* file = NULL;
@@ -364,6 +392,13 @@ int save_curve_to_file (Curve_infos *ci,char *filename){
 	return -1;
 }
 
+/**
+ * \fn int load_curve_from_file(Curve_infos *ci,char *filename)
+ * \brief Fonction de chargement d'une curve infos depuis un fichier .track
+ *
+ * \param self Objet Curve_infos, char *filename le nom du fichier
+ * \return int int retourne 1 si tout c'est bien passé et -1 si le chargement a échoué
+ */
 int load_curve_from_file(Curve_infos *ci,char *filename){
 	FILE* file = NULL;
 	file = fopen (filename, "r");

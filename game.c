@@ -20,6 +20,14 @@
 #include "util.h"
 
 //Début GameUtils
+
+/**
+ * \fn void sample_curve_to_track (Curve *curve, Track *track, double theta)
+ * \brief Fonction de conversion d'une curve en une track
+ *
+ * \param self Objet Curve *curve, Track *track, double theta
+ * \return void
+ */
 void sample_curve_to_track (Curve *curve, Track *track, double theta){
   Control bez_points[4];
   int ind = 0;
@@ -39,6 +47,13 @@ void sample_curve_to_track (Curve *curve, Track *track, double theta){
   track->sample_count = ind;
 }
 
+/**
+ * \fn int load_curve_from_file(Curve_infos *ci,char *filename)
+ * \brief Fonction pour tirer un shot
+ *
+ * \param self Objet Game
+ * \return void
+ */
 void shoot_ammo(Game * game){
 	if(game->shot_list.shot_count < SHOT_MAX){
 		game->shot_list.shots[game->shot_list.shot_count].dx = cos(game->canon.angle);
@@ -51,6 +66,13 @@ void shoot_ammo(Game * game){
 	}
 }
 
+/**
+ * \fn int is_color_on_track(Track * track, int color)
+ * \brief Fonction pour chercher si une couleur est dans la track
+ *
+ * \param self Objet Track * track, int color
+ * \return retourne 1 si la couleur est déjà dans la track et 0 si elle ne l'ait pas
+ */
 int is_color_on_track(Track * track, int color){
 	for (int i = 0; i < track->marble_count; i++) {
 		if(track->marbles[i].color == color)
@@ -59,6 +81,13 @@ int is_color_on_track(Track * track, int color){
 	return 0;
 }
 
+/**
+ * \fn void prepare_ammo(Game * game)
+ * \brief Fonction pour préparer les balles du canon après un tir
+ *
+ * \param self Objet Game
+ * \return void
+ */
 void prepare_ammo(Game * game){
 	Track * track = &game->track_list.tracks[0];
 	game->canon.ammo1 = game->canon.ammo2;
@@ -67,12 +96,26 @@ void prepare_ammo(Game * game){
 	}while((is_color_on_track(track,game->canon.ammo2) == 0));
 }
 
+/**
+ * \fn void swap_ammo(Game * game)
+ * \brief Fonction pour echanger les balles du canon
+ *
+ * \param self Objet Game
+ * \return void
+ */
 void swap_ammo(Game * game){
 	int tmp = game->canon.ammo1;
 	game->canon.ammo1 = game->canon.ammo2;
 	game->canon.ammo2 = tmp;
 }
 
+/**
+ * \fn void game_pause(Game * game)
+ * \brief Fonction pour mettre en pause le jeu si il ne l'est pas sinon le remet en mode playing
+ *
+ * \param self Objet Game
+ * \return void
+ */
 void game_pause(Game * game){
 	if(game->state == GS_PAUSE)
 		game->state = GS_PLAYING;
@@ -80,6 +123,13 @@ void game_pause(Game * game){
 		game->state = GS_PAUSE;
 }
 
+/**
+ * \fn int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_id_start,int score,int bonus)
+ * \brief Fonction pour calculer le score obtenu après un tir
+ *
+ * \param self Objet Game * game,Track * track, int marble_id_start,int score,int bonus
+ * \return int
+ */
 int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_id_start,int score,int combo){
 	int cpt = marble_id_start + 1;
 	int group_size = 1;
@@ -126,6 +176,13 @@ int calcule_score_with_marble_group_size(Game * game,Track * track, int marble_i
 	return score;
 }
 
+/**
+ * \fn void check_bonus(Game * game,Track * track,int marble)
+ * \brief Fonction pour vérifier si il y a un bonus
+ *
+ * \param self Objet Game * game,Track * track,int marble
+ * \return void
+ */
 void check_bonus(Game * game,Track * track,int marble){
 	if(track->marbles[marble].bonus == BS_TIME_STOP){
 		time_stop(game);
@@ -134,6 +191,13 @@ void check_bonus(Game * game,Track * track,int marble){
 	}
 }
 
+/**
+ * \fn void check_bonus_end(Game * game)
+ * \brief Fonction pour vérifier un bonus est terminé
+ *
+ * \param self Objet Game
+ * \return void
+ */
 void check_bonus_end(Game * game){
 	Track * track = &game->track_list.tracks[0];
 	if(game->bonus.seconds <= recupTime()){
@@ -146,6 +210,14 @@ void check_bonus_end(Game * game){
 //Fin GameUtils
 
 //Début progress_game_next_step
+
+/**
+ * \fn void move_shots_one_step(Game * game)
+ * \brief Fonction pour avancer le shot
+ *
+ * \param self Objet Game
+ * \return void
+ */
 void move_shots_one_step(Game * game){
 	for(int i =0; i < game->shot_list.shot_count;++i){
 		game->shot_list.shots[i].x += game->shot_list.shots[i].dx * SHOT_SPEED;
@@ -153,6 +225,13 @@ void move_shots_one_step(Game * game){
 	}
 }
 
+/**
+ * \fn void suppress_far_shots(Game * game,int screen_width, int screen_height)
+ * \brief Fonction de suppression des tirs lointains
+ *
+ * \param self Objet Game * game,int screen_width, int screen_height
+ * \return void
+ */
 void suppress_far_shots(Game * game,int screen_width, int screen_height){
 	for(int i =0; i < game->shot_list.shot_count;++i){
 		if( (game->shot_list.shots[i].x < 0) || (game->shot_list.shots[i].y < 0) || (game->shot_list.shots[i].y > screen_height) || (game->shot_list.shots[i].x > screen_width)){
@@ -163,12 +242,26 @@ void suppress_far_shots(Game * game,int screen_width, int screen_height){
 	}
 }
 
+/**
+ * \fn void do_vector_product(double xu,double yu,double zu,double xv,double yv,double zv, double *x, double *y,double *z)
+ * \brief 
+ *
+ * \param self double xu,double yu,double zu,double xv,double yv,double zv, double *x, double *y,double *z)
+ * \return void
+ */
 void do_vector_product(double xu,double yu,double zu,double xv,double yv,double zv, double *x, double *y,double *z){
 	*x = yu*zv-yv*zu;
 	*y = xv*zu-xu*zv;
 	*z = xu*yv-xv*yu;
 }
 
+/**
+ * \fn int test_collision (Game * game, int *shot_num, int *marble_num, int track_num)
+ * \brief fonctione pour tester si il y a une colision entre un shot et une bille du train
+ *
+ * \param self Game * game, int *shot_num, int *marble_num, int track_num
+ * \return int renvoie 1 si il y a une colision et 0 sinon
+ */
 int test_collision (Game * game, int *shot_num, int *marble_num, int track_num) {
     int shot = 0, marble = 0;
     double dx, dy, dist2;
@@ -191,6 +284,13 @@ int test_collision (Game * game, int *shot_num, int *marble_num, int track_num) 
     return 0;
 }
 
+/**
+ * \fn void process_shots_collisions(Game * game)
+ * \brief insertion de la bille si il y a eu colision
+ *
+ * \param self Game * game
+ * \return void
+ */
 void process_shots_collisions (Game * game) {
     int shot_id = 0, marble_id = 0 ;
     Track * track = &game->track_list.tracks[0];
@@ -278,6 +378,13 @@ void process_shots_collisions (Game * game) {
     }
 }
 
+/**
+ * \fn void move_trains_one_step(Game * game)
+ * \brief Fonction pour faire avancer le train
+ *
+ * \param self Game * game
+ * \return void
+ */
 void move_trains_one_step(Game * game){
 	Track * track = &game->track_list.tracks[0];
 	double tb,xb,yb,dx,dy,dist;
@@ -417,6 +524,13 @@ void move_trains_one_step(Game * game){
 	}
 }
 
+/**
+ * \fn void check_end_of_game(Game * game)
+ * \brief Fonction pour vérifier si la partie est terminé
+ *
+ * \param self Game * game
+ * \return void
+ */
 void check_end_of_game(Game * game){
 	if(game->state == GS_PLAYING){
 		Track * track = &game->track_list.tracks[0];
@@ -434,6 +548,13 @@ void check_end_of_game(Game * game){
 		
 }
 
+/**
+ * \fn void progress_game_next_step(Game * game,int screen_width, int screen_height)
+ * \brief Fonction d'étape du jeu (boucle principale)
+ *
+ * \param self Game * game,int screen_width, int screen_height
+ * \return void
+ */
 void progress_game_next_step(Game * game,int screen_width, int screen_height){
 	if( (game->state != GS_PAUSE)){
 		check_end_of_game(game);
@@ -449,6 +570,14 @@ void progress_game_next_step(Game * game,int screen_width, int screen_height){
 //Fin progress_game_next_step
 
 //Début Initialisation
+
+/**
+ * \fn void update_x_and_y_canon(Game * game,int height, int width)
+ * \brief Fonction de mise à jour de la postion du canon par rapport à l'écran pour le centrer
+ *
+ * \param self Game * game,int screen_width, int screen_height
+ * \return void
+ */
 void update_canon_angle(Game * game, double sx, double sy){
 	double vx = sx - game->canon.cx;
 	double vy = sy - game->canon.cy;
@@ -460,23 +589,51 @@ void update_canon_angle(Game * game, double sx, double sy){
 	game->canon.angle = alpha;
 }
 
+/**
+ * \fn void load_cannon_image(Game * game)
+ * \brief Fonction pour charger l'image du canon
+ *
+ * \param self Game * game
+ * \return void
+ */
 void load_cannon_image(Game * game){
 	char canon_image[35];
 	sprintf(canon_image,"%s%s%s",RESOURCES_DIR,IMAGE_DIR,GAME_CANNON);
 	game->canon.image = cairo_image_surface_create_from_png (canon_image);
 }
 
+/**
+ * \fn void update_canon_angle(Game * game, double sx, double sy)
+ * \brief Fonction pour mettre à jour l'angle du canon
+ *
+ * \param self Game * game,double sx, double sy
+ * \return void
+ */
 void update_x_and_y_canon(Game * game,int height, int width){
 	game->canon.cx = width/2.0;
 	game->canon.cy = height/2.0;	
 }
 
+/**
+ * \fn void init_canon(Game * game, int height, int width)
+ * \brief Fonction pour l'initialisation du canon
+ *
+ * \param self Game * game,int height, int width
+ * \return void
+ */
 void init_canon(Game * game,int height, int width){
 	update_x_and_y_canon(game,height,width);
 	game->canon.angle = 0.0;
 	load_cannon_image(game);
 }
 
+/**
+ * \fn void init_ammo(Game * game)
+ * \brief Fonction pour l'initialisation des munitions du canon
+ *
+ * \param self Game * game
+ * \return void
+ */
 void init_ammo(Game * game){
 	Track * track = &game->track_list.tracks[0];
 	do{
@@ -487,18 +644,44 @@ void init_ammo(Game * game){
 	}while((is_color_on_track(track,game->canon.ammo2) == 0) && (game->canon.ammo1 != game->canon.ammo2));	
 }
 
+/**
+ * \fn void init_shots(Game * game)
+ * \brief Fonction pour l'initialisation des shots
+ *
+ * \param self Game * game
+ * \return void
+ */
+void init_shots(Game * game){
+	game->shot_list.shot_count = 0;
+	memset(game->shot_list.shots,0,sizeof(Shot)*SHOT_MAX);
+}
+
+/**
+ * \fn int init_marble_bonus()
+ * \brief Fonction pour la génération du bonus aléatoirement
+ *
+ * \param self
+ * \return int le bonus généré aléatoirement
+ */
 int init_marble_bonus(){
 	int isBonus = rand() % 100;
 	if(isBonus < 3) // 3 pourcent de chance d'avoir un bonus d'arrêt du temps
 		return BS_TIME_STOP;
-	else if(isBonus < 15)
+	else if(isBonus < 18)
 		return BS_TIME_SLOWER; // 15 pourcent de chance d'avoir un bonus de ralentissement du train
-	else if(isBonus < 50)	//3 pourcent de chance d'avoir un bonus de marble explosive
+	else if(isBonus < 21)	//3 pourcent de chance d'avoir un bonus de marble explosive
 		return BS_MARBLE_EXPLOSIVE;
 	else
 		return BS_NONE;
 }
 
+/**
+ * \fn void create_marbles(Track * track,int current_level)
+ * \brief Fonction pour créer les billes
+ *
+ * \param self Track * track,int current_level
+ * \return void
+ */
 void create_marbles(Track * track,int current_level){
 	track->marble_count = ( MARBLE_MAX_AT_START + (current_level * 10) ); // MARBLE_MAX_AT_START + ( niveau * 10) = nb bille par partie
 	for(int i = 0; i < track->marble_count;++i){
@@ -513,6 +696,13 @@ void create_marbles(Track * track,int current_level){
 	track->first_visible = track->marble_count-1;
 }
 
+/**
+ * \fn void init_track(Game * game)
+ * \brief Fonction pour l'initialisation de la track
+ *
+ * \param self Game * game
+ * \return void
+ */
 void init_track(Game * game){
 	Track trackInit;
 	game->track_list.tracks[0] = trackInit;
@@ -530,11 +720,13 @@ void init_track(Game * game){
 	track->marbles_speed = MARBLE_SPEED + game->levelSupSpeedMalus;
 }
 
-void init_shots(Game * game){
-	game->shot_list.shot_count = 0;
-	memset(game->shot_list.shots,0,sizeof(Shot)*SHOT_MAX);
-}
-
+/**
+ * \fn void init_game(Game * game, int height, int width)
+ * \brief Fonction pour l'initialisation du jeu
+ *
+ * \param self Game * game, int height, int width
+ * \return void
+ */
 void init_game(Game * game,int height, int width){
 	srand(time(NULL));
 	init_canon(game,height,width);
@@ -548,12 +740,26 @@ void init_game(Game * game,int height, int width){
 	game->score_level_before = 0;
 }
 
+/**
+ * \fn void reset_game(Game * game,int height, int width)
+ * \brief Fonction de réinitialisation du jeu
+ *
+ * \param self Game * game, int height, int width
+ * \return void
+ */
 void reset_game(Game * game,int height, int width){
 	game->current_level = 0;
 	init_game(game,height,width);
 	game->state = GS_PLAYING;
 }
 
+/**
+ * \fn void restart_game(Game * game,int height, int width)
+ * \brief Fonction pour recommencer un level
+ *
+ * \param self Game * game, int height, int width
+ * \return void
+ */
 void restart_game(Game * game,int height, int width){
 	int score = game->score_level_before;
 	init_game(game,height,width);
@@ -561,6 +767,13 @@ void restart_game(Game * game,int height, int width){
 	game->state = GS_PLAYING;
 }
 
+/**
+ * \fn void change_level(Game * game,int height, int width)
+ * \brief Fonction pour changer de level
+ *
+ * \param self Game * game, int height, int width
+ * \return void
+ */
 void change_level(Game * game,int height, int width){
 	int score = game->score;
 	if(game->current_level < LEVEL_MAX){
@@ -577,11 +790,26 @@ void change_level(Game * game,int height, int width){
 //Fin Initialisation
 
 //Début Gameplay
+
+/**
+ * \fn void time_stop(Game * game)
+ * \brief Fonction pour arrêter le temps ( le train)
+ *
+ * \param self Game * game
+ * \return void
+ */
 void time_stop(Game * game){
 	game->bonus.b_state = BS_TIME_STOP;
 	game->bonus.seconds = recupTime() + BONUS_TIME;
 }
 
+/**
+ * \fn void speed_change(Game * game,int bonus)
+ * \brief Fonction pour changer la vitesse du train, accélérer ou bien ralentir
+ *
+ * \param self Game * game,int bonus
+ * \return void
+ */
 void speed_change(Game * game,int bonus){
 	Track * track = &game->track_list.tracks[0];
 	if(bonus == BS_TIME_SLOWER){

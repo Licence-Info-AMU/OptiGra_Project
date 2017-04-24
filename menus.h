@@ -12,6 +12,13 @@
 #ifndef MENUS_H
 #define MENUS_H
 
+/**
+ * \fn void menu_init (gpointer user_data)
+ * \brief Fonction d'initialisation du menu
+ *
+ * \param self Un objet gpointer (Mydata).
+ * \return void
+ */
 void menu_init (gpointer user_data);
 
 #endif// MENUS_H

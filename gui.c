@@ -32,7 +32,13 @@ void on_bsp_radio_toggled(GtkWidget *widget, gpointer data){
 	refresh_area (my->area);
 }
 
-// Initialisations graphiques
+/**
+ * \fn void window_init (GtkApplication* app, gpointer user_data)
+ * \brief Fonction d'initialisation de la fenêtre
+ *
+ * \param self GtkApplication L'application, gpointer objet Mydata
+ * \return void
+ */
 void window_init (GtkApplication* app, gpointer user_data){
     Mydata *my = get_mydata(user_data);
     my->window = gtk_application_window_new (app);
@@ -40,6 +46,13 @@ void window_init (GtkApplication* app, gpointer user_data){
     gtk_window_set_default_size (GTK_WINDOW (my->window), my->win_width, my->win_height);
 }
 
+/**
+ * \fn void editing_init (Mydata *data)
+ * \brief Fonction d'initialisation de la frame d'edition
+ *
+ * \param self Objet Mydata
+ * \return void
+ */
 void editing_init (Mydata *data) {
     Mydata *my = get_mydata(data);
     GtkWidget *vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
@@ -71,6 +84,13 @@ void editing_init (Mydata *data) {
     gtk_container_add (GTK_CONTAINER (my->frame), vbox2);
 }
 
+/**
+ * \fn void playerStatsFrame_init(Mydata *data)
+ * \brief Fonction d'initialisation de la frame des statistiques du joueur
+ *
+ * \param self Objet Mydata
+ * \return void
+ */
 void playerStatsFrame_init(Mydata *data){
 	Mydata *my = get_mydata(data);
 	//Début Déclaration
@@ -108,6 +128,13 @@ void playerStatsFrame_init(Mydata *data){
     gtk_container_add (GTK_CONTAINER (my->playerStatsFrame), vbox2);
 }
 
+/**
+ * \fn void layout_init (gpointer user_data)
+ * \brief Fonction d'initialisation du layout
+ *
+ * \param self gpointer Objet Mydata
+ * \return void
+ */
 void layout_init (gpointer user_data){
     Mydata *my = get_mydata(user_data);
     my->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 4);
@@ -132,6 +159,13 @@ void layout_init (gpointer user_data){
     gtk_box_pack_start (GTK_BOX (my->vbox), my->status, FALSE, FALSE, 0);    
 }
 
+/**
+ * \fn void status_init (gpointer user_data)
+ * \brief Fonction d'initialisation de la barre de status
+ *
+ * \param self gpointer Objet Mydata
+ * \return void
+ */
 void status_init (gpointer user_data){
     Mydata *my = get_mydata(user_data);        
     my->status = gtk_statusbar_new();

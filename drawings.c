@@ -510,11 +510,11 @@ void draw_title (Mydata * my, cairo_t *cr){
 			apply_image_transforms (my);
 			refresh_area (my->area);
 		}
-	}	
-	//titre-nom
-	PangoLayout *layout = pango_cairo_create_layout (cr);
+	}
+	//titre-nom pas réussit à le mettre au dessus de l'image
+	/*PangoLayout *layout = pango_cairo_create_layout (cr);
 	font_set_name(layout,"Courier New, 30");
-	font_draw_text (cr,layout,FONT_TC,(my->win_width/2),(my->win_height * ((double)1/4)), "Marble Horizon\n Gaëtan Perrot\nFLorian Duarte");
+	font_draw_text (cr,layout,FONT_TC,(my->win_width/2),(my->win_height * ((double)1/4)), "Marble Horizon\n Gaëtan Perrot\nFLorian Duarte");*/
 }
 
 void update_Player_Frame(Mydata * my){

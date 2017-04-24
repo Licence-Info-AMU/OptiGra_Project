@@ -163,6 +163,13 @@ void on_item_edit_activate (GtkCheckMenuItem *widget, gpointer data){
     refresh_area (my->area);
 }
 
+/**
+ * \fn void menu_init (gpointer user_data)
+ * \brief Fonction d'initialisation du menu
+ *
+ * \param self Un objet gpointer (Mydata).
+ * \return void
+ */
 void menu_init (gpointer user_data){
 	Mydata *my = get_mydata(user_data);  
     GtkWidget *item_game, *item_level, *item_help, 

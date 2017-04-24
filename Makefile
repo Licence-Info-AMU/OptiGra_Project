@@ -21,7 +21,7 @@ EXEC    = MarbleHorizon
 OBJECTS := $(CFILES:%.c=%.o)
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c $*.c
+	$(CC) $(CFLAGS) -c $*.c -g
 
 all :: $(EXEC)
 

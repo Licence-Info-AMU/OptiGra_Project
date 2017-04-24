@@ -23,6 +23,13 @@
 //  - soit on a oublié de transmettre my dans g_signal_connect,
 //  - soit on s’est trompé dans le nombre de paramètres de la callback.
 
+/**
+ * \fn Mydata *get_mydata (gpointer data)
+ * \brief Fonction de récupération de l'objet Mydata à partir d'un gpointeur
+ *
+ * \param self Un Mydata passé sous forme de gpointer
+ * \return Mydata * si aucune erreur, NULL sinon.
+ */
 Mydata *get_mydata (gpointer data){
     if (data == NULL) {
         fprintf (stderr, "get_mydata: NULL data\n"); return NULL;
@@ -33,6 +40,13 @@ Mydata *get_mydata (gpointer data){
     return data;
 }
 
+/**
+ * \fn void init_mydata(Mydata *my)
+ * \brief Fonction d'initialisation de l'objet Mydata
+ *
+ * \param self Un objet Mydata
+ * \return void
+ */
 void init_mydata(Mydata *my){
     my->title = "Marble Horizon";
     my->win_width = 1280;
@@ -49,10 +63,19 @@ void init_mydata(Mydata *my){
     my->bsp_mode = BSP_PROLONG;
     init_game(&my->game,my->win_height,my->win_width);
     init_curve_infos(&my->curve_infos);
+	char logo_Horizon[50];
+	sprintf(logo_Horizon,"%s%s%s",RESOURCES_DIR,IMAGE_DIR,LOGO_HORIZON);
+    my->logo_Horizon = cairo_image_surface_create_from_png (logo_Horizon);	
     my->count = 0;
 }
 
-// Gestion de l'édition : Curves / Controls
+/**
+ * \fn void set_edit_mode (Mydata *data, int mode)
+ * \brief Fonction de Gestion de l'édition : Curves / Controls
+ *
+ * \param self Un objet Mydata ainsi que le mode d'edition, un entier.
+ * \return void
+ */
 void set_edit_mode (Mydata *data, int mode) {
     Mydata *my = get_mydata(data);
     if (mode > EDIT_NONE || mode < EDIT_LAST) {

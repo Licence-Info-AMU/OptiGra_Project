@@ -13,14 +13,26 @@
 #include <stdio.h>
 #include "util.h"
 
+/**
+ * \fn void refresh_area (GtkWidget *area)
+ * \brief Fonction de rafraichissement de l'area
+ *
+ * \param self Un objet GtkWidget notre area
+ * \return void
+ */
 void refresh_area (GtkWidget *area){
     GdkWindow *win = gtk_widget_get_window (area);
     if (win == NULL) return;
     gdk_window_invalidate_rect (win, NULL, FALSE);
 }
 
-// Mise à jour de la barre de statut
-
+/**
+ * \fn void set_status (GtkWidget *status, const char *format, ...)
+ * \brief Fonction pour mettre à jour la barre de status
+ *  Mise à jour de la barre de statut
+ * \param self Un objet GtkWidget notre barre de status, une chaine, et des paramètres optionnels pour construire la chaine
+ * \return void
+ */
 void set_status (GtkWidget *status, const char *format, ...)
 {
 	char buf[1000];
@@ -33,6 +45,13 @@ void set_status (GtkWidget *status, const char *format, ...)
 	gtk_statusbar_push (GTK_STATUSBAR(status), 0, buf);
 }
 
+/**
+ * \fn int recupTime()
+ * \brief Fonction de récupération du l'heure en seconde
+ *
+ * \param self
+ * \return int l'heure actuelle en seconde
+ */
 int recupTime(){
   time_t timer1;
   int secondes, minutes, heures;
