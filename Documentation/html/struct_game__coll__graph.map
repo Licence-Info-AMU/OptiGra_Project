@@ -1,0 +1,15 @@
+<map id="Game" name="Game">
+<area shape="rect" id="node2" href="$struct_shot__list.html" title="Objet contenant les informations pour un Shot_list. " alt="" coords="5,452,79,479"/>
+<area shape="rect" id="node3" href="$struct_shot.html" title="Objet contenant les informations pour un shot. " alt="" coords="17,363,67,389"/>
+<area shape="rect" id="node4" href="$struct_level__list.html" title="Objet contenant les informations pour un Level_list. " alt="" coords="103,452,181,479"/>
+<area shape="rect" id="node5" href="$struct_level.html" title="Objet contenant les informations pour un Level. " alt="" coords="115,363,169,389"/>
+<area shape="rect" id="node6" href="$struct_curve__infos.html" title="Objet contenant une curve_list ainsi que la courbe courante et le point de control courant..." alt="" coords="96,273,188,300"/>
+<area shape="rect" id="node7" href="$struct_curve__list.html" title="Objet contenant un tableau de curve ainsi que le nombre de ces curves. " alt="" coords="101,184,183,211"/>
+<area shape="rect" id="node8" href="$struct_curve.html" title="Objet contenant une courbe. " alt="" coords="113,95,171,121"/>
+<area shape="rect" id="node9" href="$struct_control.html" title="Objet de point de control. " alt="" coords="110,5,174,32"/>
+<area shape="rect" id="node10" href="$struct_canon.html" title="Objet contenant les informations pour un canon. " alt="" coords="205,452,265,479"/>
+<area shape="rect" id="node11" href="$struct_bonus.html" title="Objet contenant les informations pour un Bonus. " alt="" coords="290,452,349,479"/>
+<area shape="rect" id="node12" href="$struct_track__list.html" title="Objet contenant les informations pour un Track_list. " alt="" coords="373,452,452,479"/>
+<area shape="rect" id="node13" href="$struct_track.html" title="Objet contenant les informations pour un Track. " alt="" coords="385,363,440,389"/>
+<area shape="rect" id="node14" href="$struct_marble.html" title="Objet contenant les informations pour un Marble. " alt="" coords="382,273,443,300"/>
+</map>

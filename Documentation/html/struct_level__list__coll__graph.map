@@ -1,0 +1,7 @@
+<map id="Level_list" name="Level_list">
+<area shape="rect" id="node2" href="$struct_level.html" title="Objet contenant les informations pour un Level. " alt="" coords="25,363,78,389"/>
+<area shape="rect" id="node3" href="$struct_curve__infos.html" title="Objet contenant une curve_list ainsi que la courbe courante et le point de control courant..." alt="" coords="5,273,97,300"/>
+<area shape="rect" id="node4" href="$struct_curve__list.html" title="Objet contenant un tableau de curve ainsi que le nombre de ces curves. " alt="" coords="11,184,92,211"/>
+<area shape="rect" id="node5" href="$struct_curve.html" title="Objet contenant une courbe. " alt="" coords="23,95,80,121"/>
+<area shape="rect" id="node6" href="$struct_control.html" title="Objet de point de control. " alt="" coords="19,5,83,32"/>
+</map>

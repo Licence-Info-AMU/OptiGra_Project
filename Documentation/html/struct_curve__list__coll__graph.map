@@ -1,0 +1,4 @@
+<map id="Curve_list" name="Curve_list">
+<area shape="rect" id="node2" href="$struct_curve.html" title="Objet contenant une courbe. " alt="" coords="17,95,75,121"/>
+<area shape="rect" id="node3" href="$struct_control.html" title="Objet de point de control. " alt="" coords="14,5,78,32"/>
+</map>

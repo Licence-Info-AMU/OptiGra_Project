@@ -1,0 +1,4 @@
+<map id="Track_list" name="Track_list">
+<area shape="rect" id="node2" href="$struct_track.html" title="Objet contenant les informations pour un Track. " alt="" coords="17,95,72,121"/>
+<area shape="rect" id="node3" href="$struct_marble.html" title="Objet contenant les informations pour un Marble. " alt="" coords="14,5,75,32"/>
+</map>
