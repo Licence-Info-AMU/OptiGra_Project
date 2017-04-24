@@ -295,6 +295,13 @@ int interpolate_samples (double sx[], double sy[], double t, int tmax,double *x,
   return 1;
 }
 
+/**
+ * \fn double compute_distant_point_forward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB)
+ * \brief Fonction compute_distant_point_forward
+ *
+ * \param self double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB
+ * \return double
+ */
 double compute_distant_point_forward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB){
   double xA, yA;
   interpolate_samples (sx, sy, tA, tmax, &xA, &yA);
@@ -329,6 +336,13 @@ double compute_distant_point_forward (double sx[], double sy[], double tA, int t
   return t;
 }
 
+/**
+ * \fn double compute_distant_point_backward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB)
+ * \brief Fonction compute_distant_point_backward
+ *
+ * \param self double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB
+ * \return double
+ */
 double compute_distant_point_backward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB){
   double xA, yA;
   interpolate_samples (sx, sy, tA, tmax, &xA, &yA);

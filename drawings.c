@@ -401,6 +401,13 @@ void draw_bezier_curves_clip(cairo_t *cr, Curve_infos *ci, double theta, Mydata 
     }
 } 
 
+/**
+ * \fn void switch_shot_color(cairo_t *cr,int color)
+ * \brief Fonction pour choisir la couleur de dessin du cairo en fonction de la couleur de la bille
+ *
+ * \param self cairo_t *cr,int color
+ * \return void
+ */
 void switch_shot_color(cairo_t *cr,int color){
 	switch (color) {
 		case RED : 
@@ -424,6 +431,13 @@ void switch_shot_color(cairo_t *cr,int color){
 	}	
 }
 
+/**
+ * \fn void draw_canon(cairo_t *cr, Game * game)
+ * \brief Fonction d'affichage du canon
+ *
+ * \param self cairo_t *cr, Game * game
+ * \return void
+ */
 void draw_canon(cairo_t *cr, Game * game){
 	cairo_save(cr);
 	//Canon
@@ -449,6 +463,13 @@ void draw_canon(cairo_t *cr, Game * game){
 	cairo_restore(cr);
 }
 
+/**
+ * \fn void draw_shots(cairo_t *cr, Game * game)
+ * \brief Fonction d'affichage des shots
+ *
+ * \param self cairo_t *cr, Game * game
+ * \return void
+ */
 void draw_shots(cairo_t *cr, Game * game){
 	for(int i =0; i < game->shot_list.shot_count;++i){
 		switch_shot_color(cr,game->shot_list.shots[i].color);
@@ -457,6 +478,13 @@ void draw_shots(cairo_t *cr, Game * game){
 	}
 }
 
+/**
+ * \fn void draw_track(cairo_t *cr, Game * game)
+ * \brief Fonction d'affichage de la track
+ *
+ * \param self cairo_t *cr, Game * game
+ * \return void
+ */
 void draw_track(cairo_t *cr, Game * game){
 	//Début track
 	cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
@@ -473,6 +501,13 @@ void draw_track(cairo_t *cr, Game * game){
 	cairo_fill (cr);
 }
 
+/**
+ * \fn void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout)
+ * \brief Fonction d'affichage du label du bonus de la bille
+ *
+ * \param self cairo_t *cr, Game * game,PangoLayout *layout
+ * \return void
+ */
 void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout){
 	font_set_name(layout,"Sans, 12");
 	cairo_set_source_rgb(cr,1.0,1.0,1.0);
@@ -483,12 +518,26 @@ void draw_marbles_bonus_labels(cairo_t *cr, Game * game,PangoLayout *layout){
 	}
 }
 
+/**
+ * \fn void draw_marble(cairo_t *cr, Marble * marble)
+ * \brief Fonction d'affichage d'une bille
+ *
+ * \param self cairo_t *cr, Marble * marble
+ * \return void
+ */
 void draw_marble(cairo_t *cr, Marble * marble){
 	switch_shot_color(cr,marble->color);
 	cairo_arc(cr,marble->x,marble->y,MARBLE_RAYON,0,2*G_PI);
 	cairo_fill (cr);
 }
 
+/**
+ * \fn void draw_marbles(cairo_t *cr, Game * game)
+ * \brief Fonction d'affichage des billes
+ *
+ * \param self cairo_t *cr, Game * game
+ * \return void
+ */
 void draw_marbles(cairo_t *cr, Game * game){
 	Track * track = &game->track_list.tracks[0];
 	for(int i = track->first_visible; i < track->marble_count;++i){
@@ -497,6 +546,13 @@ void draw_marbles(cairo_t *cr, Game * game){
 	}
 }
 
+/**
+ * \fn void draw_title (Mydata * my, cairo_t *cr)
+ * \brief Fonction d'affichage de l'écran titre
+ *
+ * \param self Mydata * my, cairo_t *cr
+ * \return void
+ */
 void draw_title (Mydata * my, cairo_t *cr){
 	// Background
 	if (my->pixbuf == NULL){
@@ -517,6 +573,13 @@ void draw_title (Mydata * my, cairo_t *cr){
 	font_draw_text (cr,layout,FONT_TC,(my->win_width/2),(my->win_height * ((double)1/4)), "Marble Horizon\n Gaëtan Perrot\nFLorian Duarte");*/
 }
 
+/**
+ * \fn void update_Player_Frame(Mydata * my)
+ * \brief Fonction de mise à jour du frame affichant les statistiques du joueur
+ *
+ * \param self Mydata * my
+ * \return void
+ */
 void update_Player_Frame(Mydata * my){
 	gchar* sUtf8;
 	char str[100];
@@ -560,6 +623,13 @@ void update_Player_Frame(Mydata * my){
 	//Fin BonusLabel
 }
 
+/**
+ * \fn void game_over_message_dialog(gpointer data)
+ * \brief Fonction de la fenêtre du gameover
+ *
+ * \param self gpointer objet Mydata
+ * \return void
+ */
 void game_over_message_dialog(gpointer data){
 	Mydata *my = get_mydata(data);
     GtkWidget *pQuestion;

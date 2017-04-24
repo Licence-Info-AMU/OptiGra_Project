@@ -125,8 +125,22 @@ void sample_bezier_curve (Control bez_points[4], double theta, double sx[], doub
 
 int interpolate_samples (double sx[], double sy[], double t, int tmax,double *x, double *y);
 
+/**
+ * \fn double compute_distant_point_forward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB)
+ * \brief Fonction compute_distant_point_forward
+ *
+ * \param self double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB
+ * \return double
+ */
 double compute_distant_point_forward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB);
 
+/**
+ * \fn double compute_distant_point_backward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB)
+ * \brief Fonction compute_distant_point_backward
+ *
+ * \param self double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB
+ * \return double
+ */
 double compute_distant_point_backward (double sx[], double sy[], double tA, int tmax,double dist, double *xB, double *yB);
 
 /**
