@@ -1,0 +1,269 @@
+\hypertarget{curve_8c}{}\section{curve.\+c File Reference}
+\label{curve_8c}\index{curve.\+c@{curve.\+c}}
+
+
+Fonctions utiles de gestion des curves.  
+
+
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}curve.\+h\char`\"{}}\\*
+Include dependency graph for curve.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{curve_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{curve_8c_a3360cb91ca42b12fd7d2e3f5783c281e}{init\+\_\+curve\+\_\+infos} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}initialisation d\textquotesingle{}une \hyperlink{struct_curve__infos}{Curve\+\_\+infos}. \end{DoxyCompactList}\item 
+int \hyperlink{curve_8c_a4382c60ac3b71f20fe1a04d4ae157e19}{add\+\_\+curve} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}ajout d\textquotesingle{}une courbe. \end{DoxyCompactList}\item 
+int \hyperlink{curve_8c_a029fb6d4a949dd8a5885962ef644193b}{add\+\_\+control} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double x, double y)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}ajout d\textquotesingle{}un point de control. \end{DoxyCompactList}\item 
+int {\bfseries find\+\_\+control} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double x, double y)\hypertarget{curve_8c_af035c1ad9b4ed42e612f475da2782373}{}\label{curve_8c_af035c1ad9b4ed42e612f475da2782373}
+
+\item 
+int {\bfseries move\+\_\+control} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double dx, double dy)\hypertarget{curve_8c_a0c7b7ce869ee235d070a3f7866496729}{}\label{curve_8c_a0c7b7ce869ee235d070a3f7866496729}
+
+\item 
+int {\bfseries move\+\_\+curve} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double dx, double dy)\hypertarget{curve_8c_af75239abce7bec98d2c05328e7ebc76e}{}\label{curve_8c_af75239abce7bec98d2c05328e7ebc76e}
+
+\item 
+int {\bfseries remove\+\_\+curve} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)\hypertarget{curve_8c_a693885879716f0332c7b63018992b377}{}\label{curve_8c_a693885879716f0332c7b63018992b377}
+
+\item 
+int {\bfseries remove\+\_\+control} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)\hypertarget{curve_8c_aa9e9c4adf064bfa7c9cb0be2a5ea895a}{}\label{curve_8c_aa9e9c4adf064bfa7c9cb0be2a5ea895a}
+
+\item 
+void {\bfseries convert\+\_\+bsp3\+\_\+to\+\_\+bezier} (double p\mbox{[}4\mbox{]}, double b\mbox{[}4\mbox{]})\hypertarget{curve_8c_ab4da14b153d5bfcb244e5826d397756b}{}\label{curve_8c_ab4da14b153d5bfcb244e5826d397756b}
+
+\item 
+void {\bfseries compute\+\_\+bezier\+\_\+points\+\_\+open} (\hyperlink{struct_curve}{Curve} $\ast$curve, int i, \hyperlink{struct_control}{Control} bez\+\_\+points\mbox{[}4\mbox{]})\hypertarget{curve_8c_a323d36be5a582f600d53874c81801237}{}\label{curve_8c_a323d36be5a582f600d53874c81801237}
+
+\item 
+void {\bfseries compute\+\_\+bezier\+\_\+points\+\_\+close} (\hyperlink{struct_curve}{Curve} $\ast$curve, int i, \hyperlink{struct_control}{Control} bez\+\_\+points\mbox{[}4\mbox{]})\hypertarget{curve_8c_a07d0d485848a23ab6c62d880dd48a88e}{}\label{curve_8c_a07d0d485848a23ab6c62d880dd48a88e}
+
+\item 
+double {\bfseries compute\+\_\+bezier\+\_\+cubic} (double b\mbox{[}4\mbox{]}, double t)\hypertarget{curve_8c_ad6a6784a9dfa5608a6aee1cbb6117c73}{}\label{curve_8c_ad6a6784a9dfa5608a6aee1cbb6117c73}
+
+\item 
+void {\bfseries convert\+\_\+bsp3\+\_\+to\+\_\+bezier\+\_\+prolong\+\_\+first} (double p\mbox{[}3\mbox{]}, double b\mbox{[}4\mbox{]})\hypertarget{curve_8c_a9b50fc3ffe4e0caeeb8ad24211f54635}{}\label{curve_8c_a9b50fc3ffe4e0caeeb8ad24211f54635}
+
+\item 
+void {\bfseries convert\+\_\+bsp3\+\_\+to\+\_\+bezier\+\_\+prolong\+\_\+last} (double p\mbox{[}3\mbox{]}, double b\mbox{[}4\mbox{]})\hypertarget{curve_8c_ad3b79dcebfd952c1424756c860d00d0a}{}\label{curve_8c_ad3b79dcebfd952c1424756c860d00d0a}
+
+\item 
+void {\bfseries compute\+\_\+bezier\+\_\+points\+\_\+prolong\+\_\+first} (\hyperlink{struct_curve}{Curve} $\ast$curve, \hyperlink{struct_control}{Control} bez\+\_\+points\mbox{[}4\mbox{]})\hypertarget{curve_8c_ac95630bb0745e2824af4cf8ac9b3dbca}{}\label{curve_8c_ac95630bb0745e2824af4cf8ac9b3dbca}
+
+\item 
+void {\bfseries compute\+\_\+bezier\+\_\+points\+\_\+prolong\+\_\+last} (\hyperlink{struct_curve}{Curve} $\ast$curve, \hyperlink{struct_control}{Control} bez\+\_\+points\mbox{[}4\mbox{]})\hypertarget{curve_8c_abf001f9d5caa6fdc25e8370386b9c86c}{}\label{curve_8c_abf001f9d5caa6fdc25e8370386b9c86c}
+
+\item 
+int {\bfseries move\+\_\+shift} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double dx, double dy)\hypertarget{curve_8c_aaf7b43c9fb9beb3b65e4aa707b14487e}{}\label{curve_8c_aaf7b43c9fb9beb3b65e4aa707b14487e}
+
+\item 
+int {\bfseries reset\+\_\+shift} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)\hypertarget{curve_8c_a8842a21803607585a92e4eb18c0a85e8}{}\label{curve_8c_a8842a21803607585a92e4eb18c0a85e8}
+
+\item 
+void {\bfseries store\+\_\+sample} (double x, double y, double sx\mbox{[}$\,$\mbox{]}, double sy\mbox{[}$\,$\mbox{]}, int $\ast$ind, int ind\+\_\+max)\hypertarget{curve_8c_a5acc9f608ec71f57af12ed6da942b191}{}\label{curve_8c_a5acc9f608ec71f57af12ed6da942b191}
+
+\item 
+void {\bfseries sample\+\_\+bezier\+\_\+curve} (\hyperlink{struct_control}{Control} bez\+\_\+points\mbox{[}4\mbox{]}, double theta, double sx\mbox{[}$\,$\mbox{]}, double sy\mbox{[}$\,$\mbox{]}, int $\ast$ind, int ind\+\_\+max, int is\+\_\+first)\hypertarget{curve_8c_a7f14e0f14fe55ff9622939493fb826d0}{}\label{curve_8c_a7f14e0f14fe55ff9622939493fb826d0}
+
+\item 
+int {\bfseries interpolate\+\_\+samples} (double sx\mbox{[}$\,$\mbox{]}, double sy\mbox{[}$\,$\mbox{]}, double t, int tmax, double $\ast$x, double $\ast$y)\hypertarget{curve_8c_acf78e3306da0059ed6f578a106cd921f}{}\label{curve_8c_acf78e3306da0059ed6f578a106cd921f}
+
+\item 
+double \hyperlink{curve_8c_af0397016615860044c5f40372ceea7c0}{compute\+\_\+distant\+\_\+point\+\_\+forward} (double sx\mbox{[}$\,$\mbox{]}, double sy\mbox{[}$\,$\mbox{]}, double tA, int tmax, double dist, double $\ast$xB, double $\ast$yB)
+\begin{DoxyCompactList}\small\item\em Fonction compute\+\_\+distant\+\_\+point\+\_\+forward. \end{DoxyCompactList}\item 
+double \hyperlink{curve_8c_adc800d23a554aec2b7a807c6b722db69}{compute\+\_\+distant\+\_\+point\+\_\+backward} (double sx\mbox{[}$\,$\mbox{]}, double sy\mbox{[}$\,$\mbox{]}, double tA, int tmax, double dist, double $\ast$xB, double $\ast$yB)
+\begin{DoxyCompactList}\small\item\em Fonction compute\+\_\+distant\+\_\+point\+\_\+backward. \end{DoxyCompactList}\item 
+int \hyperlink{curve_8c_a0d17d6c7e9176239af44d6e0f9c68aab}{save\+\_\+curve\+\_\+to\+\_\+file} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Fonction de sauvegarde d\textquotesingle{}une curve infos dans un fichier .track. \end{DoxyCompactList}\item 
+int \hyperlink{curve_8c_a6c3155460141faf83608fdde62bd18d1}{load\+\_\+curve\+\_\+from\+\_\+file} (\hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Fonction de chargement d\textquotesingle{}une curve infos depuis un fichier .track. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fonctions utiles de gestion des curves. 
+
+\begin{DoxyAuthor}{Author}
+Gaëtan Perrot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23 avril 2017
+\end{DoxyDate}
+Fonctions utiles de gestion des curves 
+
+\subsection{Function Documentation}
+\index{curve.\+c@{curve.\+c}!add\+\_\+control@{add\+\_\+control}}
+\index{add\+\_\+control@{add\+\_\+control}!curve.\+c@{curve.\+c}}
+\subsubsection[{\texorpdfstring{add\+\_\+control(\+Curve\+\_\+infos $\ast$ci, double x, double y)}{add_control(Curve_infos *ci, double x, double y)}}]{\setlength{\rightskip}{0pt plus 5cm}int add\+\_\+control (
+\begin{DoxyParamCaption}
+\item[{{\bf Curve\+\_\+infos} $\ast$}]{ci, }
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{curve_8c_a029fb6d4a949dd8a5885962ef644193b}{}\label{curve_8c_a029fb6d4a949dd8a5885962ef644193b}
+
+
+Fonction d\textquotesingle{}ajout d\textquotesingle{}un point de control. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_curve__infos}{Curve\+\_\+infos}, double coordonnée x , double coordonnée y \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int nombre de point de control total 
+\end{DoxyReturn}
+\index{curve.\+c@{curve.\+c}!add\+\_\+curve@{add\+\_\+curve}}
+\index{add\+\_\+curve@{add\+\_\+curve}!curve.\+c@{curve.\+c}}
+\subsubsection[{\texorpdfstring{add\+\_\+curve(\+Curve\+\_\+infos $\ast$ci)}{add_curve(Curve_infos *ci)}}]{\setlength{\rightskip}{0pt plus 5cm}int add\+\_\+curve (
+\begin{DoxyParamCaption}
+\item[{{\bf Curve\+\_\+infos} $\ast$}]{ci}
+\end{DoxyParamCaption}
+)}\hypertarget{curve_8c_a4382c60ac3b71f20fe1a04d4ae157e19}{}\label{curve_8c_a4382c60ac3b71f20fe1a04d4ae157e19}
+
+
+Fonction d\textquotesingle{}ajout d\textquotesingle{}une courbe. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_curve__infos}{Curve\+\_\+infos} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int nombre de courbe total 
+\end{DoxyReturn}
+\index{curve.\+c@{curve.\+c}!compute\+\_\+distant\+\_\+point\+\_\+backward@{compute\+\_\+distant\+\_\+point\+\_\+backward}}
+\index{compute\+\_\+distant\+\_\+point\+\_\+backward@{compute\+\_\+distant\+\_\+point\+\_\+backward}!curve.\+c@{curve.\+c}}
+\subsubsection[{\texorpdfstring{compute\+\_\+distant\+\_\+point\+\_\+backward(double sx[], double sy[], double t\+A, int tmax, double dist, double $\ast$x\+B, double $\ast$y\+B)}{compute_distant_point_backward(double sx[], double sy[], double tA, int tmax, double dist, double *xB, double *yB)}}]{\setlength{\rightskip}{0pt plus 5cm}double compute\+\_\+distant\+\_\+point\+\_\+backward (
+\begin{DoxyParamCaption}
+\item[{double}]{sx\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{sy\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{tA, }
+\item[{int}]{tmax, }
+\item[{double}]{dist, }
+\item[{double $\ast$}]{xB, }
+\item[{double $\ast$}]{yB}
+\end{DoxyParamCaption}
+)}\hypertarget{curve_8c_adc800d23a554aec2b7a807c6b722db69}{}\label{curve_8c_adc800d23a554aec2b7a807c6b722db69}
+
+
+Fonction compute\+\_\+distant\+\_\+point\+\_\+backward. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & double sx\mbox{[}\mbox{]}, double sy\mbox{[}\mbox{]}, double tA, int tmax,double dist, double $\ast$xB, double $\ast$yB \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\index{curve.\+c@{curve.\+c}!compute\+\_\+distant\+\_\+point\+\_\+forward@{compute\+\_\+distant\+\_\+point\+\_\+forward}}
+\index{compute\+\_\+distant\+\_\+point\+\_\+forward@{compute\+\_\+distant\+\_\+point\+\_\+forward}!curve.\+c@{curve.\+c}}
+\subsubsection[{\texorpdfstring{compute\+\_\+distant\+\_\+point\+\_\+forward(double sx[], double sy[], double t\+A, int tmax, double dist, double $\ast$x\+B, double $\ast$y\+B)}{compute_distant_point_forward(double sx[], double sy[], double tA, int tmax, double dist, double *xB, double *yB)}}]{\setlength{\rightskip}{0pt plus 5cm}double compute\+\_\+distant\+\_\+point\+\_\+forward (
+\begin{DoxyParamCaption}
+\item[{double}]{sx\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{sy\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{tA, }
+\item[{int}]{tmax, }
+\item[{double}]{dist, }
+\item[{double $\ast$}]{xB, }
+\item[{double $\ast$}]{yB}
+\end{DoxyParamCaption}
+)}\hypertarget{curve_8c_af0397016615860044c5f40372ceea7c0}{}\label{curve_8c_af0397016615860044c5f40372ceea7c0}
+
+
+Fonction compute\+\_\+distant\+\_\+point\+\_\+forward. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & double sx\mbox{[}\mbox{]}, double sy\mbox{[}\mbox{]}, double tA, int tmax,double dist, double $\ast$xB, double $\ast$yB \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\index{curve.\+c@{curve.\+c}!init\+\_\+curve\+\_\+infos@{init\+\_\+curve\+\_\+infos}}
+\index{init\+\_\+curve\+\_\+infos@{init\+\_\+curve\+\_\+infos}!curve.\+c@{curve.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+curve\+\_\+infos(\+Curve\+\_\+infos $\ast$ci)}{init_curve_infos(Curve_infos *ci)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+curve\+\_\+infos (
+\begin{DoxyParamCaption}
+\item[{{\bf Curve\+\_\+infos} $\ast$}]{ci}
+\end{DoxyParamCaption}
+)}\hypertarget{curve_8c_a3360cb91ca42b12fd7d2e3f5783c281e}{}\label{curve_8c_a3360cb91ca42b12fd7d2e3f5783c281e}
+
+
+Fonction d\textquotesingle{}initialisation d\textquotesingle{}une \hyperlink{struct_curve__infos}{Curve\+\_\+infos}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_curve__infos}{Curve\+\_\+infos} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{curve.\+c@{curve.\+c}!load\+\_\+curve\+\_\+from\+\_\+file@{load\+\_\+curve\+\_\+from\+\_\+file}}
+\index{load\+\_\+curve\+\_\+from\+\_\+file@{load\+\_\+curve\+\_\+from\+\_\+file}!curve.\+c@{curve.\+c}}
+\subsubsection[{\texorpdfstring{load\+\_\+curve\+\_\+from\+\_\+file(\+Curve\+\_\+infos $\ast$ci, char $\ast$filename)}{load_curve_from_file(Curve_infos *ci, char *filename)}}]{\setlength{\rightskip}{0pt plus 5cm}int load\+\_\+curve\+\_\+from\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{{\bf Curve\+\_\+infos} $\ast$}]{ci, }
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+)}\hypertarget{curve_8c_a6c3155460141faf83608fdde62bd18d1}{}\label{curve_8c_a6c3155460141faf83608fdde62bd18d1}
+
+
+Fonction de chargement d\textquotesingle{}une curve infos depuis un fichier .track. 
+
+Fonction pour tirer un shot.
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_curve__infos}{Curve\+\_\+infos}, char $\ast$filename le nom du fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int int retourne 1 si tout c\textquotesingle{}est bien passé et -\/1 si le chargement a échoué
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{curve.\+c@{curve.\+c}!save\+\_\+curve\+\_\+to\+\_\+file@{save\+\_\+curve\+\_\+to\+\_\+file}}
+\index{save\+\_\+curve\+\_\+to\+\_\+file@{save\+\_\+curve\+\_\+to\+\_\+file}!curve.\+c@{curve.\+c}}
+\subsubsection[{\texorpdfstring{save\+\_\+curve\+\_\+to\+\_\+file(\+Curve\+\_\+infos $\ast$ci, char $\ast$filename)}{save_curve_to_file(Curve_infos *ci, char *filename)}}]{\setlength{\rightskip}{0pt plus 5cm}int save\+\_\+curve\+\_\+to\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{{\bf Curve\+\_\+infos} $\ast$}]{ci, }
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+)}\hypertarget{curve_8c_a0d17d6c7e9176239af44d6e0f9c68aab}{}\label{curve_8c_a0d17d6c7e9176239af44d6e0f9c68aab}
+
+
+Fonction de sauvegarde d\textquotesingle{}une curve infos dans un fichier .track. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_curve__infos}{Curve\+\_\+infos}, char $\ast$filename le nom du fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int retourne 1 si tout c\textquotesingle{}est bien passé et -\/1 si la sauvegarde a échoué 
+\end{DoxyReturn}

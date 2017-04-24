@@ -1,0 +1,111 @@
+\hypertarget{mydata_8c}{}\section{mydata.\+c File Reference}
+\label{mydata_8c}\index{mydata.\+c@{mydata.\+c}}
+
+
+\hyperlink{struct_mydata}{Mydata} structure avec les objets principaux.  
+
+
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}curve.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mydata.\+h\char`\"{}}\\*
+Include dependency graph for mydata.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mydata_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries M\+Y\+D\+A\+T\+A\+\_\+\+M\+A\+G\+IC}~0x46\+E\+A7\+E05\hypertarget{mydata_8c_a41621b13791afbf5f5a88ec2c3fe5ac2}{}\label{mydata_8c_a41621b13791afbf5f5a88ec2c3fe5ac2}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_mydata}{Mydata} $\ast$ \hyperlink{mydata_8c_a94e9cd97b633a6bc5845fb9e3f7b5a42}{get\+\_\+mydata} (gpointer data)
+\begin{DoxyCompactList}\small\item\em Fonction de récupération de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata} à partir d\textquotesingle{}un gpointeur. \end{DoxyCompactList}\item 
+void \hyperlink{mydata_8c_a0b1e96cdd4d1a8b4f6cef990070887bf}{init\+\_\+mydata} (\hyperlink{struct_mydata}{Mydata} $\ast$my)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}initialisation de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata}. \end{DoxyCompactList}\item 
+void \hyperlink{mydata_8c_aa351d5e2597fba2a6af74589ab4553da}{set\+\_\+edit\+\_\+mode} (\hyperlink{struct_mydata}{Mydata} $\ast$data, int mode)
+\begin{DoxyCompactList}\small\item\em Fonction de Gestion de l\textquotesingle{}édition \+: Curves / Controls. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{struct_mydata}{Mydata} structure avec les objets principaux. 
+
+\begin{DoxyAuthor}{Author}
+Gaëtan Perrot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23 avril 2017
+\end{DoxyDate}
+\hyperlink{struct_mydata}{Mydata} structure avec les objets principaux 
+
+\subsection{Function Documentation}
+\index{mydata.\+c@{mydata.\+c}!get\+\_\+mydata@{get\+\_\+mydata}}
+\index{get\+\_\+mydata@{get\+\_\+mydata}!mydata.\+c@{mydata.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+mydata(gpointer data)}{get_mydata(gpointer data)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mydata} $\ast$ get\+\_\+mydata (
+\begin{DoxyParamCaption}
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{mydata_8c_a94e9cd97b633a6bc5845fb9e3f7b5a42}{}\label{mydata_8c_a94e9cd97b633a6bc5845fb9e3f7b5a42}
+
+
+Fonction de récupération de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata} à partir d\textquotesingle{}un gpointeur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un \hyperlink{struct_mydata}{Mydata} passé sous forme de gpointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{struct_mydata}{Mydata} $\ast$ si aucune erreur, N\+U\+LL sinon. 
+\end{DoxyReturn}
+\index{mydata.\+c@{mydata.\+c}!init\+\_\+mydata@{init\+\_\+mydata}}
+\index{init\+\_\+mydata@{init\+\_\+mydata}!mydata.\+c@{mydata.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+mydata(\+Mydata $\ast$my)}{init_mydata(Mydata *my)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+mydata (
+\begin{DoxyParamCaption}
+\item[{{\bf Mydata} $\ast$}]{my}
+\end{DoxyParamCaption}
+)}\hypertarget{mydata_8c_a0b1e96cdd4d1a8b4f6cef990070887bf}{}\label{mydata_8c_a0b1e96cdd4d1a8b4f6cef990070887bf}
+
+
+Fonction d\textquotesingle{}initialisation de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un objet \hyperlink{struct_mydata}{Mydata} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{mydata.\+c@{mydata.\+c}!set\+\_\+edit\+\_\+mode@{set\+\_\+edit\+\_\+mode}}
+\index{set\+\_\+edit\+\_\+mode@{set\+\_\+edit\+\_\+mode}!mydata.\+c@{mydata.\+c}}
+\subsubsection[{\texorpdfstring{set\+\_\+edit\+\_\+mode(\+Mydata $\ast$data, int mode)}{set_edit_mode(Mydata *data, int mode)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+edit\+\_\+mode (
+\begin{DoxyParamCaption}
+\item[{{\bf Mydata} $\ast$}]{data, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}\hypertarget{mydata_8c_aa351d5e2597fba2a6af74589ab4553da}{}\label{mydata_8c_aa351d5e2597fba2a6af74589ab4553da}
+
+
+Fonction de Gestion de l\textquotesingle{}édition \+: Curves / Controls. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un objet \hyperlink{struct_mydata}{Mydata} ainsi que le mode d\textquotesingle{}edition, un entier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

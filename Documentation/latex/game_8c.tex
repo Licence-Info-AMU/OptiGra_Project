@@ -1,0 +1,734 @@
+\hypertarget{game_8c}{}\section{game.\+c File Reference}
+\label{game_8c}\index{game.\+c@{game.\+c}}
+
+
+Fonctions et objets principaux du jeu.  
+
+
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}curve.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+Include dependency graph for game.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{game_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{game_8c_a1379e442012bd2db4e0a7c43ba12a140}{sample\+\_\+curve\+\_\+to\+\_\+track} (\hyperlink{struct_curve}{Curve} $\ast$curve, \hyperlink{struct_track}{Track} $\ast$track, double theta)
+\begin{DoxyCompactList}\small\item\em Fonction de conversion d\textquotesingle{}une curve en une track. \end{DoxyCompactList}\item 
+void {\bfseries shoot\+\_\+ammo} (\hyperlink{struct_game}{Game} $\ast$game)\hypertarget{game_8c_a7a28065cd246ecccf78c7b940b4b6651}{}\label{game_8c_a7a28065cd246ecccf78c7b940b4b6651}
+
+\item 
+int \hyperlink{game_8c_a32dbc2ae6d9dd615b664c16ef04bf376}{is\+\_\+color\+\_\+on\+\_\+track} (\hyperlink{struct_track}{Track} $\ast$track, int color)
+\begin{DoxyCompactList}\small\item\em Fonction pour chercher si une couleur est dans la track. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_aaf45176a520f6cfd9d8a52c140802a5d}{prepare\+\_\+ammo} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour préparer les balles du canon après un tir. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a561e64089b963fcb06eff3c654bc8585}{swap\+\_\+ammo} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour echanger les balles du canon. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a321533d866fea72c822dabdeb0ccc094}{game\+\_\+pause} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour mettre en pause le jeu si il ne l\textquotesingle{}est pas sinon le remet en mode playing. \end{DoxyCompactList}\item 
+int \hyperlink{game_8c_aa5b5a4c5c922fe5aa18ef28ac693db5a}{calcule\+\_\+score\+\_\+with\+\_\+marble\+\_\+group\+\_\+size} (\hyperlink{struct_game}{Game} $\ast$game, \hyperlink{struct_track}{Track} $\ast$track, int marble\+\_\+id\+\_\+start, int score, int combo)
+\begin{DoxyCompactList}\small\item\em Fonction pour calculer le score obtenu après un tir. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a6a5803be3dedb50a82b3d625ac90ea3e}{check\+\_\+bonus} (\hyperlink{struct_game}{Game} $\ast$game, \hyperlink{struct_track}{Track} $\ast$track, int marble)
+\begin{DoxyCompactList}\small\item\em Fonction pour vérifier si il y a un bonus. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a171ea500d411c5194613976786047d70}{check\+\_\+bonus\+\_\+end} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour vérifier un bonus est terminé \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a4476eab4b74a53b36cdf7d7096c62060}{move\+\_\+shots\+\_\+one\+\_\+step} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour avancer le shot. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a401c25af3ee1e41a353329513c7fb679}{suppress\+\_\+far\+\_\+shots} (\hyperlink{struct_game}{Game} $\ast$game, int screen\+\_\+width, int screen\+\_\+height)
+\begin{DoxyCompactList}\small\item\em Fonction de suppression des tirs lointains. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a590c19b4c7fbc37e84976b4d3773e0b7}{do\+\_\+vector\+\_\+product} (double xu, double yu, double zu, double xv, double yv, double zv, double $\ast$x, double $\ast$y, double $\ast$z)
+\item 
+int \hyperlink{game_8c_a868a0d63645e599dd01aee704da37251}{test\+\_\+collision} (\hyperlink{struct_game}{Game} $\ast$game, int $\ast$shot\+\_\+num, int $\ast$marble\+\_\+num, int track\+\_\+num)
+\begin{DoxyCompactList}\small\item\em fonctione pour tester si il y a une colision entre un shot et une bille du train \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a903a06d0784febcd3fdcf811cc71a28f}{process\+\_\+shots\+\_\+collisions} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em insertion de la bille si il y a eu colision \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a82438caca3314471bef10e102441af12}{move\+\_\+trains\+\_\+one\+\_\+step} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour faire avancer le train. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_aa5da90408ff8ede3b09fa6a0a376c709}{check\+\_\+end\+\_\+of\+\_\+game} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour vérifier si la partie est terminé \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a5b35e1416156b7ae084045350ba89ab9}{progress\+\_\+game\+\_\+next\+\_\+step} (\hyperlink{struct_game}{Game} $\ast$game, int screen\+\_\+width, int screen\+\_\+height)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}étape du jeu (boucle principale) \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_adad209d500c35da1b3d4985e7a09bec4}{update\+\_\+canon\+\_\+angle} (\hyperlink{struct_game}{Game} $\ast$game, double sx, double sy)
+\begin{DoxyCompactList}\small\item\em Fonction pour mettre à jour l\textquotesingle{}angle du canon. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a5c95bbb5adb20ea2cbf4ed0bc1c9025f}{load\+\_\+cannon\+\_\+image} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour charger l\textquotesingle{}image du canon. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a737ca8731777960973c03c78e1d777d7}{update\+\_\+x\+\_\+and\+\_\+y\+\_\+canon} (\hyperlink{struct_game}{Game} $\ast$game, int height, int width)
+\begin{DoxyCompactList}\small\item\em Fonction de mise à jour de la postion du canon par rapport à l\textquotesingle{}écran pour le centrer. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_aa832339540d987f842a7d505da20803c}{init\+\_\+canon} (\hyperlink{struct_game}{Game} $\ast$game, int height, int width)
+\begin{DoxyCompactList}\small\item\em Fonction pour l\textquotesingle{}initialisation du canon. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_afd103f2ed5a4accadde77c8f8fbe489b}{init\+\_\+ammo} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour l\textquotesingle{}initialisation des munitions du canon. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a76bc3a19eb94631d39401b92e638d529}{init\+\_\+shots} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour l\textquotesingle{}initialisation des shots. \end{DoxyCompactList}\item 
+int \hyperlink{game_8c_aec4660f64205ee890c1c609f7883cd16}{init\+\_\+marble\+\_\+bonus} ()
+\begin{DoxyCompactList}\small\item\em Fonction pour la génération du bonus aléatoirement. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a090892ad996749a780a8f8c7670a853d}{create\+\_\+marbles} (\hyperlink{struct_track}{Track} $\ast$track, int current\+\_\+level)
+\begin{DoxyCompactList}\small\item\em Fonction pour créer les billes. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_af1c8645a911806b783052f96c2f9f96d}{init\+\_\+track} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour l\textquotesingle{}initialisation de la track. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a1aa823f431873e33d5b7095aaf8199f8}{init\+\_\+game} (\hyperlink{struct_game}{Game} $\ast$game, int height, int width)
+\begin{DoxyCompactList}\small\item\em Fonction pour l\textquotesingle{}initialisation du jeu. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a96baae852b652337739b9cf463ec9a5f}{reset\+\_\+game} (\hyperlink{struct_game}{Game} $\ast$game, int height, int width)
+\begin{DoxyCompactList}\small\item\em Fonction de réinitialisation du jeu. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a971b5b9e0391b68e00546b19fe07bafb}{restart\+\_\+game} (\hyperlink{struct_game}{Game} $\ast$game, int height, int width)
+\begin{DoxyCompactList}\small\item\em Fonction pour recommencer un level. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_a055ce2874a0fbed77092e4ba81c59ddf}{change\+\_\+level} (\hyperlink{struct_game}{Game} $\ast$game, int height, int width)
+\begin{DoxyCompactList}\small\item\em Fonction pour changer de level. \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_ab5fc2f364ae1501956a2958de19cbe97}{time\+\_\+stop} (\hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction pour arrêter le temps ( le train) \end{DoxyCompactList}\item 
+void \hyperlink{game_8c_ad88ea8e0d2afe0c3987e18e586274c1b}{speed\+\_\+change} (\hyperlink{struct_game}{Game} $\ast$game, int bonus)
+\begin{DoxyCompactList}\small\item\em Fonction pour changer la vitesse du train, accélérer ou bien ralentir. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fonctions et objets principaux du jeu. 
+
+\begin{DoxyAuthor}{Author}
+Gaëtan Perrot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23 avril 2017
+\end{DoxyDate}
+Fonctions et objets principaux du jeu 
+
+\subsection{Function Documentation}
+\index{game.\+c@{game.\+c}!calcule\+\_\+score\+\_\+with\+\_\+marble\+\_\+group\+\_\+size@{calcule\+\_\+score\+\_\+with\+\_\+marble\+\_\+group\+\_\+size}}
+\index{calcule\+\_\+score\+\_\+with\+\_\+marble\+\_\+group\+\_\+size@{calcule\+\_\+score\+\_\+with\+\_\+marble\+\_\+group\+\_\+size}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{calcule\+\_\+score\+\_\+with\+\_\+marble\+\_\+group\+\_\+size(\+Game $\ast$game, Track $\ast$track, int marble\+\_\+id\+\_\+start, int score, int combo)}{calcule_score_with_marble_group_size(Game *game, Track *track, int marble_id_start, int score, int combo)}}]{\setlength{\rightskip}{0pt plus 5cm}int calcule\+\_\+score\+\_\+with\+\_\+marble\+\_\+group\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{{\bf Track} $\ast$}]{track, }
+\item[{int}]{marble\+\_\+id\+\_\+start, }
+\item[{int}]{score, }
+\item[{int}]{bonus}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_aa5b5a4c5c922fe5aa18ef28ac693db5a}{}\label{game_8c_aa5b5a4c5c922fe5aa18ef28ac693db5a}
+
+
+Fonction pour calculer le score obtenu après un tir. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} $\ast$ game,\hyperlink{struct_track}{Track} $\ast$ track, int marble\+\_\+id\+\_\+start,int score,int bonus \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!change\+\_\+level@{change\+\_\+level}}
+\index{change\+\_\+level@{change\+\_\+level}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{change\+\_\+level(\+Game $\ast$game, int height, int width)}{change_level(Game *game, int height, int width)}}]{\setlength{\rightskip}{0pt plus 5cm}void change\+\_\+level (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a055ce2874a0fbed77092e4ba81c59ddf}{}\label{game_8c_a055ce2874a0fbed77092e4ba81c59ddf}
+
+
+Fonction pour changer de level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game, int height, int width \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!check\+\_\+bonus@{check\+\_\+bonus}}
+\index{check\+\_\+bonus@{check\+\_\+bonus}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{check\+\_\+bonus(\+Game $\ast$game, Track $\ast$track, int marble)}{check_bonus(Game *game, Track *track, int marble)}}]{\setlength{\rightskip}{0pt plus 5cm}void check\+\_\+bonus (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{{\bf Track} $\ast$}]{track, }
+\item[{int}]{marble}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a6a5803be3dedb50a82b3d625ac90ea3e}{}\label{game_8c_a6a5803be3dedb50a82b3d625ac90ea3e}
+
+
+Fonction pour vérifier si il y a un bonus. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} $\ast$ game,\hyperlink{struct_track}{Track} $\ast$ track,int marble \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!check\+\_\+bonus\+\_\+end@{check\+\_\+bonus\+\_\+end}}
+\index{check\+\_\+bonus\+\_\+end@{check\+\_\+bonus\+\_\+end}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{check\+\_\+bonus\+\_\+end(\+Game $\ast$game)}{check_bonus_end(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void check\+\_\+bonus\+\_\+end (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a171ea500d411c5194613976786047d70}{}\label{game_8c_a171ea500d411c5194613976786047d70}
+
+
+Fonction pour vérifier un bonus est terminé 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!check\+\_\+end\+\_\+of\+\_\+game@{check\+\_\+end\+\_\+of\+\_\+game}}
+\index{check\+\_\+end\+\_\+of\+\_\+game@{check\+\_\+end\+\_\+of\+\_\+game}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{check\+\_\+end\+\_\+of\+\_\+game(\+Game $\ast$game)}{check_end_of_game(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void check\+\_\+end\+\_\+of\+\_\+game (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_aa5da90408ff8ede3b09fa6a0a376c709}{}\label{game_8c_aa5da90408ff8ede3b09fa6a0a376c709}
+
+
+Fonction pour vérifier si la partie est terminé 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!create\+\_\+marbles@{create\+\_\+marbles}}
+\index{create\+\_\+marbles@{create\+\_\+marbles}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{create\+\_\+marbles(\+Track $\ast$track, int current\+\_\+level)}{create_marbles(Track *track, int current_level)}}]{\setlength{\rightskip}{0pt plus 5cm}void create\+\_\+marbles (
+\begin{DoxyParamCaption}
+\item[{{\bf Track} $\ast$}]{track, }
+\item[{int}]{current\+\_\+level}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a090892ad996749a780a8f8c7670a853d}{}\label{game_8c_a090892ad996749a780a8f8c7670a853d}
+
+
+Fonction pour créer les billes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_track}{Track} $\ast$ track,int current\+\_\+level \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!do\+\_\+vector\+\_\+product@{do\+\_\+vector\+\_\+product}}
+\index{do\+\_\+vector\+\_\+product@{do\+\_\+vector\+\_\+product}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{do\+\_\+vector\+\_\+product(double xu, double yu, double zu, double xv, double yv, double zv, double $\ast$x, double $\ast$y, double $\ast$z)}{do_vector_product(double xu, double yu, double zu, double xv, double yv, double zv, double *x, double *y, double *z)}}]{\setlength{\rightskip}{0pt plus 5cm}void do\+\_\+vector\+\_\+product (
+\begin{DoxyParamCaption}
+\item[{double}]{xu, }
+\item[{double}]{yu, }
+\item[{double}]{zu, }
+\item[{double}]{xv, }
+\item[{double}]{yv, }
+\item[{double}]{zv, }
+\item[{double $\ast$}]{x, }
+\item[{double $\ast$}]{y, }
+\item[{double $\ast$}]{z}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a590c19b4c7fbc37e84976b4d3773e0b7}{}\label{game_8c_a590c19b4c7fbc37e84976b4d3773e0b7}
+
+\begin{DoxyParams}{Parameters}
+{\em self} & double xu,double yu,double zu,double xv,double yv,double zv, double $\ast$x, double $\ast$y,double $\ast$z) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!game\+\_\+pause@{game\+\_\+pause}}
+\index{game\+\_\+pause@{game\+\_\+pause}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{game\+\_\+pause(\+Game $\ast$game)}{game_pause(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void game\+\_\+pause (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a321533d866fea72c822dabdeb0ccc094}{}\label{game_8c_a321533d866fea72c822dabdeb0ccc094}
+
+
+Fonction pour mettre en pause le jeu si il ne l\textquotesingle{}est pas sinon le remet en mode playing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!init\+\_\+ammo@{init\+\_\+ammo}}
+\index{init\+\_\+ammo@{init\+\_\+ammo}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+ammo(\+Game $\ast$game)}{init_ammo(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+ammo (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_afd103f2ed5a4accadde77c8f8fbe489b}{}\label{game_8c_afd103f2ed5a4accadde77c8f8fbe489b}
+
+
+Fonction pour l\textquotesingle{}initialisation des munitions du canon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!init\+\_\+canon@{init\+\_\+canon}}
+\index{init\+\_\+canon@{init\+\_\+canon}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+canon(\+Game $\ast$game, int height, int width)}{init_canon(Game *game, int height, int width)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+canon (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_aa832339540d987f842a7d505da20803c}{}\label{game_8c_aa832339540d987f842a7d505da20803c}
+
+
+Fonction pour l\textquotesingle{}initialisation du canon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game,int height, int width \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!init\+\_\+game@{init\+\_\+game}}
+\index{init\+\_\+game@{init\+\_\+game}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+game(\+Game $\ast$game, int height, int width)}{init_game(Game *game, int height, int width)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+game (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a1aa823f431873e33d5b7095aaf8199f8}{}\label{game_8c_a1aa823f431873e33d5b7095aaf8199f8}
+
+
+Fonction pour l\textquotesingle{}initialisation du jeu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game, int height, int width \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!init\+\_\+marble\+\_\+bonus@{init\+\_\+marble\+\_\+bonus}}
+\index{init\+\_\+marble\+\_\+bonus@{init\+\_\+marble\+\_\+bonus}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+marble\+\_\+bonus()}{init_marble_bonus()}}]{\setlength{\rightskip}{0pt plus 5cm}int init\+\_\+marble\+\_\+bonus (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_aec4660f64205ee890c1c609f7883cd16}{}\label{game_8c_aec4660f64205ee890c1c609f7883cd16}
+
+
+Fonction pour la génération du bonus aléatoirement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int le bonus généré aléatoirement 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!init\+\_\+shots@{init\+\_\+shots}}
+\index{init\+\_\+shots@{init\+\_\+shots}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+shots(\+Game $\ast$game)}{init_shots(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+shots (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a76bc3a19eb94631d39401b92e638d529}{}\label{game_8c_a76bc3a19eb94631d39401b92e638d529}
+
+
+Fonction pour l\textquotesingle{}initialisation des shots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!init\+\_\+track@{init\+\_\+track}}
+\index{init\+\_\+track@{init\+\_\+track}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+track(\+Game $\ast$game)}{init_track(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+track (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_af1c8645a911806b783052f96c2f9f96d}{}\label{game_8c_af1c8645a911806b783052f96c2f9f96d}
+
+
+Fonction pour l\textquotesingle{}initialisation de la track. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!is\+\_\+color\+\_\+on\+\_\+track@{is\+\_\+color\+\_\+on\+\_\+track}}
+\index{is\+\_\+color\+\_\+on\+\_\+track@{is\+\_\+color\+\_\+on\+\_\+track}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{is\+\_\+color\+\_\+on\+\_\+track(\+Track $\ast$track, int color)}{is_color_on_track(Track *track, int color)}}]{\setlength{\rightskip}{0pt plus 5cm}int is\+\_\+color\+\_\+on\+\_\+track (
+\begin{DoxyParamCaption}
+\item[{{\bf Track} $\ast$}]{track, }
+\item[{int}]{color}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a32dbc2ae6d9dd615b664c16ef04bf376}{}\label{game_8c_a32dbc2ae6d9dd615b664c16ef04bf376}
+
+
+Fonction pour chercher si une couleur est dans la track. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_track}{Track} $\ast$ track, int color \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+retourne 1 si la couleur est déjà dans la track et 0 si elle ne l\textquotesingle{}ait pas 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!load\+\_\+cannon\+\_\+image@{load\+\_\+cannon\+\_\+image}}
+\index{load\+\_\+cannon\+\_\+image@{load\+\_\+cannon\+\_\+image}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{load\+\_\+cannon\+\_\+image(\+Game $\ast$game)}{load_cannon_image(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void load\+\_\+cannon\+\_\+image (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a5c95bbb5adb20ea2cbf4ed0bc1c9025f}{}\label{game_8c_a5c95bbb5adb20ea2cbf4ed0bc1c9025f}
+
+
+Fonction pour charger l\textquotesingle{}image du canon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!move\+\_\+shots\+\_\+one\+\_\+step@{move\+\_\+shots\+\_\+one\+\_\+step}}
+\index{move\+\_\+shots\+\_\+one\+\_\+step@{move\+\_\+shots\+\_\+one\+\_\+step}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{move\+\_\+shots\+\_\+one\+\_\+step(\+Game $\ast$game)}{move_shots_one_step(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void move\+\_\+shots\+\_\+one\+\_\+step (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a4476eab4b74a53b36cdf7d7096c62060}{}\label{game_8c_a4476eab4b74a53b36cdf7d7096c62060}
+
+
+Fonction pour avancer le shot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!move\+\_\+trains\+\_\+one\+\_\+step@{move\+\_\+trains\+\_\+one\+\_\+step}}
+\index{move\+\_\+trains\+\_\+one\+\_\+step@{move\+\_\+trains\+\_\+one\+\_\+step}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{move\+\_\+trains\+\_\+one\+\_\+step(\+Game $\ast$game)}{move_trains_one_step(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void move\+\_\+trains\+\_\+one\+\_\+step (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a82438caca3314471bef10e102441af12}{}\label{game_8c_a82438caca3314471bef10e102441af12}
+
+
+Fonction pour faire avancer le train. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!prepare\+\_\+ammo@{prepare\+\_\+ammo}}
+\index{prepare\+\_\+ammo@{prepare\+\_\+ammo}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{prepare\+\_\+ammo(\+Game $\ast$game)}{prepare_ammo(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void prepare\+\_\+ammo (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_aaf45176a520f6cfd9d8a52c140802a5d}{}\label{game_8c_aaf45176a520f6cfd9d8a52c140802a5d}
+
+
+Fonction pour préparer les balles du canon après un tir. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!process\+\_\+shots\+\_\+collisions@{process\+\_\+shots\+\_\+collisions}}
+\index{process\+\_\+shots\+\_\+collisions@{process\+\_\+shots\+\_\+collisions}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+shots\+\_\+collisions(\+Game $\ast$game)}{process_shots_collisions(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void process\+\_\+shots\+\_\+collisions (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a903a06d0784febcd3fdcf811cc71a28f}{}\label{game_8c_a903a06d0784febcd3fdcf811cc71a28f}
+
+
+insertion de la bille si il y a eu colision 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!progress\+\_\+game\+\_\+next\+\_\+step@{progress\+\_\+game\+\_\+next\+\_\+step}}
+\index{progress\+\_\+game\+\_\+next\+\_\+step@{progress\+\_\+game\+\_\+next\+\_\+step}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{progress\+\_\+game\+\_\+next\+\_\+step(\+Game $\ast$game, int screen\+\_\+width, int screen\+\_\+height)}{progress_game_next_step(Game *game, int screen_width, int screen_height)}}]{\setlength{\rightskip}{0pt plus 5cm}void progress\+\_\+game\+\_\+next\+\_\+step (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{screen\+\_\+width, }
+\item[{int}]{screen\+\_\+height}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a5b35e1416156b7ae084045350ba89ab9}{}\label{game_8c_a5b35e1416156b7ae084045350ba89ab9}
+
+
+Fonction d\textquotesingle{}étape du jeu (boucle principale) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game,int screen\+\_\+width, int screen\+\_\+height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!reset\+\_\+game@{reset\+\_\+game}}
+\index{reset\+\_\+game@{reset\+\_\+game}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{reset\+\_\+game(\+Game $\ast$game, int height, int width)}{reset_game(Game *game, int height, int width)}}]{\setlength{\rightskip}{0pt plus 5cm}void reset\+\_\+game (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a96baae852b652337739b9cf463ec9a5f}{}\label{game_8c_a96baae852b652337739b9cf463ec9a5f}
+
+
+Fonction de réinitialisation du jeu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game, int height, int width \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!restart\+\_\+game@{restart\+\_\+game}}
+\index{restart\+\_\+game@{restart\+\_\+game}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{restart\+\_\+game(\+Game $\ast$game, int height, int width)}{restart_game(Game *game, int height, int width)}}]{\setlength{\rightskip}{0pt plus 5cm}void restart\+\_\+game (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a971b5b9e0391b68e00546b19fe07bafb}{}\label{game_8c_a971b5b9e0391b68e00546b19fe07bafb}
+
+
+Fonction pour recommencer un level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game, int height, int width \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!sample\+\_\+curve\+\_\+to\+\_\+track@{sample\+\_\+curve\+\_\+to\+\_\+track}}
+\index{sample\+\_\+curve\+\_\+to\+\_\+track@{sample\+\_\+curve\+\_\+to\+\_\+track}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{sample\+\_\+curve\+\_\+to\+\_\+track(\+Curve $\ast$curve, Track $\ast$track, double theta)}{sample_curve_to_track(Curve *curve, Track *track, double theta)}}]{\setlength{\rightskip}{0pt plus 5cm}void sample\+\_\+curve\+\_\+to\+\_\+track (
+\begin{DoxyParamCaption}
+\item[{{\bf Curve} $\ast$}]{curve, }
+\item[{{\bf Track} $\ast$}]{track, }
+\item[{double}]{theta}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a1379e442012bd2db4e0a7c43ba12a140}{}\label{game_8c_a1379e442012bd2db4e0a7c43ba12a140}
+
+
+Fonction de conversion d\textquotesingle{}une curve en une track. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_curve}{Curve} $\ast$curve, \hyperlink{struct_track}{Track} $\ast$track, double theta \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!speed\+\_\+change@{speed\+\_\+change}}
+\index{speed\+\_\+change@{speed\+\_\+change}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{speed\+\_\+change(\+Game $\ast$game, int bonus)}{speed_change(Game *game, int bonus)}}]{\setlength{\rightskip}{0pt plus 5cm}void speed\+\_\+change (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{bonus}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_ad88ea8e0d2afe0c3987e18e586274c1b}{}\label{game_8c_ad88ea8e0d2afe0c3987e18e586274c1b}
+
+
+Fonction pour changer la vitesse du train, accélérer ou bien ralentir. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game,int bonus \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!suppress\+\_\+far\+\_\+shots@{suppress\+\_\+far\+\_\+shots}}
+\index{suppress\+\_\+far\+\_\+shots@{suppress\+\_\+far\+\_\+shots}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{suppress\+\_\+far\+\_\+shots(\+Game $\ast$game, int screen\+\_\+width, int screen\+\_\+height)}{suppress_far_shots(Game *game, int screen_width, int screen_height)}}]{\setlength{\rightskip}{0pt plus 5cm}void suppress\+\_\+far\+\_\+shots (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{screen\+\_\+width, }
+\item[{int}]{screen\+\_\+height}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a401c25af3ee1e41a353329513c7fb679}{}\label{game_8c_a401c25af3ee1e41a353329513c7fb679}
+
+
+Fonction de suppression des tirs lointains. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} $\ast$ game,int screen\+\_\+width, int screen\+\_\+height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!swap\+\_\+ammo@{swap\+\_\+ammo}}
+\index{swap\+\_\+ammo@{swap\+\_\+ammo}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{swap\+\_\+ammo(\+Game $\ast$game)}{swap_ammo(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void swap\+\_\+ammo (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a561e64089b963fcb06eff3c654bc8585}{}\label{game_8c_a561e64089b963fcb06eff3c654bc8585}
+
+
+Fonction pour echanger les balles du canon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Objet \hyperlink{struct_game}{Game} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!test\+\_\+collision@{test\+\_\+collision}}
+\index{test\+\_\+collision@{test\+\_\+collision}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{test\+\_\+collision(\+Game $\ast$game, int $\ast$shot\+\_\+num, int $\ast$marble\+\_\+num, int track\+\_\+num)}{test_collision(Game *game, int *shot_num, int *marble_num, int track_num)}}]{\setlength{\rightskip}{0pt plus 5cm}int test\+\_\+collision (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int $\ast$}]{shot\+\_\+num, }
+\item[{int $\ast$}]{marble\+\_\+num, }
+\item[{int}]{track\+\_\+num}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a868a0d63645e599dd01aee704da37251}{}\label{game_8c_a868a0d63645e599dd01aee704da37251}
+
+
+fonctione pour tester si il y a une colision entre un shot et une bille du train 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game, int $\ast$shot\+\_\+num, int $\ast$marble\+\_\+num, int track\+\_\+num \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int renvoie 1 si il y a une colision et 0 sinon 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!time\+\_\+stop@{time\+\_\+stop}}
+\index{time\+\_\+stop@{time\+\_\+stop}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{time\+\_\+stop(\+Game $\ast$game)}{time_stop(Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void time\+\_\+stop (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_ab5fc2f364ae1501956a2958de19cbe97}{}\label{game_8c_ab5fc2f364ae1501956a2958de19cbe97}
+
+
+Fonction pour arrêter le temps ( le train) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!update\+\_\+canon\+\_\+angle@{update\+\_\+canon\+\_\+angle}}
+\index{update\+\_\+canon\+\_\+angle@{update\+\_\+canon\+\_\+angle}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{update\+\_\+canon\+\_\+angle(\+Game $\ast$game, double sx, double sy)}{update_canon_angle(Game *game, double sx, double sy)}}]{\setlength{\rightskip}{0pt plus 5cm}void update\+\_\+canon\+\_\+angle (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{double}]{sx, }
+\item[{double}]{sy}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_adad209d500c35da1b3d4985e7a09bec4}{}\label{game_8c_adad209d500c35da1b3d4985e7a09bec4}
+
+
+Fonction pour mettre à jour l\textquotesingle{}angle du canon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game,double sx, double sy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{game.\+c@{game.\+c}!update\+\_\+x\+\_\+and\+\_\+y\+\_\+canon@{update\+\_\+x\+\_\+and\+\_\+y\+\_\+canon}}
+\index{update\+\_\+x\+\_\+and\+\_\+y\+\_\+canon@{update\+\_\+x\+\_\+and\+\_\+y\+\_\+canon}!game.\+c@{game.\+c}}
+\subsubsection[{\texorpdfstring{update\+\_\+x\+\_\+and\+\_\+y\+\_\+canon(\+Game $\ast$game, int height, int width)}{update_x_and_y_canon(Game *game, int height, int width)}}]{\setlength{\rightskip}{0pt plus 5cm}void update\+\_\+x\+\_\+and\+\_\+y\+\_\+canon (
+\begin{DoxyParamCaption}
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{int}]{height, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)}\hypertarget{game_8c_a737ca8731777960973c03c78e1d777d7}{}\label{game_8c_a737ca8731777960973c03c78e1d777d7}
+
+
+Fonction de mise à jour de la postion du canon par rapport à l\textquotesingle{}écran pour le centrer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_game}{Game} $\ast$ game,int screen\+\_\+width, int screen\+\_\+height \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

@@ -1,0 +1,87 @@
+\hypertarget{struct_game}{}\section{Game Struct Reference}
+\label{struct_game}\index{Game@{Game}}
+
+
+Objet contenant les informations pour un \hyperlink{struct_game}{Game}.  
+
+
+
+
+{\ttfamily \#include $<$game.\+h$>$}
+
+
+
+Collaboration diagram for Game\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_game__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{game_8h_a33e243da48884e73997b5c5fa62864d4}{Game\+\_\+state} \hyperlink{struct_game_abe9c6b7e729dc8fdac044b9a37ec19f3}{state}
+\item 
+\hyperlink{struct_bonus}{Bonus} \hyperlink{struct_game_ad9bc80a3bd450dcd9f2c68c2e523051d}{bonus}
+\item 
+int \hyperlink{struct_game_aadd67ce7858be05c138c310167fcf663}{current\+\_\+level}
+\item 
+int \hyperlink{struct_game_aef160b7437d94056f1dc59646cd5b87d}{score}
+\item 
+int \hyperlink{struct_game_aa59e6d9166b7c819a741e5738d7edb4a}{score\+\_\+level\+\_\+before}
+\item 
+int \hyperlink{struct_game_a740c72199e905a6e7b1465e539ce9405}{level\+Sup\+Speed\+Malus}
+\item 
+\hyperlink{struct_canon}{Canon} \hyperlink{struct_game_a842d6f5ebfe8dd375e5b03e080622d93}{canon}
+\item 
+\hyperlink{struct_shot__list}{Shot\+\_\+list} \hyperlink{struct_game_ad9d344b557c1fa1dcf5707e3009feb07}{shot\+\_\+list}
+\item 
+\hyperlink{struct_track__list}{Track\+\_\+list} \hyperlink{struct_game_a3a80b48316d096cc230b63eb95214c36}{track\+\_\+list}
+\item 
+\hyperlink{struct_level__list}{Level\+\_\+list} \hyperlink{struct_game_a592a02fc63fe476f0b4fabe6240a24b8}{level\+\_\+list}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Objet contenant les informations pour un \hyperlink{struct_game}{Game}. 
+
+Objet contenant les informations pour un \hyperlink{struct_game}{Game} Game\+\_\+state state; \hyperlink{struct_bonus}{Bonus} bonus; int current\+\_\+level; int score; int score\+\_\+level\+\_\+before; int level\+Sup\+Speed\+Malus; \hyperlink{struct_canon}{Canon} canon; \hyperlink{struct_shot__list}{Shot\+\_\+list} shot\+\_\+list; \hyperlink{struct_track__list}{Track\+\_\+list} track\+\_\+list; \hyperlink{struct_level__list}{Level\+\_\+list} level\+\_\+list; 
+
+\subsection{Field Documentation}
+\index{Game@{Game}!bonus@{bonus}}
+\index{bonus@{bonus}!Game@{Game}}
+\subsubsection[{\texorpdfstring{bonus}{bonus}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bonus} bonus}\hypertarget{struct_game_ad9bc80a3bd450dcd9f2c68c2e523051d}{}\label{struct_game_ad9bc80a3bd450dcd9f2c68c2e523051d}
+État du jeu. \index{Game@{Game}!canon@{canon}}
+\index{canon@{canon}!Game@{Game}}
+\subsubsection[{\texorpdfstring{canon}{canon}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Canon} canon}\hypertarget{struct_game_a842d6f5ebfe8dd375e5b03e080622d93}{}\label{struct_game_a842d6f5ebfe8dd375e5b03e080622d93}
+Objet \hyperlink{struct_canon}{Canon}. \index{Game@{Game}!current\+\_\+level@{current\+\_\+level}}
+\index{current\+\_\+level@{current\+\_\+level}!Game@{Game}}
+\subsubsection[{\texorpdfstring{current\+\_\+level}{current_level}}]{\setlength{\rightskip}{0pt plus 5cm}int current\+\_\+level}\hypertarget{struct_game_aadd67ce7858be05c138c310167fcf663}{}\label{struct_game_aadd67ce7858be05c138c310167fcf663}
+\hyperlink{struct_level}{Level} courant. \index{Game@{Game}!level\+\_\+list@{level\+\_\+list}}
+\index{level\+\_\+list@{level\+\_\+list}!Game@{Game}}
+\subsubsection[{\texorpdfstring{level\+\_\+list}{level_list}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Level\+\_\+list} level\+\_\+list}\hypertarget{struct_game_a592a02fc63fe476f0b4fabe6240a24b8}{}\label{struct_game_a592a02fc63fe476f0b4fabe6240a24b8}
+Liste des levels. \index{Game@{Game}!level\+Sup\+Speed\+Malus@{level\+Sup\+Speed\+Malus}}
+\index{level\+Sup\+Speed\+Malus@{level\+Sup\+Speed\+Malus}!Game@{Game}}
+\subsubsection[{\texorpdfstring{level\+Sup\+Speed\+Malus}{levelSupSpeedMalus}}]{\setlength{\rightskip}{0pt plus 5cm}int level\+Sup\+Speed\+Malus}\hypertarget{struct_game_a740c72199e905a6e7b1465e539ce9405}{}\label{struct_game_a740c72199e905a6e7b1465e539ce9405}
+Malus vitesse après retour au level 0 après avoir gagné les de 0 à 10 levels. \index{Game@{Game}!score@{score}}
+\index{score@{score}!Game@{Game}}
+\subsubsection[{\texorpdfstring{score}{score}}]{\setlength{\rightskip}{0pt plus 5cm}int score}\hypertarget{struct_game_aef160b7437d94056f1dc59646cd5b87d}{}\label{struct_game_aef160b7437d94056f1dc59646cd5b87d}
+Score. \index{Game@{Game}!score\+\_\+level\+\_\+before@{score\+\_\+level\+\_\+before}}
+\index{score\+\_\+level\+\_\+before@{score\+\_\+level\+\_\+before}!Game@{Game}}
+\subsubsection[{\texorpdfstring{score\+\_\+level\+\_\+before}{score_level_before}}]{\setlength{\rightskip}{0pt plus 5cm}int score\+\_\+level\+\_\+before}\hypertarget{struct_game_aa59e6d9166b7c819a741e5738d7edb4a}{}\label{struct_game_aa59e6d9166b7c819a741e5738d7edb4a}
+État du jeu. \index{Game@{Game}!shot\+\_\+list@{shot\+\_\+list}}
+\index{shot\+\_\+list@{shot\+\_\+list}!Game@{Game}}
+\subsubsection[{\texorpdfstring{shot\+\_\+list}{shot_list}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Shot\+\_\+list} shot\+\_\+list}\hypertarget{struct_game_ad9d344b557c1fa1dcf5707e3009feb07}{}\label{struct_game_ad9d344b557c1fa1dcf5707e3009feb07}
+Liste des shots tirés. \index{Game@{Game}!state@{state}}
+\index{state@{state}!Game@{Game}}
+\subsubsection[{\texorpdfstring{state}{state}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Game\+\_\+state} state}\hypertarget{struct_game_abe9c6b7e729dc8fdac044b9a37ec19f3}{}\label{struct_game_abe9c6b7e729dc8fdac044b9a37ec19f3}
+État du jeu. \index{Game@{Game}!track\+\_\+list@{track\+\_\+list}}
+\index{track\+\_\+list@{track\+\_\+list}!Game@{Game}}
+\subsubsection[{\texorpdfstring{track\+\_\+list}{track_list}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Track\+\_\+list} track\+\_\+list}\hypertarget{struct_game_a3a80b48316d096cc230b63eb95214c36}{}\label{struct_game_a3a80b48316d096cc230b63eb95214c36}
+Liste des tracks. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{game_8h}{game.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,97 @@
+\hypertarget{menus_8c}{}\section{menus.\+c File Reference}
+\label{menus_8c}\index{menus.\+c@{menus.\+c}}
+
+
+Gestion des menus et évènements des menus.  
+
+
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}curve.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mydata.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}drawings.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}menus.\+h\char`\"{}}\\*
+Include dependency graph for menus.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{menus_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries on\+\_\+item\+\_\+about\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_a483069984e9c28368a7cdb290dc492ec}{}\label{menus_8c_a483069984e9c28368a7cdb290dc492ec}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+new\+\_\+level\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_a8bec92dd556d88acddcad577339eea84}{}\label{menus_8c_a8bec92dd556d88acddcad577339eea84}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+load\+\_\+level\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_a292bbcd443bfeb2e679aec61a223eb97}{}\label{menus_8c_a292bbcd443bfeb2e679aec61a223eb97}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+save\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_ac4407e9753540f83753db8306706da45}{}\label{menus_8c_ac4407e9753540f83753db8306706da45}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+new\+\_\+game\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_afa2eed0906d57526de082ebfc47d0d5e}{}\label{menus_8c_afa2eed0906d57526de082ebfc47d0d5e}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+re\+\_\+start\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_a3b3de28f66315eab8b11f5096afca7a9}{}\label{menus_8c_a3b3de28f66315eab8b11f5096afca7a9}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+start\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_af550d46dd3f330884fed8040484c29a4}{}\label{menus_8c_af550d46dd3f330884fed8040484c29a4}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+pause\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_a37be1c3b040f799a639a0c24d78db711}{}\label{menus_8c_a37be1c3b040f799a639a0c24d78db711}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+quit\+\_\+activate} (Gtk\+Widget $\ast$widget, gpointer data)\hypertarget{menus_8c_afaf10adeec6a216446d47dbcc906ae61}{}\label{menus_8c_afaf10adeec6a216446d47dbcc906ae61}
+
+\item 
+void {\bfseries on\+\_\+item\+\_\+edit\+\_\+activate} (Gtk\+Check\+Menu\+Item $\ast$widget, gpointer data)\hypertarget{menus_8c_a0d06139c3e585e70f00e008ea37b87da}{}\label{menus_8c_a0d06139c3e585e70f00e008ea37b87da}
+
+\item 
+void \hyperlink{menus_8c_aab0e8657d765a92956625a9c43a449f0}{menu\+\_\+init} (gpointer user\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}initialisation du menu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Gestion des menus et évènements des menus. 
+
+\begin{DoxyAuthor}{Author}
+Gaëtan Perrot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23 avril 2017
+\end{DoxyDate}
+Gestion des menus et évènements des menus 
+
+\subsection{Function Documentation}
+\index{menus.\+c@{menus.\+c}!menu\+\_\+init@{menu\+\_\+init}}
+\index{menu\+\_\+init@{menu\+\_\+init}!menus.\+c@{menus.\+c}}
+\subsubsection[{\texorpdfstring{menu\+\_\+init(gpointer user\+\_\+data)}{menu_init(gpointer user_data)}}]{\setlength{\rightskip}{0pt plus 5cm}void menu\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{gpointer}]{user\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{menus_8c_aab0e8657d765a92956625a9c43a449f0}{}\label{menus_8c_aab0e8657d765a92956625a9c43a449f0}
+
+
+Fonction d\textquotesingle{}initialisation du menu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un objet gpointer (\hyperlink{struct_mydata}{Mydata}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

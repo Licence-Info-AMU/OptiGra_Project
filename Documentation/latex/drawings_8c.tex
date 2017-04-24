@@ -1,0 +1,330 @@
+\hypertarget{drawings_8c}{}\section{drawings.\+c File Reference}
+\label{drawings_8c}\index{drawings.\+c@{drawings.\+c}}
+
+
+Fonctions de dessin dans area avec cairo.  
+
+
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}curve.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}game.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mydata.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}drawings.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}menus.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}font.\+h\char`\"{}}\\*
+Include dependency graph for drawings.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{drawings_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+gboolean {\bfseries on\+\_\+timeout} (gpointer data)\hypertarget{drawings_8c_abeaafffbc61bee0d635003ade901e0ce}{}\label{drawings_8c_abeaafffbc61bee0d635003ade901e0ce}
+
+\item 
+void {\bfseries apply\+\_\+image\+\_\+transforms} (\hyperlink{struct_mydata}{Mydata} $\ast$data)\hypertarget{drawings_8c_a1a60047a563d0f5ca7e51f78d25e6755}{}\label{drawings_8c_a1a60047a563d0f5ca7e51f78d25e6755}
+
+\item 
+void {\bfseries draw\+\_\+control\+\_\+polygons} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)\hypertarget{drawings_8c_aa2916387ed2bb46400a772edf5e5e482}{}\label{drawings_8c_aa2916387ed2bb46400a772edf5e5e482}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+key\+\_\+press} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_a3f7aa1a6a60c2de908a231f8b753ce56}{}\label{drawings_8c_a3f7aa1a6a60c2de908a231f8b753ce56}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+key\+\_\+release} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_a283df1e1e199997c3706485e0322281c}{}\label{drawings_8c_a283df1e1e199997c3706485e0322281c}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+button\+\_\+press} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_af528da38bf7d80a4c73982b1c3b1aaec}{}\label{drawings_8c_af528da38bf7d80a4c73982b1c3b1aaec}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+button\+\_\+release} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_ac3afd7a9454ebe3ed9f27d126638963a}{}\label{drawings_8c_ac3afd7a9454ebe3ed9f27d126638963a}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+motion\+\_\+notify} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_a7dcb1b779674db2a800817d52d628d95}{}\label{drawings_8c_a7dcb1b779674db2a800817d52d628d95}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+enter\+\_\+notify} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_a5002b23ba6d50a8952fa65c3aa925b19}{}\label{drawings_8c_a5002b23ba6d50a8952fa65c3aa925b19}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+leave\+\_\+notify} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_ae5510e56cbdac869f39b1eba7fefe5d6}{}\label{drawings_8c_ae5510e56cbdac869f39b1eba7fefe5d6}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+draw} (Gtk\+Widget $\ast$area, cairo\+\_\+t $\ast$cr, gpointer data)\hypertarget{drawings_8c_a67a7e2fd48a3328bcc90a5038d914acf}{}\label{drawings_8c_a67a7e2fd48a3328bcc90a5038d914acf}
+
+\item 
+gboolean {\bfseries on\+\_\+area\+\_\+resize\+\_\+window} (Gtk\+Widget $\ast$area, Gdk\+Event $\ast$event, gpointer data)\hypertarget{drawings_8c_a0a09ebf72544cf16711e3f01a44666e9}{}\label{drawings_8c_a0a09ebf72544cf16711e3f01a44666e9}
+
+\item 
+void {\bfseries draw\+\_\+control\+\_\+labels} (cairo\+\_\+t $\ast$cr, Pango\+Layout $\ast$layout, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)\hypertarget{drawings_8c_a356bff98b57e38e6d000986d0c78d32a}{}\label{drawings_8c_a356bff98b57e38e6d000986d0c78d32a}
+
+\item 
+void {\bfseries draw\+\_\+bezier\+\_\+polygons\+\_\+open} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci)\hypertarget{drawings_8c_a2367d9f272e9802dce9c2ccf6cb1b9cf}{}\label{drawings_8c_a2367d9f272e9802dce9c2ccf6cb1b9cf}
+
+\item 
+void {\bfseries draw\+\_\+bezier\+\_\+curve} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_control}{Control} bez\+\_\+points\mbox{[}4\mbox{]}, double theta)\hypertarget{drawings_8c_affd3405db9cd4fb799cdc64177f45ebd}{}\label{drawings_8c_affd3405db9cd4fb799cdc64177f45ebd}
+
+\item 
+void {\bfseries draw\+\_\+bezier\+\_\+curves\+\_\+open} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double theta)\hypertarget{drawings_8c_a5bd869742ca2d210d6d2d580e3039562}{}\label{drawings_8c_a5bd869742ca2d210d6d2d580e3039562}
+
+\item 
+void {\bfseries draw\+\_\+bezier\+\_\+curves\+\_\+close} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double theta)\hypertarget{drawings_8c_a61156c2d248d68f486cd1c960a2a1956}{}\label{drawings_8c_a61156c2d248d68f486cd1c960a2a1956}
+
+\item 
+void {\bfseries draw\+\_\+bezier\+\_\+curves\+\_\+prolong} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double theta)\hypertarget{drawings_8c_a5206bc4f02ad475ad780ee3db77e345b}{}\label{drawings_8c_a5206bc4f02ad475ad780ee3db77e345b}
+
+\item 
+void {\bfseries generate\+\_\+bezier\+\_\+path} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_control}{Control} bez\+\_\+points\mbox{[}4\mbox{]}, double theta, int is\+\_\+first)\hypertarget{drawings_8c_afbfba3fd3a171ef4b9d8af2bb8572517}{}\label{drawings_8c_afbfba3fd3a171ef4b9d8af2bb8572517}
+
+\item 
+void {\bfseries draw\+\_\+bezier\+\_\+curves\+\_\+fill} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double theta)\hypertarget{drawings_8c_af21c9cee4d112047d32486589245e096}{}\label{drawings_8c_af21c9cee4d112047d32486589245e096}
+
+\item 
+void {\bfseries draw\+\_\+bezier\+\_\+curves\+\_\+clip} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_curve__infos}{Curve\+\_\+infos} $\ast$ci, double theta, \hyperlink{struct_mydata}{Mydata} $\ast$my)\hypertarget{drawings_8c_acb7155f40b67ccf7280b34d8d4e86531}{}\label{drawings_8c_acb7155f40b67ccf7280b34d8d4e86531}
+
+\item 
+void \hyperlink{drawings_8c_a5a8a7e187f959600594192cec54a578c}{switch\+\_\+shot\+\_\+color} (cairo\+\_\+t $\ast$cr, int color)
+\begin{DoxyCompactList}\small\item\em Fonction pour choisir la couleur de dessin du cairo en fonction de la couleur de la bille. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_af35ce069689e411753aa13938ef89a0f}{draw\+\_\+canon} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}affichage du canon. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_adb57245779eb40b0a9111c7c5047f9e2}{draw\+\_\+shots} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}affichage des shots. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_ab772221930486e28bf658267dfddf6a5}{draw\+\_\+track} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}affichage de la track. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_af2d7c0359fb7530645b5a9c7db341920}{draw\+\_\+marbles\+\_\+bonus\+\_\+labels} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$game, Pango\+Layout $\ast$layout)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}affichage du label du bonus de la bille. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_a44efb2de2c9e7ae7f7058629d4cea1e3}{draw\+\_\+marble} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_marble}{Marble} $\ast$marble)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}affichage d\textquotesingle{}une bille. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_a62bec0aefcaa2850956ab50fdbf84471}{draw\+\_\+marbles} (cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$game)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}affichage des billes. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_acd9e48eb9bb11828e7914947853aad6e}{draw\+\_\+title} (\hyperlink{struct_mydata}{Mydata} $\ast$my, cairo\+\_\+t $\ast$cr)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}affichage de l\textquotesingle{}écran titre. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_aa0efc5e769311ff5740f2f0208058598}{update\+\_\+\+Player\+\_\+\+Frame} (\hyperlink{struct_mydata}{Mydata} $\ast$my)
+\begin{DoxyCompactList}\small\item\em Fonction de mise à jour du frame affichant les statistiques du joueur. \end{DoxyCompactList}\item 
+void \hyperlink{drawings_8c_a1e81acf05d756f95b39b5be684ab9516}{game\+\_\+over\+\_\+message\+\_\+dialog} (gpointer data)
+\begin{DoxyCompactList}\small\item\em Fonction de la fenêtre du gameover. \end{DoxyCompactList}\item 
+void {\bfseries area\+\_\+init} (gpointer user\+\_\+data)\hypertarget{drawings_8c_a165f369e059a870a812e600f5b27e066}{}\label{drawings_8c_a165f369e059a870a812e600f5b27e066}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fonctions de dessin dans area avec cairo. 
+
+\begin{DoxyAuthor}{Author}
+Gaëtan Perrot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23 avril 2017
+\end{DoxyDate}
+Fonctions de dessin dans area avec cairo 
+
+\subsection{Function Documentation}
+\index{drawings.\+c@{drawings.\+c}!draw\+\_\+canon@{draw\+\_\+canon}}
+\index{draw\+\_\+canon@{draw\+\_\+canon}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{draw\+\_\+canon(cairo\+\_\+t $\ast$cr, Game $\ast$game)}{draw_canon(cairo_t *cr, Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+canon (
+\begin{DoxyParamCaption}
+\item[{cairo\+\_\+t $\ast$}]{cr, }
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_af35ce069689e411753aa13938ef89a0f}{}\label{drawings_8c_af35ce069689e411753aa13938ef89a0f}
+
+
+Fonction d\textquotesingle{}affichage du canon. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!draw\+\_\+marble@{draw\+\_\+marble}}
+\index{draw\+\_\+marble@{draw\+\_\+marble}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{draw\+\_\+marble(cairo\+\_\+t $\ast$cr, Marble $\ast$marble)}{draw_marble(cairo_t *cr, Marble *marble)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+marble (
+\begin{DoxyParamCaption}
+\item[{cairo\+\_\+t $\ast$}]{cr, }
+\item[{{\bf Marble} $\ast$}]{marble}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_a44efb2de2c9e7ae7f7058629d4cea1e3}{}\label{drawings_8c_a44efb2de2c9e7ae7f7058629d4cea1e3}
+
+
+Fonction d\textquotesingle{}affichage d\textquotesingle{}une bille. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & cairo\+\_\+t $\ast$cr, \hyperlink{struct_marble}{Marble} $\ast$ marble \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!draw\+\_\+marbles@{draw\+\_\+marbles}}
+\index{draw\+\_\+marbles@{draw\+\_\+marbles}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{draw\+\_\+marbles(cairo\+\_\+t $\ast$cr, Game $\ast$game)}{draw_marbles(cairo_t *cr, Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+marbles (
+\begin{DoxyParamCaption}
+\item[{cairo\+\_\+t $\ast$}]{cr, }
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_a62bec0aefcaa2850956ab50fdbf84471}{}\label{drawings_8c_a62bec0aefcaa2850956ab50fdbf84471}
+
+
+Fonction d\textquotesingle{}affichage des billes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!draw\+\_\+marbles\+\_\+bonus\+\_\+labels@{draw\+\_\+marbles\+\_\+bonus\+\_\+labels}}
+\index{draw\+\_\+marbles\+\_\+bonus\+\_\+labels@{draw\+\_\+marbles\+\_\+bonus\+\_\+labels}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{draw\+\_\+marbles\+\_\+bonus\+\_\+labels(cairo\+\_\+t $\ast$cr, Game $\ast$game, Pango\+Layout $\ast$layout)}{draw_marbles_bonus_labels(cairo_t *cr, Game *game, PangoLayout *layout)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+marbles\+\_\+bonus\+\_\+labels (
+\begin{DoxyParamCaption}
+\item[{cairo\+\_\+t $\ast$}]{cr, }
+\item[{{\bf Game} $\ast$}]{game, }
+\item[{Pango\+Layout $\ast$}]{layout}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_af2d7c0359fb7530645b5a9c7db341920}{}\label{drawings_8c_af2d7c0359fb7530645b5a9c7db341920}
+
+
+Fonction d\textquotesingle{}affichage du label du bonus de la bille. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$ game,Pango\+Layout $\ast$layout \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!draw\+\_\+shots@{draw\+\_\+shots}}
+\index{draw\+\_\+shots@{draw\+\_\+shots}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{draw\+\_\+shots(cairo\+\_\+t $\ast$cr, Game $\ast$game)}{draw_shots(cairo_t *cr, Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+shots (
+\begin{DoxyParamCaption}
+\item[{cairo\+\_\+t $\ast$}]{cr, }
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_adb57245779eb40b0a9111c7c5047f9e2}{}\label{drawings_8c_adb57245779eb40b0a9111c7c5047f9e2}
+
+
+Fonction d\textquotesingle{}affichage des shots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!draw\+\_\+title@{draw\+\_\+title}}
+\index{draw\+\_\+title@{draw\+\_\+title}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{draw\+\_\+title(\+Mydata $\ast$my, cairo\+\_\+t $\ast$cr)}{draw_title(Mydata *my, cairo_t *cr)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+title (
+\begin{DoxyParamCaption}
+\item[{{\bf Mydata} $\ast$}]{my, }
+\item[{cairo\+\_\+t $\ast$}]{cr}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_acd9e48eb9bb11828e7914947853aad6e}{}\label{drawings_8c_acd9e48eb9bb11828e7914947853aad6e}
+
+
+Fonction d\textquotesingle{}affichage de l\textquotesingle{}écran titre. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_mydata}{Mydata} $\ast$ my, cairo\+\_\+t $\ast$cr \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!draw\+\_\+track@{draw\+\_\+track}}
+\index{draw\+\_\+track@{draw\+\_\+track}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{draw\+\_\+track(cairo\+\_\+t $\ast$cr, Game $\ast$game)}{draw_track(cairo_t *cr, Game *game)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+track (
+\begin{DoxyParamCaption}
+\item[{cairo\+\_\+t $\ast$}]{cr, }
+\item[{{\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_ab772221930486e28bf658267dfddf6a5}{}\label{drawings_8c_ab772221930486e28bf658267dfddf6a5}
+
+
+Fonction d\textquotesingle{}affichage de la track. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & cairo\+\_\+t $\ast$cr, \hyperlink{struct_game}{Game} $\ast$ game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!game\+\_\+over\+\_\+message\+\_\+dialog@{game\+\_\+over\+\_\+message\+\_\+dialog}}
+\index{game\+\_\+over\+\_\+message\+\_\+dialog@{game\+\_\+over\+\_\+message\+\_\+dialog}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{game\+\_\+over\+\_\+message\+\_\+dialog(gpointer data)}{game_over_message_dialog(gpointer data)}}]{\setlength{\rightskip}{0pt plus 5cm}void game\+\_\+over\+\_\+message\+\_\+dialog (
+\begin{DoxyParamCaption}
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_a1e81acf05d756f95b39b5be684ab9516}{}\label{drawings_8c_a1e81acf05d756f95b39b5be684ab9516}
+
+
+Fonction de la fenêtre du gameover. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & gpointer objet \hyperlink{struct_mydata}{Mydata} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!switch\+\_\+shot\+\_\+color@{switch\+\_\+shot\+\_\+color}}
+\index{switch\+\_\+shot\+\_\+color@{switch\+\_\+shot\+\_\+color}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{switch\+\_\+shot\+\_\+color(cairo\+\_\+t $\ast$cr, int color)}{switch_shot_color(cairo_t *cr, int color)}}]{\setlength{\rightskip}{0pt plus 5cm}void switch\+\_\+shot\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{cairo\+\_\+t $\ast$}]{cr, }
+\item[{int}]{color}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_a5a8a7e187f959600594192cec54a578c}{}\label{drawings_8c_a5a8a7e187f959600594192cec54a578c}
+
+
+Fonction pour choisir la couleur de dessin du cairo en fonction de la couleur de la bille. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & cairo\+\_\+t $\ast$cr,int color \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{drawings.\+c@{drawings.\+c}!update\+\_\+\+Player\+\_\+\+Frame@{update\+\_\+\+Player\+\_\+\+Frame}}
+\index{update\+\_\+\+Player\+\_\+\+Frame@{update\+\_\+\+Player\+\_\+\+Frame}!drawings.\+c@{drawings.\+c}}
+\subsubsection[{\texorpdfstring{update\+\_\+\+Player\+\_\+\+Frame(\+Mydata $\ast$my)}{update_Player_Frame(Mydata *my)}}]{\setlength{\rightskip}{0pt plus 5cm}void update\+\_\+\+Player\+\_\+\+Frame (
+\begin{DoxyParamCaption}
+\item[{{\bf Mydata} $\ast$}]{my}
+\end{DoxyParamCaption}
+)}\hypertarget{drawings_8c_aa0efc5e769311ff5740f2f0208058598}{}\label{drawings_8c_aa0efc5e769311ff5740f2f0208058598}
+
+
+Fonction de mise à jour du frame affichant les statistiques du joueur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \hyperlink{struct_mydata}{Mydata} $\ast$ my \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

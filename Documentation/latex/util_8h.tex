@@ -1,0 +1,108 @@
+\hypertarget{util_8h}{}\section{util.\+h File Reference}
+\label{util_8h}\index{util.\+h@{util.\+h}}
+
+
+Fonctions utiles.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{util_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries S\+A\+V\+E\+\_\+\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}~\char`\"{}Untitled.\+track\char`\"{}\hypertarget{util_8h_a5acb4d53cc0b3b7cd11c95eab0a97f09}{}\label{util_8h_a5acb4d53cc0b3b7cd11c95eab0a97f09}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{util_8h_a4692be361eab8d079776e945613ea9e8}{refresh\+\_\+area} (Gtk\+Widget $\ast$area)
+\begin{DoxyCompactList}\small\item\em Fonction de rafraichissement de l\textquotesingle{}area. \end{DoxyCompactList}\item 
+void \hyperlink{util_8h_a1a411315b6a84a92684787962bee7bef}{set\+\_\+status} (Gtk\+Widget $\ast$status, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Fonction pour mettre à jour la barre de status Mise à jour de la barre de statut. \end{DoxyCompactList}\item 
+int \hyperlink{util_8h_af008852dadb1e4471a8589eabfeebecb}{recup\+Time} ()
+\begin{DoxyCompactList}\small\item\em Fonction de récupération du l\textquotesingle{}heure en seconde. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Fonctions utiles. 
+
+\begin{DoxyAuthor}{Author}
+Gaëtan Perrot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23 avril 2017
+\end{DoxyDate}
+Fonctions utiles 
+
+\subsection{Function Documentation}
+\index{util.\+h@{util.\+h}!recup\+Time@{recup\+Time}}
+\index{recup\+Time@{recup\+Time}!util.\+h@{util.\+h}}
+\subsubsection[{\texorpdfstring{recup\+Time()}{recupTime()}}]{\setlength{\rightskip}{0pt plus 5cm}int recup\+Time (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{util_8h_af008852dadb1e4471a8589eabfeebecb}{}\label{util_8h_af008852dadb1e4471a8589eabfeebecb}
+
+
+Fonction de récupération du l\textquotesingle{}heure en seconde. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int l\textquotesingle{}heure actuelle en seconde 
+\end{DoxyReturn}
+\index{util.\+h@{util.\+h}!refresh\+\_\+area@{refresh\+\_\+area}}
+\index{refresh\+\_\+area@{refresh\+\_\+area}!util.\+h@{util.\+h}}
+\subsubsection[{\texorpdfstring{refresh\+\_\+area(\+Gtk\+Widget $\ast$area)}{refresh_area(GtkWidget *area)}}]{\setlength{\rightskip}{0pt plus 5cm}void refresh\+\_\+area (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{area}
+\end{DoxyParamCaption}
+)}\hypertarget{util_8h_a4692be361eab8d079776e945613ea9e8}{}\label{util_8h_a4692be361eab8d079776e945613ea9e8}
+
+
+Fonction de rafraichissement de l\textquotesingle{}area. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un objet Gtk\+Widget notre area \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{util.\+h@{util.\+h}!set\+\_\+status@{set\+\_\+status}}
+\index{set\+\_\+status@{set\+\_\+status}!util.\+h@{util.\+h}}
+\subsubsection[{\texorpdfstring{set\+\_\+status(\+Gtk\+Widget $\ast$status, const char $\ast$format,...)}{set_status(GtkWidget *status, const char *format,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{status, }
+\item[{const char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{util_8h_a1a411315b6a84a92684787962bee7bef}{}\label{util_8h_a1a411315b6a84a92684787962bee7bef}
+
+
+Fonction pour mettre à jour la barre de status Mise à jour de la barre de statut. 
+
+Fonction pour mettre à jour la barre de status.
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un objet Gtk\+Widget notre barre de status, une chaine, et des paramètres optionnels pour construire la chaine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}

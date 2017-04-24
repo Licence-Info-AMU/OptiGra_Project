@@ -1,0 +1,141 @@
+\hypertarget{mydata_8h}{}\section{mydata.\+h File Reference}
+\label{mydata_8h}\index{mydata.\+h@{mydata.\+h}}
+
+
+\hyperlink{struct_mydata}{Mydata} structure avec les objets principaux.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mydata_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_mydata}{Mydata}
+\begin{DoxyCompactList}\small\item\em Objet contenant les informations pour un \hyperlink{struct_mydata}{Mydata}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{mydata_8h_a1a2ae634179b86b212d6e6d79f1cdf27}{const\+\_\+edit} \{ \\*
+{\bfseries E\+D\+I\+T\+\_\+\+N\+O\+NE}, 
+{\bfseries E\+D\+I\+T\+\_\+\+A\+D\+D\+\_\+\+C\+U\+R\+VE}, 
+{\bfseries E\+D\+I\+T\+\_\+\+M\+O\+V\+E\+\_\+\+C\+U\+R\+VE}, 
+{\bfseries E\+D\+I\+T\+\_\+\+R\+E\+M\+O\+V\+E\+\_\+\+C\+U\+R\+VE}, 
+\\*
+{\bfseries E\+D\+I\+T\+\_\+\+A\+D\+D\+\_\+\+C\+O\+N\+T\+R\+OL}, 
+{\bfseries E\+D\+I\+T\+\_\+\+M\+O\+V\+E\+\_\+\+C\+O\+N\+T\+R\+OL}, 
+{\bfseries E\+D\+I\+T\+\_\+\+R\+E\+M\+O\+V\+E\+\_\+\+C\+O\+N\+T\+R\+OL}, 
+{\bfseries E\+D\+I\+T\+\_\+\+L\+A\+ST}
+ \}\begin{DoxyCompactList}\small\item\em Constantes du choix du mode d\textquotesingle{}edition. \end{DoxyCompactList}
+\item 
+enum \hyperlink{mydata_8h_ab4fdc64ac4f04b45213b265f134b9ffa}{const\+\_\+mode} \{ {\bfseries B\+S\+P\+\_\+\+F\+I\+R\+ST}, 
+{\bfseries B\+S\+P\+\_\+\+P\+R\+O\+L\+O\+NG}, 
+{\bfseries B\+S\+P\+\_\+\+L\+A\+ST}
+ \}\begin{DoxyCompactList}\small\item\em Constantes du choix du mode de création des courbes. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_mydata}{Mydata} $\ast$ \hyperlink{mydata_8h_ad38e3f1616cb48aa2f13c5796cd9ab96}{get\+\_\+mydata} (gpointer data)
+\begin{DoxyCompactList}\small\item\em Fonction de récupération de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata} à partir d\textquotesingle{}un gpointeur. \end{DoxyCompactList}\item 
+void \hyperlink{mydata_8h_a0b1e96cdd4d1a8b4f6cef990070887bf}{init\+\_\+mydata} (\hyperlink{struct_mydata}{Mydata} $\ast$my)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}initialisation de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata}. \end{DoxyCompactList}\item 
+void \hyperlink{mydata_8h_aa351d5e2597fba2a6af74589ab4553da}{set\+\_\+edit\+\_\+mode} (\hyperlink{struct_mydata}{Mydata} $\ast$data, int mode)
+\begin{DoxyCompactList}\small\item\em Fonction de Gestion de l\textquotesingle{}édition \+: Curves / Controls. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{struct_mydata}{Mydata} structure avec les objets principaux. 
+
+\begin{DoxyAuthor}{Author}
+Gaëtan Perrot 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+23 avril 2017
+\end{DoxyDate}
+\hyperlink{struct_mydata}{Mydata} structure avec les objets principaux 
+
+\subsection{Enumeration Type Documentation}
+\index{mydata.\+h@{mydata.\+h}!const\+\_\+edit@{const\+\_\+edit}}
+\index{const\+\_\+edit@{const\+\_\+edit}!mydata.\+h@{mydata.\+h}}
+\subsubsection[{\texorpdfstring{const\+\_\+edit}{const_edit}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf const\+\_\+edit}}\hypertarget{mydata_8h_a1a2ae634179b86b212d6e6d79f1cdf27}{}\label{mydata_8h_a1a2ae634179b86b212d6e6d79f1cdf27}
+
+
+Constantes du choix du mode d\textquotesingle{}edition. 
+
+const\+\_\+edit est une série de constantes prédéfinie pour les choix du mode d\textquotesingle{}edition \index{mydata.\+h@{mydata.\+h}!const\+\_\+mode@{const\+\_\+mode}}
+\index{const\+\_\+mode@{const\+\_\+mode}!mydata.\+h@{mydata.\+h}}
+\subsubsection[{\texorpdfstring{const\+\_\+mode}{const_mode}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf const\+\_\+mode}}\hypertarget{mydata_8h_ab4fdc64ac4f04b45213b265f134b9ffa}{}\label{mydata_8h_ab4fdc64ac4f04b45213b265f134b9ffa}
+
+
+Constantes du choix du mode de création des courbes. 
+
+const\+\_\+mode est une série de constantes prédéfinie pour les choix du mode de création des courbes 
+
+\subsection{Function Documentation}
+\index{mydata.\+h@{mydata.\+h}!get\+\_\+mydata@{get\+\_\+mydata}}
+\index{get\+\_\+mydata@{get\+\_\+mydata}!mydata.\+h@{mydata.\+h}}
+\subsubsection[{\texorpdfstring{get\+\_\+mydata(gpointer data)}{get_mydata(gpointer data)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mydata}$\ast$ get\+\_\+mydata (
+\begin{DoxyParamCaption}
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{mydata_8h_ad38e3f1616cb48aa2f13c5796cd9ab96}{}\label{mydata_8h_ad38e3f1616cb48aa2f13c5796cd9ab96}
+
+
+Fonction de récupération de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata} à partir d\textquotesingle{}un gpointeur. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un \hyperlink{struct_mydata}{Mydata} passé sous forme de gpointer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{struct_mydata}{Mydata} $\ast$ si aucune erreur, N\+U\+LL sinon. 
+\end{DoxyReturn}
+\index{mydata.\+h@{mydata.\+h}!init\+\_\+mydata@{init\+\_\+mydata}}
+\index{init\+\_\+mydata@{init\+\_\+mydata}!mydata.\+h@{mydata.\+h}}
+\subsubsection[{\texorpdfstring{init\+\_\+mydata(\+Mydata $\ast$my)}{init_mydata(Mydata *my)}}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+mydata (
+\begin{DoxyParamCaption}
+\item[{{\bf Mydata} $\ast$}]{my}
+\end{DoxyParamCaption}
+)}\hypertarget{mydata_8h_a0b1e96cdd4d1a8b4f6cef990070887bf}{}\label{mydata_8h_a0b1e96cdd4d1a8b4f6cef990070887bf}
+
+
+Fonction d\textquotesingle{}initialisation de l\textquotesingle{}objet \hyperlink{struct_mydata}{Mydata}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un objet \hyperlink{struct_mydata}{Mydata} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\index{mydata.\+h@{mydata.\+h}!set\+\_\+edit\+\_\+mode@{set\+\_\+edit\+\_\+mode}}
+\index{set\+\_\+edit\+\_\+mode@{set\+\_\+edit\+\_\+mode}!mydata.\+h@{mydata.\+h}}
+\subsubsection[{\texorpdfstring{set\+\_\+edit\+\_\+mode(\+Mydata $\ast$data, int mode)}{set_edit_mode(Mydata *data, int mode)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+edit\+\_\+mode (
+\begin{DoxyParamCaption}
+\item[{{\bf Mydata} $\ast$}]{data, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}\hypertarget{mydata_8h_aa351d5e2597fba2a6af74589ab4553da}{}\label{mydata_8h_aa351d5e2597fba2a6af74589ab4553da}
+
+
+Fonction de Gestion de l\textquotesingle{}édition \+: Curves / Controls. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em self} & Un objet \hyperlink{struct_mydata}{Mydata} ainsi que le mode d\textquotesingle{}edition, un entier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
