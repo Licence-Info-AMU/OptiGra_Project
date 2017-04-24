@@ -1,0 +1,9 @@
+<map id="curve.h" name="curve.h">
+<area shape="rect" id="node2" href="$curve_8c.html" title="Fonctions utiles de gestion des curves. " alt="" coords="5,80,71,107"/>
+<area shape="rect" id="node3" href="$drawings_8c.html" title="Fonctions de dessin dans area avec cairo. " alt="" coords="95,80,181,107"/>
+<area shape="rect" id="node4" href="$game_8c.html" title="Fonctions et objets principaux du jeu. " alt="" coords="205,80,271,107"/>
+<area shape="rect" id="node5" href="$gui_8c.html" title="Interface graphique. " alt="" coords="295,80,346,107"/>
+<area shape="rect" id="node6" href="$main-app_8c.html" title="Main App. " alt="" coords="371,80,457,107"/>
+<area shape="rect" id="node7" href="$menus_8c.html" title="Gestion des menus et évènements des menus. " alt="" coords="482,80,554,107"/>
+<area shape="rect" id="node8" href="$mydata_8c.html" title="Mydata structure avec les objets principaux. " alt="" coords="579,80,655,107"/>
+</map>

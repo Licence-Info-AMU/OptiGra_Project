@@ -1,0 +1,9 @@
+<map id="drawings.c" name="drawings.c">
+<area shape="rect" id="node5" href="$util_8h.html" title="Fonctions utiles. " alt="" coords="196,80,247,107"/>
+<area shape="rect" id="node6" href="$curve_8h.html" title="Fonctions utiles de gestion des curves. " alt="" coords="272,80,337,107"/>
+<area shape="rect" id="node7" href="$game_8h.html" title="Fonctions et objets principaux du jeu. " alt="" coords="361,80,426,107"/>
+<area shape="rect" id="node8" href="$mydata_8h.html" title="Mydata structure avec les objets principaux. " alt="" coords="450,80,526,107"/>
+<area shape="rect" id="node9" href="$drawings_8h.html" title="Fonctions de dessin dans area avec cairo. " alt="" coords="551,80,636,107"/>
+<area shape="rect" id="node10" href="$menus_8h.html" title="Gestion des menus et évènements des menus. " alt="" coords="660,80,732,107"/>
+<area shape="rect" id="node11" href="$font_8h_source.html" title="font.h" alt="" coords="757,80,812,107"/>
+</map>

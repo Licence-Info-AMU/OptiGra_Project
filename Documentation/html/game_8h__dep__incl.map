@@ -1,0 +1,8 @@
+<map id="game.h" name="game.h">
+<area shape="rect" id="node2" href="$drawings_8c.html" title="Fonctions de dessin dans area avec cairo. " alt="" coords="5,80,91,107"/>
+<area shape="rect" id="node3" href="$game_8c.html" title="Fonctions et objets principaux du jeu. " alt="" coords="115,80,181,107"/>
+<area shape="rect" id="node4" href="$gui_8c.html" title="Interface graphique. " alt="" coords="205,80,256,107"/>
+<area shape="rect" id="node5" href="$main-app_8c.html" title="Main App. " alt="" coords="281,80,367,107"/>
+<area shape="rect" id="node6" href="$menus_8c.html" title="Gestion des menus et évènements des menus. " alt="" coords="392,80,464,107"/>
+<area shape="rect" id="node7" href="$mydata_8c.html" title="Mydata structure avec les objets principaux. " alt="" coords="489,80,565,107"/>
+</map>
