@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['canon',['canon',['../struct_game.html#a842d6f5ebfe8dd375e5b03e080622d93',1,'Game']]],
+  ['canon_5fx',['canon_x',['../struct_level.html#a8d69c9e5161432eba15b8c66a3d822dc',1,'Level']]],
+  ['canon_5fy',['canon_y',['../struct_level.html#ae539e37b2953880bd182e39068838d1a',1,'Level']]],
+  ['click_5fn',['click_n',['../struct_mydata.html#a4cbcc68b0a3ae7651f3363348f4d7456',1,'Mydata']]],
+  ['click_5fx',['click_x',['../struct_mydata.html#a49a0f74fc7cb65d2a8ba39006d9e5056',1,'Mydata']]],
+  ['click_5fy',['click_y',['../struct_mydata.html#ad50bebb00d8beaa505e312f9597a41a5',1,'Mydata']]],
+  ['color',['color',['../struct_shot.html#a0fd02fb9277ffcb35a75066ffe95e8c7',1,'Shot::color()'],['../struct_marble.html#a0fd02fb9277ffcb35a75066ffe95e8c7',1,'Marble::color()']]],
+  ['control_5fcount',['control_count',['../struct_curve.html#a59a5b03dc125415956c7a70d6ca5f1c9',1,'Curve']]],
+  ['controls',['controls',['../struct_curve.html#a4ee2ee7a61aec07c8125cf99d3aca658',1,'Curve']]],
+  ['count',['count',['../struct_mydata.html#ad43c3812e6d13e0518d9f8b8f463ffcf',1,'Mydata']]],
+  ['current_5fcontrol',['current_control',['../struct_curve__infos.html#ac29ff01cfeacc113317497e57f0bd892',1,'Curve_infos']]],
+  ['current_5fcurve',['current_curve',['../struct_curve__infos.html#a1dfb6df9eb8f617d17265d99305c8464',1,'Curve_infos']]],
+  ['current_5ffolder',['current_folder',['../struct_mydata.html#aecf8e6b88573cc04da63f47bfc13a246',1,'Mydata']]],
+  ['current_5flevel',['current_level',['../struct_game.html#aadd67ce7858be05c138c310167fcf663',1,'Game']]],
+  ['curve_5fcount',['curve_count',['../struct_curve__list.html#a97c088ae642b601e713d2001c718864d',1,'Curve_list']]],
+  ['curve_5finfos',['curve_infos',['../struct_level.html#a917c9ea829deeac9d6a1c2309f76595b',1,'Level::curve_infos()'],['../struct_mydata.html#a917c9ea829deeac9d6a1c2309f76595b',1,'Mydata::curve_infos()']]],
+  ['curve_5flist',['curve_list',['../struct_curve__infos.html#ac27e69087504043a258d19abcaa6cc95',1,'Curve_infos']]],
+  ['curves',['curves',['../struct_curve__list.html#a55c0ff2f9889340ccae2f1b414a2f482',1,'Curve_list']]],
+  ['cx',['cx',['../struct_canon.html#ac176cb816ac192bd8ec2f73c40b43309',1,'Canon']]],
+  ['cy',['cy',['../struct_canon.html#a2d6a093e4a6fe06658d3d01563d028c9',1,'Canon']]]
+];
