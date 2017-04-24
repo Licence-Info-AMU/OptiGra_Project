@@ -731,7 +731,6 @@ void init_game(Game * game,int height, int width){
 	srand(time(NULL));
 	init_canon(game,height,width);
 	init_shots(game);
-	game->current_level = 5;
     init_track(game);
     init_ammo(game);
 	game->state = GS_HELLO;

@@ -50,7 +50,7 @@ typedef enum {BS_NONE,BS_TIME_STOP,BS_TIME_SLOWER,BS_TIME_FASTER,BS_MARBLE_EXPLO
 #define MARBLE_MAX_AT_START    15
 #define MARBLE_MAX    200
 #define SAMPLE_MAX   1000 
-#define LEVEL_MAX      6
+#define LEVEL_MAX      5
 #define SAMPLE_THETA    0.05
 #define MARBLE_SPEED 2
 #define MARBLE_SPEED_END_GAME 10
@@ -203,7 +203,7 @@ typedef struct {
  */
 typedef struct {
 	int level_count;			/*!< Nombre de level max actuellement. */
-	Level levels[LEVEL_MAX];	/*!< Liste des levels. */
+	Level levels[LEVEL_MAX+1];	/*!< Liste des levels. */
 } Level_list;
 
 /**
