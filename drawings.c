@@ -151,7 +151,7 @@ gboolean on_area_button_press (GtkWidget *area, GdkEvent *event, gpointer data){
 					break;
 			}
 	}
-    if ((my->click_n == 1) && (my->show_edit == FALSE) && (my->game.state == GS_PLAYING) && (evb->type == GDK_BUTTON_PRESS)){ 
+    if ((my->click_n == 1) && (my->show_edit == FALSE) && (my->game.state == GS_PLAYING) && (evb->type == GDK_BUTTON_PRESS) && (my->game.track_list.tracks[0].state != TS_INTRO)){ 
 		shoot_ammo(&my->game);
     }
     refresh_area(my->area);
