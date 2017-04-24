@@ -113,7 +113,6 @@ typedef struct {
     char *title;						/*!< Titre de la fenêtre principale. */ 
     Curve_infos curve_infos;			/*!< Curve infos contenant les infos des courbes créé dans l'edition. */ 	
     Game game;							/*!< Objet Game. */
-    cairo_surface_t *logo_Horizon;		/*!< Background image de l'écran d'accueil. */
 } Mydata;
 
 /**
